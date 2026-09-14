@@ -1,15 +1,21 @@
 // Serviço centralizado do Supabase para Produtos
 window.QualityThermDB = {
-  async getProducts() {
+  async getProducts(includeInactive = false) {
     if (!window.supabaseClient) {
       console.warn("Supabase não inicializado, usando fallback.");
       return [];
     }
-    const { data, error } = await window.supabaseClient
+    let query = window.supabaseClient
       .from("products")
       .select("*")
-      .eq("active", true)
       .order("created_at", { ascending: false });
+
+    // Se não for para incluir inativos (ex: site público), filtra apenas ativos
+    if (!includeInactive) {
+      query = query.eq("active", true);
+    }
+
+    const { data, error } = await query;
 
     if (error) {
       console.error("Erro ao buscar produtos:", error);

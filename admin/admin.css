@@ -1415,3 +1415,12 @@ textarea {
     background: rgba(255, 255, 255, 0.06);
   }
 }
+/* Garante que o modal fique oculto quando o atributo hidden estiver presente */
+.admin-modal[hidden] {
+  display: none !important;
+}
+
+/* Garante que o modal apareça corretamente quando o hidden for removido */
+.admin-modal:not([hidden]) {
+  display: flex !important;
+}

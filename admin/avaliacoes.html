@@ -157,13 +157,14 @@
 
         <div class="admin-topbar-actions">
 
-          <button
-            type="button"
-            class="admin-button admin-button-primary"
-            id="newReviewButton"
-          >
-            + Nova avaliação
-          </button>
+        <button
+  type="button"
+  class="admin-button admin-button-primary"
+  id="newReviewButton"
+  onclick="window.openReviewModal && window.openReviewModal()"
+>
+  + Nova avaliação
+</button>
 
         </div>
 
@@ -276,12 +277,13 @@
             </div>
 
             <button
-              type="button"
-              class="admin-button admin-button-primary"
-              id="newReviewButtonSecondary"
-            >
-              + Adicionar
-            </button>
+  type="button"
+  class="admin-button admin-button-primary"
+  id="newReviewButtonSecondary"
+  onclick="window.openReviewModal && window.openReviewModal()"
+>
+  + Adicionar
+</button>
 
           </div>
 
@@ -629,7 +631,6 @@
     </div>
 
   </div>
-
 <script
   src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
 ></script>
@@ -639,11 +640,15 @@
 ></script>
 
 <script
+  src="../js/supabase-service.js"
+></script>
+
+<script
   src="admin-auth.js"
 ></script>
 
 <script
-  src="admin.js"
+  src="admin.js?v=20260914-4"
   defer
 ></script>
 
