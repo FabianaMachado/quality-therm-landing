@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Login | Quality Therm</title>
+
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        font-family: Inter, Arial, Helvetica, sans-serif;
+
+        background: linear-gradient(
+          135deg,
+          #0c171d 0%,
+          #101d24 55%,
+          #15252d 100%
+        );
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 24px;
+      }
+
+      .login-page {
+        width: 100%;
+        max-width: 430px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+
+        margin-bottom: 26px;
+      }
+
+      .brand-icon {
+        width: 48px;
+        height: 48px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 14px;
+
+        background: #e78125;
+        color: #ffffff;
+
+        font-weight: 800;
+        font-size: 17px;
+
+        box-shadow: 0 12px 30px rgba(231, 129, 37, 0.25);
+      }
+
+      .brand-text strong {
+        display: block;
+
+        color: #ffffff;
+        font-size: 18px;
+      }
+
+      .brand-text span {
+        display: block;
+
+        margin-top: 3px;
+
+        color: #9db0ba;
+        font-size: 11px;
+
+        letter-spacing: 1.3px;
+        text-transform: uppercase;
+      }
+
+      .login-card {
+        background: #ffffff;
+
+        border-radius: 22px;
+
+        padding: 36px;
+
+        box-shadow: 0 25px 70px rgba(0, 0, 0, 0.32);
+      }
+
+      .login-label {
+        color: #e3771d;
+
+        font-size: 11px;
+        font-weight: 800;
+
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin-top: 7px;
+
+        color: #122028;
+
+        font-size: 31px;
+        line-height: 1.05;
+      }
+
+      .subtitle {
+        margin-top: 12px;
+        margin-bottom: 28px;
+
+        color: #71828b;
+
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .field {
+        margin-bottom: 18px;
+      }
+
+      .field label {
+        display: block;
+
+        margin-bottom: 7px;
+
+        color: #35434b;
+
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .field input {
+        width: 100%;
+
+        border: 1px solid #dce3e7;
+        border-radius: 12px;
+
+        padding: 14px 15px;
+
+        color: #17242b;
+        background: #ffffff;
+
+        font-size: 15px;
+
+        outline: none;
+
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+      }
+
+      .field input:focus {
+        border-color: #e78125;
+
+        box-shadow: 0 0 0 4px rgba(231, 129, 37, 0.1);
+      }
+
+      .password-wrap {
+        position: relative;
+      }
+
+      .password-wrap input {
+        padding-right: 52px;
+      }
+
+      .toggle-password {
+        position: absolute;
+
+        top: 50%;
+        right: 12px;
+
+        transform: translateY(-50%);
+
+        border: 0;
+        background: transparent;
+
+        color: #667780;
+
+        cursor: pointer;
+
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .login-button {
+        width: 100%;
+
+        margin-top: 5px;
+
+        border: 0;
+        border-radius: 12px;
+
+        padding: 15px;
+
+        background: #e78125;
+        color: #ffffff;
+
+        font-size: 14px;
+        font-weight: 800;
+
+        cursor: pointer;
+
+        transition:
+          transform 0.15s,
+          opacity 0.15s;
+      }
+
+      .login-button:hover {
+        transform: translateY(-1px);
+      }
+
+      .login-button:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .message {
+        display: none;
+
+        margin-top: 16px;
+
+        padding: 12px 14px;
+
+        border-radius: 10px;
+
+        font-size: 13px;
+        line-height: 1.45;
+      }
+
+      .message.error {
+        display: block;
+
+        background: #fff1f1;
+        color: #a52a2a;
+
+        border: 1px solid #f4cece;
+      }
+
+      .message.success {
+        display: block;
+
+        background: #eefaf2;
+        color: #27663a;
+
+        border: 1px solid #cae9d3;
+      }
+
+      .back-site {
+        display: block;
+
+        margin-top: 22px;
+
+        text-align: center;
+
+        color: #83969f;
+
+        font-size: 13px;
+
+        text-decoration: none;
+      }
+
+      .back-site:hover {
+        color: #e78125;
+      }
+
+      .security {
+        margin-top: 22px;
+
+        text-align: center;
+
+        color: #78909b;
+
+        font-size: 11px;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 520px) {
+        .login-card {
+          padding: 28px 22px;
+        }
+
+        h1 {
+          font-size: 27px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="login-page">
+      <div class="brand">
+        <div class="brand-icon">QT</div>
+
+        <div class="brand-text">
+          <strong>Quality Therm</strong>
+          <span>Painel administrativo</span>
+        </div>
+      </div>
+
+      <section class="login-card">
+        <span class="login-label"> Área restrita </span>
+
+        <h1>Acesse o painel</h1>
+
+        <p class="subtitle">
+          Entre com seu e-mail e senha para administrar produtos, avaliações,
+          clientes e configurações do site.
+        </p>
+
+        <form id="loginForm">
+          <div class="field">
+            <label for="email"> E-mail </label>
+
+            <input
+              type="email"
+              id="email"
+              autocomplete="email"
+              placeholder="seuemail@empresa.com"
+              required
+            />
+          </div>
+
+          <div class="field">
+            <label for="password"> Senha </label>
+
+            <div class="password-wrap">
+              <input
+                type="password"
+                id="password"
+                autocomplete="current-password"
+                placeholder="Digite sua senha"
+                required
+              />
+
+              <button type="button" class="toggle-password" id="togglePassword">
+                Ver
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="login-button" id="loginButton">
+            Entrar
+          </button>
+
+          <div id="loginMessage" class="message"></div>
+        </form>
+
+        <a href="../index.html" class="back-site"> ← Voltar para o site </a>
+
+        <div class="security">🔒 Acesso exclusivo para administradores.</div>
+      </section>
+    </main>
+
+    <!-- Biblioteca oficial do Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Configuração do nosso projeto -->
+    <script src="../js/supabase-config.js"></script>
+
+    <script>
+      const config = window.QT_SUPABASE_CONFIG;
+
+      if (!config || !config.url || !config.publishableKey) {
+        console.error("Configuração do Supabase não encontrada.");
+
+        alert("Não foi possível carregar a configuração do sistema.");
+
+        throw new Error("Supabase config ausente.");
+      }
+
+      const supabaseClient = window.supabase.createClient(
+        config.url,
+        config.publishableKey,
+      );
+
+      const loginForm = document.getElementById("loginForm");
+
+      const emailInput = document.getElementById("email");
+
+      const passwordInput = document.getElementById("password");
+
+      const loginButton = document.getElementById("loginButton");
+
+      const loginMessage = document.getElementById("loginMessage");
+
+      const togglePassword = document.getElementById("togglePassword");
+
+      function showMessage(text, type = "error") {
+        loginMessage.textContent = text;
+
+        loginMessage.className = `message ${type}`;
+      }
+
+      function clearMessage() {
+        loginMessage.textContent = "";
+
+        loginMessage.className = "message";
+      }
+
+      togglePassword.addEventListener("click", () => {
+        const isPassword = passwordInput.type === "password";
+
+        passwordInput.type = isPassword ? "text" : "password";
+
+        togglePassword.textContent = isPassword ? "Ocultar" : "Ver";
+      });
+
+      loginForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        clearMessage();
+
+        const email = emailInput.value.trim();
+
+        const password = passwordInput.value;
+
+        if (!email || !password) {
+          showMessage("Preencha o e-mail e a senha.");
+
+          return;
+        }
+
+        loginButton.disabled = true;
+
+        loginButton.textContent = "Entrando...";
+
+        try {
+          const { data, error } = await supabaseClient.auth.signInWithPassword({
+            email,
+            password,
+          });
+
+          if (error) {
+            console.error(error);
+
+            showMessage("E-mail ou senha incorretos.");
+
+            return;
+          }
+
+          if (!data || !data.session) {
+            showMessage("Não foi possível iniciar sua sessão.");
+
+            return;
+          }
+
+          showMessage("Login realizado. Abrindo painel...", "success");
+
+          setTimeout(() => {
+            window.location.href = "./index.html";
+          }, 500);
+        } catch (error) {
+          console.error("Erro no login:", error);
+
+          showMessage("Não foi possível conectar ao sistema.");
+        } finally {
+          loginButton.disabled = false;
+
+          loginButton.textContent = "Entrar";
+        }
+      });
+
+      async function checkExistingSession() {
+        try {
+          const { data } = await supabaseClient.auth.getSession();
+
+          if (data && data.session) {
+            window.location.href = "./index.html";
+          }
+        } catch (error) {
+          console.error("Erro ao verificar sessão:", error);
+        }
+      }
+
+      checkExistingSession();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  />
+
+  <meta
+    name="theme-color"
+    content="#0e171d"
+  />
+
+  <meta
+    name="robots"
+    content="noindex,nofollow"
+  />
+
+  <title>
+    Avaliações | Quality Therm
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="admin.css"
+  />
+</head>
+
+<body>
+
+  <div class="admin-layout">
+
+    <!-- =====================================================
+         MENU LATERAL
+    ====================================================== -->
+
+    <aside class="admin-sidebar">
+
+      <div class="admin-brand">
+
+        <div class="admin-brand-mark">
+          QT
+        </div>
+
+        <div>
+
+          <strong>
+            Quality Therm
+          </strong>
+
+          <small>
+            Painel Administrativo
+          </small>
+
+        </div>
+
+      </div>
+
+      <nav class="admin-menu">
+
+        <a
+          href="index.html"
+          class="admin-menu-link"
+        >
+          <span>⌂</span>
+          Dashboard
+        </a>
+
+        <a
+          href="produtos.html"
+          class="admin-menu-link"
+        >
+          <span>▦</span>
+          Produtos
+        </a>
+
+        <a
+          href="avaliacoes.html"
+          class="admin-menu-link active"
+        >
+          <span>★</span>
+          Avaliações
+        </a>
+
+       <a
+  href="clientes.html"
+  class="admin-menu-link"
+>
+  <span>▣</span>
+  Clientes atendidos
+</a>
+
+<a
+  href="configuracoes.html"
+  class="admin-menu-link"
+>
+  <span>⚙</span>
+  Configurações
+</a>
+
+<a
+  href="../index.html"
+  class="admin-menu-link"
+  target="_blank"
+  rel="noopener"
+>
+  <span>↗</span>
+  Ver site
+</a>
+<button
+  type="button"
+  class="admin-menu-link admin-logout-button"
+  onclick="sairDoPainel()"
+>
+  <span>⇥</span>
+  Sair
+</button>
+
+      </nav>
+
+      <div class="admin-sidebar-footer">
+
+        <small>
+          Quality Therm
+        </small>
+
+        <span>
+          Administração da loja
+        </span>
+
+      </div>
+
+    </aside>
+
+    <!-- =====================================================
+         CONTEÚDO
+    ====================================================== -->
+
+    <div class="admin-main">
+
+      <header class="admin-topbar">
+
+        <div>
+
+          <span class="admin-page-label">
+            Reputação
+          </span>
+
+          <h1>
+            Avaliações
+          </h1>
+
+        </div>
+
+        <div class="admin-topbar-actions">
+
+          <button
+            type="button"
+            class="admin-button admin-button-primary"
+            id="newReviewButton"
+          >
+            + Nova avaliação
+          </button>
+
+        </div>
+
+      </header>
+
+      <main class="admin-content">
+
+        <!-- =================================================
+             INDICADORES
+        ================================================== -->
+
+        <section class="admin-stats-grid">
+
+          <article class="admin-stat-card">
+
+            <span class="admin-stat-label">
+              Avaliações
+            </span>
+
+            <strong
+              class="admin-stat-number"
+              id="totalReviews"
+            >
+              0
+            </strong>
+
+            <small>
+              Total recebido
+            </small>
+
+          </article>
+
+          <article class="admin-stat-card">
+
+            <span class="admin-stat-label">
+              Aprovadas
+            </span>
+
+            <strong
+              class="admin-stat-number"
+              id="activeReviews"
+            >
+              0
+            </strong>
+
+            <small>
+              Avaliações aprovadas
+            </small>
+
+          </article>
+
+          <article class="admin-stat-card">
+
+            <span class="admin-stat-label">
+              Exibidas na Home
+            </span>
+
+            <strong
+              class="admin-stat-number"
+              id="featuredReviews"
+            >
+              0
+            </strong>
+
+            <small>
+              Provas sociais no site
+            </small>
+
+          </article>
+
+          <article class="admin-stat-card">
+
+            <span class="admin-stat-label">
+              Nota média
+            </span>
+
+            <strong
+              class="admin-stat-number"
+              id="averageReviews"
+            >
+              0,0
+            </strong>
+
+            <small>
+              Média das avaliações
+            </small>
+
+          </article>
+
+        </section>
+
+        <!-- =================================================
+             GERENCIAMENTO
+        ================================================== -->
+
+        <section class="admin-panel">
+
+          <div class="admin-panel-header">
+
+            <div>
+
+              <span class="admin-page-label">
+                Gerenciamento
+              </span>
+
+              <h2>
+                Avaliações recebidas
+              </h2>
+
+            </div>
+
+            <button
+              type="button"
+              class="admin-button admin-button-primary"
+              id="newReviewButtonSecondary"
+            >
+              + Adicionar
+            </button>
+
+          </div>
+
+          <!-- PESQUISA -->
+
+          <div style="margin-bottom:20px;">
+
+            <input
+              type="search"
+              id="reviewSearch"
+              placeholder="Pesquisar cliente, comentário, origem ou status..."
+              autocomplete="off"
+              style="
+                width:100%;
+                max-width:460px;
+                padding:12px 14px;
+                border:1px solid #d7dfe2;
+                border-radius:10px;
+                font:inherit;
+              "
+            />
+
+          </div>
+
+          <!-- TABELA -->
+
+          <div class="admin-table-wrap">
+
+            <table class="admin-table">
+
+              <thead>
+
+                <tr>
+                  <th>Cliente</th>
+                  <th>Nota</th>
+                  <th>Origem</th>
+                  <th>Data</th>
+                  <th>Status</th>
+                  <th>Home</th>
+                  <th>Ações</th>
+                </tr>
+
+              </thead>
+
+              <tbody id="reviewsTableBody">
+              </tbody>
+
+            </table>
+
+          </div>
+
+          <!-- VAZIO -->
+
+          <div
+            class="admin-empty"
+            id="reviewsEmpty"
+            hidden
+          >
+
+            <strong>
+              Nenhuma avaliação encontrada.
+            </strong>
+
+            <span>
+              As avaliações dos clientes
+              aparecerão aqui para análise.
+            </span>
+
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+  <!-- =======================================================
+       MODAL AVALIAÇÃO
+  ======================================================== -->
+
+  <div
+    class="admin-modal"
+    id="reviewModal"
+    hidden
+  >
+
+    <div
+      class="admin-modal-backdrop"
+      id="reviewModalBackdrop"
+    ></div>
+
+    <div
+      class="admin-modal-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="reviewModalTitle"
+    >
+
+      <div class="admin-modal-header">
+
+        <div>
+
+          <span class="admin-page-label">
+            Avaliação
+          </span>
+
+          <h2 id="reviewModalTitle">
+            Nova avaliação
+          </h2>
+
+        </div>
+
+        <button
+          type="button"
+          class="admin-modal-close"
+          id="reviewModalClose"
+          aria-label="Fechar"
+        >
+          ×
+        </button>
+
+      </div>
+
+      <form
+        id="reviewForm"
+        class="admin-form"
+      >
+
+        <input
+          type="hidden"
+          name="id"
+          id="reviewId"
+        />
+
+        <!-- CLIENTE -->
+
+        <label class="admin-field">
+
+          <span>
+            Nome do cliente
+          </span>
+
+          <input
+            type="text"
+            name="customerName"
+            id="reviewCustomerName"
+            placeholder="Ex.: Maria Silva"
+            required
+          />
+
+        </label>
+
+        <!-- NOTA / ORIGEM -->
+
+        <div class="admin-form-grid">
+
+          <label class="admin-field">
+
+            <span>
+              Nota
+            </span>
+
+            <select
+              name="rating"
+              id="reviewRating"
+              required
+            >
+              <option value="5">
+                5 estrelas
+              </option>
+
+              <option value="4">
+                4 estrelas
+              </option>
+
+              <option value="3">
+                3 estrelas
+              </option>
+
+              <option value="2">
+                2 estrelas
+              </option>
+
+              <option value="1">
+                1 estrela
+              </option>
+            </select>
+
+          </label>
+
+          <label class="admin-field">
+
+            <span>
+              Origem
+            </span>
+
+            <select
+              name="source"
+              id="reviewSource"
+            >
+              <option value="Google">
+                Google
+              </option>
+
+              <option value="Site">
+                Site
+              </option>
+
+              <option value="WhatsApp">
+                WhatsApp
+              </option>
+
+              <option value="Facebook">
+                Facebook
+              </option>
+
+              <option value="Instagram">
+                Instagram
+              </option>
+
+              <option value="Outro">
+                Outro
+              </option>
+            </select>
+
+          </label>
+
+        </div>
+
+        <!-- DATA -->
+
+        <label class="admin-field">
+
+          <span>
+            Data
+          </span>
+
+          <input
+            type="date"
+            name="date"
+            id="reviewDate"
+            required
+          />
+
+        </label>
+
+        <!-- COMENTÁRIO -->
+
+        <label class="admin-field">
+
+          <span>
+            Comentário
+          </span>
+
+          <textarea
+            name="comment"
+            id="reviewComment"
+            rows="5"
+            maxlength="1000"
+            placeholder="Digite a avaliação do cliente..."
+            required
+          ></textarea>
+
+        </label>
+
+        <!-- LINK -->
+
+        <label class="admin-field">
+
+          <span>
+            Link da avaliação
+            <small>
+              opcional
+            </small>
+          </span>
+
+          <input
+            type="url"
+            name="reviewUrl"
+            id="reviewUrl"
+            placeholder="https://..."
+          />
+
+        </label>
+
+        <!-- CONFIGURAÇÕES -->
+
+        <div class="admin-form-options">
+
+          <label class="admin-check">
+
+            <input
+              type="checkbox"
+              name="active"
+              id="reviewActive"
+            />
+
+            <span>
+              Avaliação aprovada
+            </span>
+
+          </label>
+
+          <label class="admin-check">
+
+            <input
+              type="checkbox"
+              name="featured"
+              id="reviewFeatured"
+            />
+
+            <span>
+              Exibir na Home
+            </span>
+
+          </label>
+
+        </div>
+
+        <!-- BOTÕES -->
+
+        <div class="admin-form-actions">
+
+          <button
+            type="button"
+            class="admin-button"
+            id="reviewCancelButton"
+          >
+            Cancelar
+          </button>
+
+          <button
+            type="submit"
+            class="admin-button admin-button-primary"
+          >
+            Salvar avaliação
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+<script
+  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+<script
+  src="../js/supabase-config.js"
+></script>
+
+<script
+  src="admin-auth.js"
+></script>
+
+<script
+  src="admin.js"
+  defer
+></script>
+
+</body>
+</html>

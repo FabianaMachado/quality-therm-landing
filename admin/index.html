@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  />
+
+  <meta
+    name="theme-color"
+    content="#0e171d"
+  />
+
+  <meta
+    name="robots"
+    content="noindex,nofollow"
+  />
+
+  <title>
+    Painel Administrativo | Quality Therm
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="admin.css"
+  />
+</head>
+
+<body>
+
+  <div class="admin-layout">
+
+    <!-- =====================================================
+         MENU LATERAL
+    ====================================================== -->
+
+    <aside class="admin-sidebar">
+
+      <div class="admin-brand">
+
+        <div class="admin-brand-mark">
+          QT
+        </div>
+
+        <div>
+
+          <strong>
+            Quality Therm
+          </strong>
+
+          <small>
+            Painel Administrativo
+          </small>
+
+        </div>
+
+      </div>
+
+      <nav class="admin-menu">
+
+        <a
+          href="index.html"
+          class="admin-menu-link active"
+        >
+          <span>⌂</span>
+          Dashboard
+        </a>
+
+        <a
+          href="produtos.html"
+          class="admin-menu-link"
+        >
+          <span>▦</span>
+          Produtos
+        </a>
+
+        <a
+          href="avaliacoes.html"
+          class="admin-menu-link"
+        >
+          <span>★</span>
+          Avaliações
+        </a>
+
+        <a
+          href="clientes.html"
+          class="admin-menu-link"
+        >
+          <span>▣</span>
+          Clientes atendidos
+        </a>
+
+        <a
+          href="configuracoes.html"
+          class="admin-menu-link"
+        >
+          <span>⚙</span>
+          Configurações
+        </a>
+
+        <a
+          href="../index.html"
+          class="admin-menu-link"
+          target="_blank"
+          rel="noopener"
+        >
+          <span>↗</span>
+          Ver site
+        </a>
+<button
+  type="button"
+  class="admin-menu-link admin-logout-button"
+  onclick="sairDoPainel()"
+>
+  <span>⇥</span>
+  Sair
+</button>
+      </nav>
+
+      <div class="admin-sidebar-footer">
+
+        <small>
+          Quality Therm
+        </small>
+
+        <span>
+          Administração da loja
+        </span>
+
+      </div>
+
+    </aside>
+
+    <!-- =====================================================
+         CONTEÚDO
+    ====================================================== -->
+
+    <div class="admin-main">
+
+      <!-- ===================================================
+           TOPO
+      ==================================================== -->
+
+      <header class="admin-topbar">
+
+        <div>
+
+          <span class="admin-page-label">
+            Painel
+          </span>
+
+          <h1>
+            Visão geral
+          </h1>
+
+        </div>
+
+        <div class="admin-topbar-actions">
+
+          <a
+            href="produtos.html"
+            class="admin-button admin-button-primary"
+          >
+            + Novo produto
+          </a>
+
+        </div>
+
+      </header>
+
+      <!-- ===================================================
+           DASHBOARD
+      ==================================================== -->
+
+      <main class="admin-content">
+
+        <!-- =================================================
+             CARDS DE PRODUTOS
+        ================================================== -->
+
+        <section class="admin-stats-grid">
+
+          <article class="admin-stat-card">
+
+            <span class="admin-stat-label">
+              Produtos cadastrados
+            </span>
+
+            <strong
+              class="admin-stat-number"
+              id="totalProducts"
+            >
+              0
+            </strong>
+
+            <small>
+              Total de produtos da loja
+            </small>
+
+          </article>
+
+          <article class="admin-stat-card">
+
+            <span class="admin-stat-label">
+              Produtos ativos
+            </span>
+
+            <strong
+              class="admin-stat-number"
+              id="activeProducts"
+            >
+              0
+            </strong>
+
+            <small>
+              Visíveis no catálogo
+            </small>
+
+          </article>
+
+          <article class="admin-stat-card">
+
+            <span class="admin-stat-label">
+              Destaques na Home
+            </span>
+
+            <strong
+              class="admin-stat-number"
+              id="featuredProducts"
+            >
+              0
+            </strong>
+
+            <small>
+              Produtos principais
+            </small>
+
+          </article>
+
+          <article class="admin-stat-card">
+
+            <span class="admin-stat-label">
+              Produtos inativos
+            </span>
+
+            <strong
+              class="admin-stat-number"
+              id="inactiveProducts"
+            >
+              0
+            </strong>
+
+            <small>
+              Ocultos da loja
+            </small>
+
+          </article>
+
+        </section>
+
+        <!-- =================================================
+             ACESSO RÁPIDO
+        ================================================== -->
+
+        <section class="admin-panel">
+
+          <div class="admin-panel-header">
+
+            <div>
+
+              <span class="admin-page-label">
+                Acesso rápido
+              </span>
+
+              <h2>
+                Gerencie seu site
+              </h2>
+
+            </div>
+
+          </div>
+
+          <div class="admin-quick-grid">
+
+            <a
+              href="produtos.html"
+              class="admin-quick-card"
+            >
+
+              <div class="admin-quick-icon">
+                +
+              </div>
+
+              <div>
+
+                <strong>
+                  Adicionar produto
+                </strong>
+
+                <span>
+                  Cadastre aquecedores, acessórios,
+                  duchas e peças.
+                </span>
+
+              </div>
+
+            </a>
+
+            <a
+              href="avaliacoes.html"
+              class="admin-quick-card"
+            >
+
+              <div class="admin-quick-icon">
+                ★
+              </div>
+
+              <div>
+
+                <strong>
+                  Avaliações
+                </strong>
+
+                <span>
+                  Aprove e escolha as avaliações
+                  exibidas no site.
+                </span>
+
+              </div>
+
+            </a>
+
+            <a
+              href="clientes.html"
+              class="admin-quick-card"
+            >
+
+              <div class="admin-quick-icon">
+                ▣
+              </div>
+
+              <div>
+
+                <strong>
+                  Clientes atendidos
+                </strong>
+
+                <span>
+                  Gerencie condomínios, lojas
+                  e empresas atendidas.
+                </span>
+
+              </div>
+
+            </a>
+
+            <a
+              href="configuracoes.html"
+              class="admin-quick-card"
+            >
+
+              <div class="admin-quick-icon">
+                ⚙
+              </div>
+
+              <div>
+
+                <strong>
+                  Configurações
+                </strong>
+
+                <span>
+                  Altere dados da empresa,
+                  contatos e identidade visual.
+                </span>
+
+              </div>
+
+            </a>
+
+            <a
+              href="../produtos/index.html"
+              class="admin-quick-card"
+              target="_blank"
+              rel="noopener"
+            >
+
+              <div class="admin-quick-icon">
+                ↗
+              </div>
+
+              <div>
+
+                <strong>
+                  Ver catálogo
+                </strong>
+
+                <span>
+                  Confira como os produtos
+                  aparecem para os clientes.
+                </span>
+
+              </div>
+
+            </a>
+
+            <a
+              href="../index.html"
+              class="admin-quick-card"
+              target="_blank"
+              rel="noopener"
+            >
+
+              <div class="admin-quick-icon">
+                ↗
+              </div>
+
+              <div>
+
+                <strong>
+                  Ver site
+                </strong>
+
+                <span>
+                  Abra a Home pública
+                  da empresa.
+                </span>
+
+              </div>
+
+            </a>
+
+          </div>
+
+        </section>
+
+        <!-- =================================================
+             PRODUTOS RECENTES
+        ================================================== -->
+
+        <section class="admin-panel">
+
+          <div class="admin-panel-header">
+
+            <div>
+
+              <span class="admin-page-label">
+                Produtos
+              </span>
+
+              <h2>
+                Últimos cadastrados
+              </h2>
+
+            </div>
+
+            <a
+              href="produtos.html"
+              class="admin-text-link"
+            >
+              Ver todos →
+            </a>
+
+          </div>
+
+          <div
+            class="admin-products-preview"
+            id="productsPreview"
+          >
+
+            <div class="admin-empty">
+
+              <strong>
+                Nenhum produto cadastrado ainda.
+              </strong>
+
+              <span>
+                Os produtos cadastrados
+                aparecerão aqui.
+              </span>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- =================================================
+             AVALIAÇÕES RECENTES
+        ================================================== -->
+
+        <section class="admin-panel">
+
+          <div class="admin-panel-header">
+
+            <div>
+
+              <span class="admin-page-label">
+                Avaliações
+              </span>
+
+              <h2>
+                Avaliações recentes
+              </h2>
+
+            </div>
+
+            <a
+              href="avaliacoes.html"
+              class="admin-text-link"
+            >
+              Gerenciar →
+            </a>
+
+          </div>
+
+          <div
+            class="admin-products-preview"
+            id="reviewsPreview"
+          >
+
+            <div class="admin-empty">
+
+              <strong>
+                Nenhuma avaliação recebida.
+              </strong>
+
+              <span>
+                As avaliações dos clientes
+                aparecerão aqui.
+              </span>
+
+            </div>
+
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+<script
+  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+<script
+  src="../js/supabase-config.js"
+></script>
+
+<script
+  src="admin-auth.js"
+></script>
+
+<script
+  src="admin.js"
+  defer
+></script>
+
+</body>
+</html>

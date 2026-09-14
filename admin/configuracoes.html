@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="theme-color" content="#0e171d" />
+
+    <meta name="robots" content="noindex,nofollow" />
+
+    <title>Configurações | Quality Therm</title>
+
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+
+  <body>
+    <div class="admin-layout">
+      <!-- =====================================================
+         MENU LATERAL
+    ====================================================== -->
+
+      <aside class="admin-sidebar">
+        <div class="admin-brand">
+          <div class="admin-brand-mark">QT</div>
+
+          <div>
+            <strong> Quality Therm </strong>
+
+            <small> Painel Administrativo </small>
+          </div>
+        </div>
+
+        <nav class="admin-menu">
+          <a href="index.html" class="admin-menu-link">
+            <span>⌂</span>
+            Dashboard
+          </a>
+
+          <a href="produtos.html" class="admin-menu-link">
+            <span>▦</span>
+            Produtos
+          </a>
+
+          <a href="avaliacoes.html" class="admin-menu-link">
+            <span>★</span>
+            Avaliações
+          </a>
+
+          <a href="clientes.html" class="admin-menu-link">
+            <span>▣</span>
+            Clientes atendidos
+          </a>
+
+          <a href="configuracoes.html" class="admin-menu-link active">
+            <span>⚙</span>
+            Configurações
+          </a>
+
+          <a
+            href="../index.html"
+            class="admin-menu-link"
+            target="_blank"
+            rel="noopener"
+          >
+            <span>↗</span>
+            Ver site
+          </a>
+          <button
+            type="button"
+            class="admin-menu-link admin-logout-button"
+            onclick="sairDoPainel()"
+          >
+            <span>⇥</span>
+            Sair
+          </button>
+        </nav>
+
+        <div class="admin-sidebar-footer">
+          <small> Quality Therm </small>
+
+          <span> Administração da loja </span>
+        </div>
+      </aside>
+
+      <!-- =====================================================
+         CONTEÚDO
+    ====================================================== -->
+
+      <div class="admin-main">
+        <header class="admin-topbar">
+          <div>
+            <span class="admin-page-label"> Configurações </span>
+
+            <h1>Dados da empresa</h1>
+          </div>
+        </header>
+
+        <main class="admin-content">
+          <!-- =================================================
+             DADOS DA EMPRESA
+        ================================================== -->
+
+          <section class="admin-panel">
+            <div class="admin-panel-header">
+              <div>
+                <span class="admin-page-label"> Empresa </span>
+
+                <h2>Informações principais</h2>
+              </div>
+            </div>
+
+            <form id="companySettingsForm" class="admin-form">
+              <div class="admin-form-grid">
+                <label class="admin-field">
+                  <span> Nome da empresa </span>
+
+                  <input
+                    type="text"
+                    id="companyName"
+                    name="companyName"
+                    placeholder="Quality Therm Aquecedores"
+                    required
+                  />
+                </label>
+
+                <label class="admin-field">
+                  <span> Nome curto </span>
+
+                  <input
+                    type="text"
+                    id="companyShortName"
+                    name="companyShortName"
+                    placeholder="Quality Therm"
+                  />
+                </label>
+              </div>
+
+              <div class="admin-form-grid">
+                <label class="admin-field">
+                  <span> WhatsApp </span>
+
+                  <input
+                    type="tel"
+                    id="companyWhatsapp"
+                    name="companyWhatsapp"
+                    placeholder="11985673883"
+                    required
+                  />
+                </label>
+
+                <label class="admin-field">
+                  <span> Telefone </span>
+
+                  <input
+                    type="tel"
+                    id="companyPhone"
+                    name="companyPhone"
+                    placeholder="11976993640"
+                  />
+                </label>
+              </div>
+
+              <label class="admin-field">
+                <span> E-mail </span>
+
+                <input
+                  type="email"
+                  id="companyEmail"
+                  name="companyEmail"
+                  placeholder="contato@empresa.com.br"
+                />
+              </label>
+
+              <!-- =================================================
+                 LOGO
+            ================================================== -->
+
+              <div class="admin-field full">
+                <span> Logo da empresa </span>
+
+                <div class="admin-image-upload">
+                  <label class="admin-upload-button" for="companyLogoFile">
+                    <span>↑</span>
+                    Escolher logo
+                  </label>
+
+                  <input
+                    type="file"
+                    id="companyLogoFile"
+                    accept="image/png,image/jpeg,image/webp,image/svg+xml"
+                    hidden
+                  />
+
+                  <span class="admin-upload-name" id="companyLogoFileName">
+                    Nenhuma imagem selecionada
+                  </span>
+                </div>
+
+                <input type="hidden" id="companyLogo" name="companyLogo" />
+
+                <div
+                  class="admin-image-preview"
+                  id="companyLogoPreviewWrap"
+                  hidden
+                >
+                  <img
+                    id="companyLogoPreview"
+                    src=""
+                    alt="Pré-visualização do logo"
+                  />
+
+                  <button
+                    type="button"
+                    class="admin-button"
+                    id="removeCompanyLogo"
+                  >
+                    Remover logo
+                  </button>
+                </div>
+              </div>
+
+              <div class="admin-form-actions">
+                <button type="submit" class="admin-button admin-button-primary">
+                  Salvar dados da empresa
+                </button>
+              </div>
+            </form>
+          </section>
+
+          <!-- =================================================
+             GOOGLE E REDES
+        ================================================== -->
+
+          <section class="admin-panel">
+            <div class="admin-panel-header">
+              <div>
+                <span class="admin-page-label"> Presença digital </span>
+
+                <h2>Google e redes sociais</h2>
+              </div>
+            </div>
+
+            <form id="digitalSettingsForm" class="admin-form">
+              <label class="admin-field">
+                <span> Link de avaliação no Google </span>
+
+                <input
+                  type="url"
+                  id="googleReviewUrl"
+                  name="googleReviewUrl"
+                  placeholder="https://..."
+                />
+              </label>
+
+              <div class="admin-form-grid">
+                <label class="admin-field">
+                  <span> Instagram </span>
+
+                  <input
+                    type="url"
+                    id="instagramUrl"
+                    name="instagramUrl"
+                    placeholder="https://instagram.com/..."
+                  />
+                </label>
+
+                <label class="admin-field">
+                  <span> Facebook </span>
+
+                  <input
+                    type="url"
+                    id="facebookUrl"
+                    name="facebookUrl"
+                    placeholder="https://facebook.com/..."
+                  />
+                </label>
+              </div>
+
+              <div class="admin-form-actions">
+                <button type="submit" class="admin-button admin-button-primary">
+                  Salvar presença digital
+                </button>
+              </div>
+            </form>
+          </section>
+
+          <!-- =================================================
+             APARÊNCIA
+        ================================================== -->
+
+          <section class="admin-panel">
+            <div class="admin-panel-header">
+              <div>
+                <span class="admin-page-label"> Aparência </span>
+
+                <h2>Identidade visual</h2>
+              </div>
+            </div>
+
+            <form id="appearanceSettingsForm" class="admin-form">
+              <div class="admin-form-grid">
+                <label class="admin-field">
+                  <span> Cor principal </span>
+
+                  <input
+                    type="color"
+                    id="primaryColor"
+                    name="primaryColor"
+                    value="#d97d2b"
+                  />
+                </label>
+
+                <label class="admin-field">
+                  <span> Cor escura </span>
+
+                  <input
+                    type="color"
+                    id="darkColor"
+                    name="darkColor"
+                    value="#0e171d"
+                  />
+                </label>
+              </div>
+
+              <label class="admin-field">
+                <span> Texto do botão WhatsApp </span>
+
+                <input
+                  type="text"
+                  id="whatsappButtonText"
+                  name="whatsappButtonText"
+                  value="WhatsApp"
+                  maxlength="40"
+                />
+              </label>
+
+              <div class="admin-form-actions">
+                <button type="submit" class="admin-button admin-button-primary">
+                  Salvar aparência
+                </button>
+              </div>
+            </form>
+          </section>
+          <!-- =================================================
+     CONTEÚDO DA LOJA
+================================================== -->
+
+          <section class="admin-panel">
+            <div class="admin-panel-header">
+              <div>
+                <span class="admin-page-label"> Loja </span>
+
+                <h2>Conteúdo da seção de produtos</h2>
+              </div>
+            </div>
+
+            <form id="storeSettingsForm" class="admin-form">
+              <div class="admin-form-grid">
+                <label class="admin-field">
+                  <span> Nome no menu </span>
+
+                  <input
+                    type="text"
+                    id="menuStoreLabel"
+                    name="menuStoreLabel"
+                    placeholder="Loja"
+                    maxlength="40"
+                  />
+                </label>
+
+                <label class="admin-field">
+                  <span> Chamada da seção </span>
+
+                  <input
+                    type="text"
+                    id="homeStoreEyebrow"
+                    name="homeStoreEyebrow"
+                    placeholder="Loja"
+                    maxlength="60"
+                  />
+                </label>
+              </div>
+
+              <label class="admin-field">
+                <span> Título da seção </span>
+
+                <input
+                  type="text"
+                  id="homeStoreTitle"
+                  name="homeStoreTitle"
+                  placeholder="Produtos em destaque"
+                  maxlength="100"
+                />
+              </label>
+
+              <label class="admin-field">
+                <span> Descrição </span>
+
+                <textarea
+                  id="homeStoreDescription"
+                  name="homeStoreDescription"
+                  rows="5"
+                  placeholder="Equipamentos, acessórios e produtos selecionados..."
+                ></textarea>
+              </label>
+
+              <label class="admin-field">
+                <span> Texto do botão </span>
+
+                <input
+                  type="text"
+                  id="homeStoreButtonText"
+                  name="homeStoreButtonText"
+                  placeholder="Ver todos os produtos"
+                  maxlength="80"
+                />
+              </label>
+
+              <div class="admin-form-actions">
+                <button type="submit" class="admin-button admin-button-primary">
+                  Salvar conteúdo da Loja
+                </button>
+              </div>
+            </form>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../js/supabase-config.js"></script>
+
+    <script src="admin-auth.js"></script>
+
+    <script src="admin.js" defer></script>
+  </body>
+</html>

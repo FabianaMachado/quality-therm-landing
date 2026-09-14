@@ -1,0 +1,1082 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  />
+
+  <meta
+    name="theme-color"
+    content="#0e171d"
+  />
+
+  <meta
+    name="robots"
+    content="noindex,nofollow"
+  />
+
+  <title>
+    Produtos | Quality Therm
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="admin.css"
+  />
+</head>
+
+<body>
+
+  <div class="admin-layout">
+
+    <!-- =====================================================
+         MENU LATERAL
+    ====================================================== -->
+
+    <aside class="admin-sidebar">
+
+      <div class="admin-brand">
+
+        <div class="admin-brand-mark">
+          QT
+        </div>
+
+        <div>
+          <strong>
+            Quality Therm
+          </strong>
+
+          <small>
+            Painel Administrativo
+          </small>
+        </div>
+
+      </div>
+
+      <nav class="admin-menu">
+
+        <a
+          href="index.html"
+          class="admin-menu-link"
+        >
+          <span>⌂</span>
+          Dashboard
+        </a>
+
+        <a
+          href="produtos.html"
+          class="admin-menu-link active"
+        >
+          <span>▦</span>
+          Produtos
+        </a>
+
+        <a
+          href="avaliacoes.html"
+          class="admin-menu-link"
+        >
+          <span>★</span>
+          Avaliações
+        </a>
+
+        <a
+  href="clientes.html"
+  class="admin-menu-link"
+>
+  <span>▣</span>
+  Clientes atendidos
+</a>
+
+<a
+  href="configuracoes.html"
+  class="admin-menu-link"
+>
+  <span>⚙</span>
+  Configurações
+</a>
+
+<a
+  href="../index.html"
+  class="admin-menu-link"
+  target="_blank"
+  rel="noopener"
+>
+  <span>↗</span>
+  Ver site
+</a>
+<button
+  type="button"
+  class="admin-menu-link admin-logout-button"
+  onclick="sairDoPainel()"
+>
+  <span>⇥</span>
+  Sair
+</button>
+      </nav>
+
+      <div class="admin-sidebar-footer">
+
+        <small>
+          Quality Therm
+        </small>
+
+        <span>
+          Administração da loja
+        </span>
+
+      </div>
+
+    </aside>
+
+    <!-- =====================================================
+         CONTEÚDO
+    ====================================================== -->
+
+    <div class="admin-main">
+
+      <!-- ===================================================
+           TOPO
+      ==================================================== -->
+
+      <header class="admin-topbar">
+
+        <div>
+
+          <span class="admin-page-label">
+            Catálogo
+          </span>
+
+          <h1>
+            Produtos
+          </h1>
+
+        </div>
+
+        <div class="admin-topbar-actions">
+
+          <button
+            type="button"
+            class="admin-button admin-button-primary"
+            id="newProductButton"
+          >
+            + Novo produto
+          </button>
+
+        </div>
+
+      </header>
+
+      <!-- ===================================================
+           CONTEÚDO PRINCIPAL
+      ==================================================== -->
+
+      <main class="admin-content">
+
+        <!-- =================================================
+             INDICADORES
+        ================================================== -->
+
+        <section class="admin-stats-grid">
+
+          <article class="admin-stat-card">
+
+            <span class="admin-stat-label">
+              Produtos cadastrados
+            </span>
+
+            <strong
+              class="admin-stat-number"
+              id="totalProducts"
+            >
+              0
+            </strong>
+
+            <small>
+              Total de produtos
+            </small>
+
+          </article>
+
+          <article class="admin-stat-card">
+
+            <span class="admin-stat-label">
+              Produtos ativos
+            </span>
+
+            <strong
+              class="admin-stat-number"
+              id="activeProducts"
+            >
+              0
+            </strong>
+
+            <small>
+              Visíveis no catálogo
+            </small>
+
+          </article>
+
+          <article class="admin-stat-card">
+
+            <span class="admin-stat-label">
+              Destaques na Home
+            </span>
+
+            <strong
+              class="admin-stat-number"
+              id="featuredProducts"
+            >
+              0
+            </strong>
+
+            <small>
+              Produtos principais
+            </small>
+
+          </article>
+
+          <article class="admin-stat-card">
+
+            <span class="admin-stat-label">
+              Produtos inativos
+            </span>
+
+            <strong
+              class="admin-stat-number"
+              id="inactiveProducts"
+            >
+              0
+            </strong>
+
+            <small>
+              Ocultos da loja
+            </small>
+
+          </article>
+
+        </section>
+
+        <!-- =================================================
+             GERENCIAMENTO
+        ================================================== -->
+
+        <section class="admin-panel">
+
+          <div class="admin-panel-header">
+
+            <div>
+
+              <span class="admin-page-label">
+                Gerenciamento
+              </span>
+
+              <h2>
+                Produtos cadastrados
+              </h2>
+
+            </div>
+
+            <button
+              type="button"
+              class="admin-button admin-button-primary"
+              id="newProductButtonSecondary"
+            >
+              + Adicionar
+            </button>
+
+          </div>
+
+          <!-- =================================================
+               FILTROS + PESQUISA
+          ================================================== -->
+
+          <div class="admin-product-toolbar">
+
+            <div
+              class="admin-category-filters"
+              id="productCategoryFilters"
+            >
+
+              <button
+                type="button"
+                class="admin-category-filter active"
+                data-category="todos"
+              >
+                Todos
+              </button>
+
+              <button
+                type="button"
+                class="admin-category-filter"
+                data-category="Aquecedores"
+              >
+                Aquecedores
+              </button>
+
+              <button
+                type="button"
+                class="admin-category-filter"
+                data-category="Acessórios"
+              >
+                Acessórios
+              </button>
+
+              <button
+                type="button"
+                class="admin-category-filter"
+                data-category="Duchas"
+              >
+                Duchas
+              </button>
+
+              <button
+                type="button"
+                class="admin-category-filter"
+                data-category="Peças"
+              >
+                Peças
+              </button>
+
+            </div>
+
+            <div class="admin-search">
+
+              <input
+                type="search"
+                id="productSearch"
+                placeholder="Pesquisar produto, marca, modelo, SKU ou categoria..."
+                autocomplete="off"
+              />
+
+            </div>
+
+          </div>
+
+          <!-- =================================================
+               TABELA
+          ================================================== -->
+
+          <div class="admin-table-wrap">
+
+            <table class="admin-table">
+
+              <thead>
+
+                <tr>
+                  <th>Produto</th>
+                  <th>Categoria</th>
+                  <th>Marca</th>
+                  <th>Vazão</th>
+                  <th>Preço</th>
+                  <th>Status</th>
+                  <th>Home</th>
+                  <th>Ações</th>
+                </tr>
+
+              </thead>
+
+              <tbody id="productsTableBody">
+              </tbody>
+
+            </table>
+
+          </div>
+
+          <!-- =================================================
+               ESTADO VAZIO
+          ================================================== -->
+
+          <div
+            class="admin-empty"
+            id="productsEmpty"
+            hidden
+          >
+
+            <strong>
+              Nenhum produto encontrado.
+            </strong>
+
+            <span>
+              Cadastre um novo produto
+              ou altere os filtros.
+            </span>
+
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+  <!-- =======================================================
+       MODAL PRODUTO
+  ======================================================== -->
+
+  <div
+    class="admin-modal"
+    id="productModal"
+    hidden
+  >
+
+    <div
+      class="admin-modal-backdrop"
+      id="productModalBackdrop"
+    ></div>
+
+    <div
+      class="admin-modal-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="productModalTitle"
+    >
+
+      <!-- ===================================================
+           CABEÇALHO DO MODAL
+      ==================================================== -->
+
+      <div class="admin-modal-header">
+
+        <div>
+
+          <span class="admin-page-label">
+            Produto
+          </span>
+
+          <h2 id="productModalTitle">
+            Novo produto
+          </h2>
+
+        </div>
+
+        <button
+          type="button"
+          class="admin-modal-close"
+          id="productModalClose"
+          aria-label="Fechar"
+        >
+          ×
+        </button>
+
+      </div>
+
+      <!-- ===================================================
+           FORMULÁRIO
+      ==================================================== -->
+
+      <form
+        id="productForm"
+        class="admin-form"
+      >
+
+        <input
+          type="hidden"
+          name="id"
+          id="productId"
+        />
+
+        <!-- =================================================
+             CATEGORIA / SUBCATEGORIA
+        ================================================== -->
+
+        <div class="admin-form-grid">
+
+          <label class="admin-field">
+
+            <span>
+              Categoria
+            </span>
+
+            <select
+              name="category"
+              id="productCategory"
+              required
+            >
+
+              <option value="">
+                Selecione
+              </option>
+
+              <option value="Aquecedores">
+                Aquecedores
+              </option>
+
+              <option value="Acessórios">
+                Acessórios
+              </option>
+
+              <option value="Duchas">
+                Duchas
+              </option>
+
+              <option value="Peças">
+                Peças
+              </option>
+
+              <option value="Outros">
+                Outros
+              </option>
+
+            </select>
+
+          </label>
+
+          <label class="admin-field">
+
+            <span>
+              Subcategoria
+              <small>
+                opcional
+              </small>
+            </span>
+
+            <select
+              name="subcategory"
+              id="productSubcategory"
+            >
+
+              <option value="">
+                Selecione
+              </option>
+
+              <!-- ACESSÓRIOS -->
+
+              <optgroup label="Acessórios">
+
+                <option value="Flexíveis">
+                  Flexíveis
+                </option>
+
+                <option value="Dutos">
+                  Dutos
+                </option>
+
+                <option value="Bicos">
+                  Bicos
+                </option>
+
+                <option value="Abraçadeiras">
+                  Abraçadeiras
+                </option>
+
+                <option value="Registros">
+                  Registros
+                </option>
+
+                <option value="Válvulas">
+                  Válvulas
+                </option>
+
+                <option value="Conexões">
+                  Conexões
+                </option>
+
+              </optgroup>
+
+              <!-- DUCHAS -->
+
+              <optgroup label="Duchas">
+
+                <option value="Duchas de teto">
+                  Duchas de teto
+                </option>
+
+                <option value="Duchas de parede">
+                  Duchas de parede
+                </option>
+
+                <option value="Duchas manuais">
+                  Duchas manuais
+                </option>
+
+              </optgroup>
+
+              <!-- PEÇAS -->
+
+              <optgroup label="Peças">
+
+                <option value="Placas">
+                  Placas
+                </option>
+
+                <option value="Sensores">
+                  Sensores
+                </option>
+
+                <option value="Válvulas de gás">
+                  Válvulas de gás
+                </option>
+
+                <option value="Trocadores de calor">
+                  Trocadores de calor
+                </option>
+
+                <option value="Ventoinhas">
+                  Ventoinhas
+                </option>
+
+                <option value="Outras peças">
+                  Outras peças
+                </option>
+
+              </optgroup>
+
+            </select>
+
+          </label>
+
+        </div>
+
+        <!-- =================================================
+             MARCA / MODELO
+        ================================================== -->
+
+        <div class="admin-form-grid">
+
+          <label class="admin-field">
+
+            <span>
+              Marca
+            </span>
+
+            <input
+              type="text"
+              name="brand"
+              id="productBrand"
+              placeholder="Ex.: Rinnai"
+              required
+            />
+
+          </label>
+
+          <label class="admin-field">
+
+            <span>
+              Modelo
+              <small>
+                opcional
+              </small>
+            </span>
+
+            <input
+              type="text"
+              name="model"
+              id="productModel"
+              placeholder="Ex.: E21"
+            />
+
+          </label>
+
+        </div>
+
+        <!-- =================================================
+             NOME
+        ================================================== -->
+
+        <label class="admin-field">
+
+          <span>
+            Nome do produto
+          </span>
+
+          <input
+            type="text"
+            name="name"
+            id="productName"
+            placeholder="Ex.: Rinnai E21"
+            required
+          />
+
+        </label>
+
+        <!-- =================================================
+             SKU / SLUG
+        ================================================== -->
+
+        <div class="admin-form-grid">
+
+          <label class="admin-field">
+
+            <span>
+              SKU
+              <small>
+                opcional
+              </small>
+            </span>
+
+            <input
+              type="text"
+              name="sku"
+              id="productSku"
+              placeholder="Ex.: REU-E211-FEH"
+            />
+
+          </label>
+
+          <label class="admin-field">
+
+            <span>
+              URL / Slug
+            </span>
+
+            <input
+              type="text"
+              name="slug"
+              id="productSlug"
+              placeholder="rinnai-e21"
+              required
+            />
+
+          </label>
+
+        </div>
+
+        <!-- =================================================
+             VAZÃO
+        ================================================== -->
+
+        <label class="admin-field">
+
+          <span>
+            Vazão
+            <small>
+              opcional
+            </small>
+          </span>
+
+          <input
+            type="text"
+            name="flow"
+            id="productFlow"
+            placeholder="Ex.: 21 L/min"
+          />
+
+        </label>
+
+        <!-- =================================================
+             PREÇO
+        ================================================== -->
+
+        <div class="admin-form-grid">
+
+          <label class="admin-field">
+
+            <span>
+              Preço
+            </span>
+
+            <input
+              type="number"
+              name="price"
+              id="productPrice"
+              min="0"
+              step="0.01"
+              placeholder="0,00"
+              required
+            />
+
+          </label>
+
+          <label class="admin-field">
+
+            <span>
+              Preço à vista
+              <small>
+                opcional
+              </small>
+            </span>
+
+            <input
+              type="number"
+              name="cashPrice"
+              id="productCashPrice"
+              min="0"
+              step="0.01"
+              placeholder="0,00"
+            />
+
+          </label>
+
+        </div>
+
+        <!-- =================================================
+             IMAGEM DO PRODUTO
+        ================================================== -->
+
+        <div class="admin-field full">
+
+          <span>
+            Imagem do produto
+          </span>
+
+          <div class="admin-image-upload">
+
+            <label
+              class="admin-upload-button"
+              for="productImageFile"
+            >
+
+              <span>
+                ↑
+              </span>
+
+              Escolher imagem
+
+            </label>
+
+            <input
+              type="file"
+              id="productImageFile"
+              accept="image/jpeg,image/png,image/webp"
+              hidden
+            />
+
+            <span
+              class="admin-upload-name"
+              id="productImageFileName"
+            >
+              Nenhuma imagem selecionada
+            </span>
+
+          </div>
+
+          <!-- VALOR SALVO -->
+
+          <input
+            type="hidden"
+            name="image"
+            id="productImage"
+          />
+
+          <!-- PREVIEW -->
+
+          <div
+            class="admin-image-preview"
+            id="productImagePreviewWrap"
+            hidden
+          >
+
+            <img
+              id="productImagePreview"
+              src=""
+              alt="Pré-visualização do produto"
+            />
+
+            <button
+              type="button"
+              class="admin-button"
+              id="removeProductImage"
+            >
+              Remover imagem
+            </button>
+
+          </div>
+
+          <small class="admin-field-help">
+            JPG, PNG ou WebP.
+            Nesta fase de testes, utilize arquivos
+            com até 800 KB.
+            Para os aquecedores, recomendamos
+            imagem quadrada com fundo claro.
+          </small>
+
+        </div>
+
+        <!-- =================================================
+             DESCRIÇÃO CURTA
+        ================================================== -->
+
+        <label class="admin-field">
+
+          <span>
+            Descrição curta
+          </span>
+
+          <textarea
+            name="shortDescription"
+            id="productShortDescription"
+            rows="3"
+            maxlength="300"
+            placeholder="Descrição resumida para os cards do site."
+          ></textarea>
+
+        </label>
+
+        <!-- =================================================
+             DESCRIÇÃO COMPLETA
+        ================================================== -->
+
+        <label class="admin-field">
+
+          <span>
+            Descrição completa
+          </span>
+
+          <textarea
+            name="description"
+            id="productDescription"
+            rows="6"
+            maxlength="1500"
+            placeholder="Descrição completa do produto."
+          ></textarea>
+
+        </label>
+
+        <!-- =================================================
+             TIPO DE GÁS
+        ================================================== -->
+
+        <div class="admin-form-options">
+
+          <label class="admin-check">
+
+            <input
+              type="checkbox"
+              name="gasGN"
+              id="productGasGN"
+            />
+
+            <span>
+              Gás Natural - GN
+            </span>
+
+          </label>
+
+          <label class="admin-check">
+
+            <input
+              type="checkbox"
+              name="gasGLP"
+              id="productGasGLP"
+            />
+
+            <span>
+              GLP
+            </span>
+
+          </label>
+
+        </div>
+
+        <!-- =================================================
+             CONFIGURAÇÕES
+        ================================================== -->
+
+        <div class="admin-form-options">
+
+          <label class="admin-check">
+
+            <input
+              type="checkbox"
+              name="active"
+              id="productActive"
+              checked
+            />
+
+            <span>
+              Produto ativo
+            </span>
+
+          </label>
+
+          <label class="admin-check">
+
+            <input
+              type="checkbox"
+              name="featured"
+              id="productFeatured"
+            />
+
+            <span>
+              Destaque na Home
+            </span>
+
+          </label>
+
+          <label class="admin-check">
+
+            <input
+              type="checkbox"
+              name="bestSeller"
+              id="productBestSeller"
+            />
+
+            <span>
+              Mais vendido
+            </span>
+
+          </label>
+
+          <label class="admin-check">
+
+            <input
+              type="checkbox"
+              name="promotion"
+              id="productPromotion"
+            />
+
+            <span>
+              Promoção
+            </span>
+
+          </label>
+
+        </div>
+
+        <!-- =================================================
+             BOTÕES
+        ================================================== -->
+
+        <div class="admin-form-actions">
+
+          <button
+            type="button"
+            class="admin-button"
+            id="productCancelButton"
+          >
+            Cancelar
+          </button>
+
+          <button
+            type="submit"
+            class="admin-button admin-button-primary"
+          >
+            Salvar produto
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <!-- =======================================================
+       JAVASCRIPT
+  ======================================================== -->
+<script
+  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+<script
+  src="../js/supabase-config.js"
+></script>
+
+<script
+  src="admin-auth.js"
+></script>
+
+<script
+  src="admin.js"
+  defer
+></script>
+
+</body>
+</html>

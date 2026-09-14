@@ -1,0 +1,943 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  />
+
+  <meta
+    name="theme-color"
+    content="#0e171d"
+  />
+
+  <meta
+    name="robots"
+    content="index,follow,max-image-preview:large"
+  />
+
+  <meta
+    name="description"
+    id="pageDescription"
+    content="Aquecedores a gás Quality Therm."
+  />
+
+  <link
+    rel="icon"
+    href="../assets/favicon.svg"
+    type="image/svg+xml"
+  />
+
+  <link
+    rel="stylesheet"
+    href="../css/style.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="../css/produto.css"
+  />
+
+  <title id="pageTitle">
+    Produto | Quality Therm
+  </title>
+
+  <script src="../js/config.js"></script>
+</head>
+
+<body>
+
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
+  <header
+    class="site-header"
+    id="topo"
+  >
+
+    <div class="container nav-wrap">
+
+      <a
+        class="brand"
+        href="../index.html"
+        aria-label="Quality Therm - início"
+      >
+
+        <span
+          class="brand-mark"
+          aria-hidden="true"
+        >
+          QT
+        </span>
+
+        <span>
+
+          <strong>
+            Quality Therm
+          </strong>
+
+          <small>
+            Aquecedores
+          </small>
+
+        </span>
+
+      </a>
+
+      <button
+        class="menu-toggle"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
+
+      <nav
+        class="nav"
+        aria-label="Navegação principal"
+      >
+
+        <a href="../index.html#produtos">
+          Comprar
+        </a>
+
+        <a href="../index.html#servicos">
+          Serviços
+        </a>
+
+        <a href="../index.html#dimensionador">
+          Dimensionador
+        </a>
+
+        <a href="../index.html#condominios">
+          Condomínios
+        </a>
+
+        <a href="../index.html#contato">
+          Contato
+        </a>
+
+      </nav>
+
+      <a
+        class="btn btn-primary nav-cta"
+        id="headerWhatsapp"
+        href="#"
+      >
+        WhatsApp
+      </a>
+
+    </div>
+
+  </header>
+
+  <!-- =====================================================
+       PRODUTO NÃO ENCONTRADO
+  ====================================================== -->
+
+  <main>
+
+    <section
+      class="product-page"
+      id="productNotFound"
+      hidden
+    >
+
+      <div class="container">
+
+        <div
+          style="
+            background: #fff;
+            border: 1px solid #dfe4e6;
+            border-radius: 24px;
+            padding: 60px 30px;
+            text-align: center;
+          "
+        >
+
+          <span class="eyebrow">
+            Produto
+          </span>
+
+          <h1>
+            Produto não encontrado
+          </h1>
+
+          <p>
+            Este produto pode ter sido removido,
+            desativado ou o endereço está incorreto.
+          </p>
+
+          <a
+            class="btn btn-primary"
+            href="index.html"
+          >
+            Ver todos os aquecedores
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =====================================================
+         PRODUTO
+    ====================================================== -->
+
+    <section
+      class="product-page"
+      id="productContent"
+      hidden
+    >
+
+      <div class="container">
+
+        <!-- BREADCRUMB -->
+
+        <nav
+          class="breadcrumb"
+          aria-label="Breadcrumb"
+        >
+
+          <a href="../index.html">
+            Início
+          </a>
+
+          <span>›</span>
+
+          <a href="index.html">
+            Aquecedores
+          </a>
+
+          <span>›</span>
+
+          <strong id="breadcrumbName">
+            Produto
+          </strong>
+
+        </nav>
+
+        <!-- =================================================
+             ÁREA PRINCIPAL
+        ================================================== -->
+
+        <div class="product-main-grid">
+
+          <!-- IMAGEM -->
+
+          <div class="product-gallery">
+
+            <div class="product-main-image">
+
+              <img
+                id="productMainImage"
+                src="../assets/favicon.svg"
+                alt="Produto"
+                width="600"
+                height="600"
+                decoding="async"
+                fetchpriority="high"
+              />
+
+            </div>
+
+            <div class="product-gallery-note">
+
+              <span>
+                Imagem ilustrativa
+              </span>
+
+              <span>
+                •
+              </span>
+
+              <span>
+                Consulte disponibilidade
+              </span>
+
+            </div>
+
+          </div>
+
+          <!-- =================================================
+               COMPRA
+          ================================================== -->
+
+          <div class="product-buy-box">
+
+            <span
+              class="eyebrow"
+              id="productEyebrow"
+            >
+              Aquecedor
+            </span>
+
+            <h1 id="productName">
+              Produto
+            </h1>
+
+            <p
+              class="product-subtitle"
+              id="productSubtitle"
+            >
+            </p>
+
+            <!-- SELOS -->
+
+            <div
+              class="product-badges"
+              id="productBadges"
+            >
+            </div>
+
+            <!-- PREÇOS -->
+
+            <div class="price-box">
+
+              <span class="price-label">
+                Somente equipamento
+              </span>
+
+              <div class="price-main">
+
+                <strong id="productPrice">
+                  R$ 0,00
+                </strong>
+
+              </div>
+
+              <p
+                class="price-cash"
+                id="productCashPrice"
+              >
+              </p>
+
+              <p class="price-note">
+                *Confirme disponibilidade,
+                condições de pagamento e entrega
+                antes da finalização.
+              </p>
+
+            </div>
+
+            <!-- =================================================
+                 OPÇÕES
+            ================================================== -->
+
+            <div class="buy-section">
+
+              <!-- GÁS -->
+
+              <fieldset
+                class="option-group"
+                id="gasOptions"
+              >
+
+                <legend>
+                  Escolha o tipo de gás
+                </legend>
+
+                <label
+                  class="option-card"
+                  id="optionGN"
+                >
+
+                  <input
+                    type="radio"
+                    name="gas"
+                    value="GN"
+                  />
+
+                  <span>
+
+                    <strong>
+                      GN
+                    </strong>
+
+                    <small>
+                      Gás Natural
+                    </small>
+
+                  </span>
+
+                </label>
+
+                <label
+                  class="option-card"
+                  id="optionGLP"
+                >
+
+                  <input
+                    type="radio"
+                    name="gas"
+                    value="GLP"
+                  />
+
+                  <span>
+
+                    <strong>
+                      GLP
+                    </strong>
+
+                    <small>
+                      Gás de botijão/central
+                    </small>
+
+                  </span>
+
+                </label>
+
+              </fieldset>
+
+              <!-- FORMA DE COMPRA -->
+
+              <fieldset
+                class="option-group purchase-options"
+              >
+
+                <legend>
+                  Como deseja comprar?
+                </legend>
+
+                <label class="purchase-card selected">
+
+                  <input
+                    type="radio"
+                    name="purchaseType"
+                    value="equipamento"
+                    checked
+                  />
+
+                  <span>
+
+                    <strong>
+                      Somente equipamento
+                    </strong>
+
+                    <small id="equipmentPrice">
+                      R$ 0,00
+                    </small>
+
+                  </span>
+
+                </label>
+
+                <label class="purchase-card">
+
+                  <input
+                    type="radio"
+                    name="purchaseType"
+                    value="equipamento + instalação"
+                  />
+
+                  <span>
+
+                    <strong>
+                      Equipamento + instalação
+                    </strong>
+
+                    <small>
+                      Valor após avaliação
+                    </small>
+
+                  </span>
+
+                </label>
+
+              </fieldset>
+
+              <!-- COMPRAR -->
+
+              <button
+                type="button"
+                class="btn btn-primary product-buy-button"
+                id="buyWhatsApp"
+              >
+                Comprar pelo WhatsApp
+              </button>
+
+              <p class="safe-buy">
+                🔒 Nenhum pagamento é realizado nesta página.
+                A Quality Therm confirma produto, versão,
+                disponibilidade, entrega e pagamento antes
+                da finalização.
+              </p>
+
+            </div>
+
+            <!-- DIMENSIONADOR -->
+
+            <div class="product-help">
+
+              <strong>
+                Não sabe se este equipamento
+                atende sua residência?
+              </strong>
+
+              <a href="../index.html#dimensionador">
+                Fazer dimensionamento inicial →
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =====================================================
+         RESUMO
+    ====================================================== -->
+
+    <section
+      class="product-benefits"
+      id="productBenefits"
+      hidden
+    >
+
+      <div class="container">
+
+        <div class="benefits-grid">
+
+          <article>
+
+            <span>
+              ↗
+            </span>
+
+            <div>
+
+              <strong id="benefitFlow">
+                —
+              </strong>
+
+              <small>
+                Vazão
+              </small>
+
+            </div>
+
+          </article>
+
+          <article>
+
+            <span>
+              🔥
+            </span>
+
+            <div>
+
+              <strong id="benefitGas">
+                —
+              </strong>
+
+              <small>
+                Tipo de gás
+              </small>
+
+            </div>
+
+          </article>
+
+          <article>
+
+            <span>
+              #
+            </span>
+
+            <div>
+
+              <strong id="benefitSku">
+                —
+              </strong>
+
+              <small>
+                Código / SKU
+              </small>
+
+            </div>
+
+          </article>
+
+          <article>
+
+            <span>
+              ✓
+            </span>
+
+            <div>
+
+              <strong>
+                Quality Therm
+              </strong>
+
+              <small>
+                Venda + instalação
+              </small>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =====================================================
+         DESCRIÇÃO
+    ====================================================== -->
+
+    <section
+      class="section-pad product-info-section"
+      id="productInformation"
+      hidden
+    >
+
+      <div class="container product-info-grid">
+
+        <div>
+
+          <span class="eyebrow">
+            Sobre o equipamento
+          </span>
+
+          <h2 id="informationTitle">
+            Produto
+          </h2>
+
+          <p id="productDescription">
+          </p>
+
+          <div class="feature-list">
+
+            <span id="featureBrand">
+            </span>
+
+            <span id="featureFlow">
+            </span>
+
+            <span id="featureGas">
+            </span>
+
+            <span>
+              ✓ Consulte disponibilidade
+            </span>
+
+          </div>
+
+        </div>
+
+        <!-- INSTALAÇÃO -->
+
+        <aside class="install-box">
+
+          <span class="eyebrow">
+            Instalação
+          </span>
+
+          <h3>
+            Quer receber equipamento + instalação?
+          </h3>
+
+          <p>
+            O valor da instalação depende
+            das condições de gás, hidráulica,
+            exaustão, ventilação e do local.
+          </p>
+
+          <button
+            type="button"
+            class="btn btn-secondary"
+            id="installationQuote"
+          >
+            Solicitar equipamento + instalação
+          </button>
+
+        </aside>
+
+      </div>
+
+    </section>
+
+    <!-- =====================================================
+         FICHA BÁSICA
+    ====================================================== -->
+
+    <section
+      class="section-pad specs-section"
+      id="productSpecs"
+      hidden
+    >
+
+      <div class="container">
+
+        <div class="section-heading">
+
+          <div>
+
+            <span class="eyebrow">
+              Ficha do produto
+            </span>
+
+            <h2>
+              Informações principais
+            </h2>
+
+          </div>
+
+          <p>
+            Confira os dados cadastrados
+            antes da compra.
+          </p>
+
+        </div>
+
+        <div class="spec-table">
+
+          <div>
+
+            <span>
+              Marca
+            </span>
+
+            <strong id="specBrand">
+              —
+            </strong>
+
+          </div>
+
+          <div>
+
+            <span>
+              Modelo
+            </span>
+
+            <strong id="specModel">
+              —
+            </strong>
+
+          </div>
+
+          <div>
+
+            <span>
+              SKU
+            </span>
+
+            <strong id="specSku">
+              —
+            </strong>
+
+          </div>
+
+          <div>
+
+            <span>
+              Vazão
+            </span>
+
+            <strong id="specFlow">
+              —
+            </strong>
+
+          </div>
+
+          <div>
+
+            <span>
+              Gás
+            </span>
+
+            <strong id="specGas">
+              —
+            </strong>
+
+          </div>
+
+          <div>
+
+            <span>
+              Situação
+            </span>
+
+            <strong>
+              Consulte disponibilidade
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =====================================================
+         FAQ
+    ====================================================== -->
+
+    <section
+      class="section-pad faq-section"
+      id="productFaq"
+      hidden
+    >
+
+      <div class="container faq-wrap">
+
+        <div>
+
+          <span class="eyebrow">
+            Dúvidas frequentes
+          </span>
+
+          <h2>
+            Antes de comprar
+          </h2>
+
+        </div>
+
+        <div class="faq-list">
+
+          <details>
+
+            <summary>
+              Como saber se este modelo atende minha residência?
+            </summary>
+
+            <p>
+              A escolha depende da vazão,
+              quantidade de pontos utilizados ao mesmo tempo
+              e das condições da instalação.
+              Utilize o dimensionador como referência inicial.
+            </p>
+
+          </details>
+
+          <details>
+
+            <summary>
+              O valor da instalação está incluído?
+            </summary>
+
+            <p>
+              Não. Quando a opção equipamento + instalação
+              é escolhida, nossa equipe avalia as condições
+              existentes antes de informar o valor.
+            </p>
+
+          </details>
+
+          <details>
+
+            <summary>
+              Como finalizo a compra?
+            </summary>
+
+            <p>
+              A compra é iniciada nesta página e finalizada
+              pelo WhatsApp após confirmação do produto,
+              versão, estoque, entrega e forma de pagamento.
+            </p>
+
+          </details>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+
+  <footer>
+
+    <div class="container footer-grid">
+
+      <div>
+
+        <strong>
+          Quality Therm Aquecedores
+        </strong>
+
+        <p>
+          Venda, instalação,
+          manutenção e assistência técnica.
+        </p>
+
+      </div>
+
+      <div>
+
+        <strong>
+          Atendimento
+        </strong>
+
+        <p>
+          (11) 98567-3883
+          <br />
+          (11) 97699-3640
+        </p>
+
+      </div>
+
+      <div>
+
+        <strong>
+          E-mail
+        </strong>
+
+        <p>
+          vendasqualitythermaquecedores@gmail.com
+        </p>
+
+      </div>
+
+    </div>
+
+    <div class="container footer-bottom">
+
+      <span>
+        ©
+        <span id="year"></span>
+        Quality Therm
+      </span>
+
+      <a href="#topo">
+        Voltar ao topo ↑
+      </a>
+
+    </div>
+
+  </footer>
+
+  <a
+    class="floating-whatsapp"
+    id="floatingWhatsapp"
+    href="#"
+    aria-label="Falar no WhatsApp"
+  >
+    WA
+  </a>
+
+  <script
+    src="../js/produto.js"
+    defer
+  ></script>
+
+</body>
+
+</html>
