@@ -387,6 +387,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
         flow: formData.get("flow") || null,
 
+        color: formData.get("color") || null,
+
+        installments: formData.get("installments")
+          ? parseInt(formData.get("installments"), 10)
+          : null,
+
+        installment_value: formData.get("installmentValue")
+          ? parseFloat(
+              String(formData.get("installmentValue")).replace(",", "."),
+            )
+          : null,
+
+        installment_text: formData.get("installmentText") || null,
+
+        home_price_type: formData.get("homePriceType") || "pix",
+
         description: formData.get("description") || null,
 
         short_description: formData.get("shortDescription") || null,
@@ -468,4 +484,129 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   });
+  // =========================================================
+  // CARREGAR PRODUTOS CADASTRADOS DO SUPABASE
+  // =========================================================
+
+  async function carregarProdutos() {
+    const tableBody = document.getElementById("productsTableBody");
+    const emptyState = document.getElementById("productsEmpty");
+
+    // Esta função só roda na página produtos.html
+    if (!tableBody || !db) return;
+
+    try {
+      const { data: products, error } = await db
+        .from("products")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        throw error;
+      }
+
+      // Atualiza os indicadores
+      const totalProducts = document.getElementById("totalProducts");
+      const activeProducts = document.getElementById("activeProducts");
+      const featuredProducts = document.getElementById("featuredProducts");
+      const inactiveProducts = document.getElementById("inactiveProducts");
+
+      if (totalProducts) {
+        totalProducts.textContent = products.length;
+      }
+
+      if (activeProducts) {
+        activeProducts.textContent = products.filter(
+          (product) => product.active,
+        ).length;
+      }
+
+      if (featuredProducts) {
+        featuredProducts.textContent = products.filter(
+          (product) => product.featured,
+        ).length;
+      }
+
+      if (inactiveProducts) {
+        inactiveProducts.textContent = products.filter(
+          (product) => !product.active,
+        ).length;
+      }
+
+      // Nenhum produto cadastrado
+      if (!products.length) {
+        tableBody.innerHTML = "";
+
+        if (emptyState) {
+          emptyState.hidden = false;
+        }
+
+        return;
+      }
+
+      if (emptyState) {
+        emptyState.hidden = true;
+      }
+
+      // Monta a tabela
+      tableBody.innerHTML = products
+        .map((product) => {
+          const price = Number(product.price || 0).toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          });
+
+          return `
+            <tr>
+              <td>
+                <strong>${product.name || "-"}</strong>
+                <br>
+                <small>${product.model || ""}</small>
+              </td>
+
+              <td>${product.category || "-"}</td>
+
+              <td>${product.brand || "-"}</td>
+
+              <td>${product.flow || "-"}</td>
+
+              <td>${price}</td>
+
+              <td>
+                ${product.active ? "Ativo" : "Inativo"}
+              </td>
+
+              <td>
+                ${product.featured ? "Sim" : "Não"}
+              </td>
+
+              <td>
+                <button
+                  type="button"
+                  class="admin-button"
+                  data-product-id="${product.id}"
+                >
+                  Editar
+                </button>
+              </td>
+            </tr>
+          `;
+        })
+        .join("");
+
+      console.log("✅ Produtos carregados:", products);
+    } catch (error) {
+      console.error("❌ Erro ao carregar produtos:", error);
+
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="8">
+            Não foi possível carregar os produtos.
+          </td>
+        </tr>
+      `;
+    }
+  }
+
+  carregarProdutos();
 });
