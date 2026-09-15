@@ -1,377 +1,232 @@
 (() => {
   "use strict";
 
-  /* =========================================================
-     CONFIGURAÇÕES
-  ========================================================= */
+  // =========================================================
+  // SUPABASE
+  // =========================================================
 
-  const STORAGE_KEY =
-    "qt_admin_products";
+  const db = window.initQualityThermSupabase
+    ? window.initQualityThermSupabase()
+    : window.supabaseClient;
 
-  const $ = (
-    selector,
-    context = document
-  ) =>
-    context.querySelector(
-      selector
-    );
+  const $ = (selector, context = document) => context.querySelector(selector);
 
-  /* =========================================================
-     BUSCAR PRODUTOS
-  ========================================================= */
+  // =========================================================
+  // FORMATAR PREÇO
+  // =========================================================
 
-  function getProducts() {
-    try {
-      return (
-        JSON.parse(
-          localStorage.getItem(
-            STORAGE_KEY
-          )
-        ) || []
-      );
-    } catch {
-      return [];
-    }
+  function formatCurrency(value) {
+    return Number(value || 0).toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
   }
 
-  /* =========================================================
-     FORMATAR PREÇO
-  ========================================================= */
+  // =========================================================
+  // SEGURANÇA
+  // =========================================================
 
-  function formatCurrency(
-    value
-  ) {
-    return Number(
-      value || 0
-    ).toLocaleString(
-      "pt-BR",
-      {
-        style: "currency",
-        currency: "BRL",
-      }
-    );
+  function escapeHtml(text) {
+    return String(text || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
   }
 
-  /* =========================================================
-     SEGURANÇA
-  ========================================================= */
+  // =========================================================
+  // TIPO DE GÁS
+  // =========================================================
 
-  function escapeHtml(
-    text
-  ) {
-    return String(
-      text || ""
-    )
-      .replace(
-        /&/g,
-        "&amp;"
-      )
-      .replace(
-        /</g,
-        "&lt;"
-      )
-      .replace(
-        />/g,
-        "&gt;"
-      )
-      .replace(
-        /"/g,
-        "&quot;"
-      )
-      .replace(
-        /'/g,
-        "&#039;"
-      );
-  }
-
-  /* =========================================================
-     NORMALIZAR CATEGORIA
-  ========================================================= */
-
-  function getCategory(
-    product
-  ) {
-    /*
-      Compatibilidade com produtos antigos.
-
-      Se o produto ainda não tiver categoria,
-      consideramos como Aquecedores.
-    */
-
-    return (
-      product.category ||
-      "Aquecedores"
-    );
-  }
-
-  /* =========================================================
-     TIPO DE GÁS
-  ========================================================= */
-
-  function getGasText(
-    product
-  ) {
+  function getGasText(product) {
     const gases = [];
 
-    if (
-      product.gasGN
-    ) {
+    if (product.gas_gn) {
       gases.push("GN");
     }
 
-    if (
-      product.gasGLP
-    ) {
+    if (product.gas_glp) {
       gases.push("GLP");
     }
 
-    if (
-      gases.length === 0
-    ) {
-      return "";
-    }
-
-    return gases.join(
-      " / "
-    );
+    return gases.join(" / ");
   }
 
-  /* =========================================================
-     SELO
-  ========================================================= */
+  // =========================================================
+  // SELO
+  // =========================================================
 
-  function getTag(
-    product
-  ) {
-    if (
-      product.bestSeller
-    ) {
+  function getTag(product) {
+    if (product.best_seller) {
       return "Mais procurado";
     }
 
-    if (
-      product.promotion
-    ) {
+    if (product.promotion) {
       return "Promoção";
     }
 
-    if (
-      product.featured
-    ) {
+    if (product.featured) {
       return "Destaque";
     }
 
     return "";
   }
 
-  /* =========================================================
-     CAMINHO DA IMAGEM
-  ========================================================= */
+  // =========================================================
+  // IMAGEM
+  // =========================================================
 
-  function getImagePath(
-    product
-  ) {
-    const image =
-      String(
-        product.image ||
-        ""
-      ).trim();
+  function getImagePath(product) {
+    const image = String(product.image || "").trim();
 
     if (!image) {
       return "assets/favicon.svg";
     }
 
-    /*
-      Produtos antigos:
-
-      ../assets/produtos/rinnai-e21.webp
-
-      Como estamos na Home,
-      removemos o ../
-
-      Imagens em Base64,
-      vindas do upload do painel,
-      continuam intactas.
-    */
-
-    if (
-      image.startsWith(
-        "data:image"
-      )
-    ) {
-      return image;
-    }
-
-    return image.replace(
-      /^\.\.\//,
-      ""
-    );
+    return image;
   }
 
-  /* =========================================================
-     LINK UNIVERSAL DO PRODUTO
-  ========================================================= */
+  // =========================================================
+  // LINK DO PRODUTO
+  // =========================================================
 
-  function getProductUrl(
-    product
-  ) {
-    if (
-      !product.slug
-    ) {
+  function getProductUrl(product) {
+    if (!product.slug) {
       return "#";
     }
 
     return (
-      "produtos/produto.html" +
-      `?produto=${encodeURIComponent(
-        product.slug
-      )}`
+      "produtos/produto.html" + `?produto=${encodeURIComponent(product.slug)}`
     );
   }
 
-  /* =========================================================
-     WHATSAPP
-  ========================================================= */
+  // =========================================================
+  // WHATSAPP
+  // =========================================================
 
-  function getWhatsAppUrl(
-    product
-  ) {
-    const phone =
-      "5511985673883";
+  function getWhatsAppUrl(product) {
+    const phone = "5511985673883";
 
-    const gas =
-      getGasText(
-        product
-      );
-
-    const category =
-      getCategory(
-        product
-      );
+    const gas = getGasText(product);
 
     const message =
-      `Olá! Vim pelo site da Quality Therm e tenho interesse no ${product.name}.
-
-Categoria: ${category}
-${product.flow ? `Vazão: ${product.flow}\n` : ""}${gas ? `Versão: ${gas}\n` : ""}Valor de referência: ${formatCurrency(product.price)}
-
-Gostaria de confirmar disponibilidade e condições para compra.`;
+      `Olá! Vim pelo site da Quality Therm e tenho interesse no ${product.name}.\n\n` +
+      `Categoria: ${product.category || "Aquecedores"}\n` +
+      `${product.flow ? `Vazão: ${product.flow}\n` : ""}` +
+      `${gas ? `Versão: ${gas}\n` : ""}` +
+      `Valor de referência: ${formatCurrency(product.price)}\n\n` +
+      `Gostaria de confirmar disponibilidade e condições para compra.`;
 
     return (
       "https://api.whatsapp.com/send" +
       `?phone=${phone}` +
-      `&text=${encodeURIComponent(
-        message
-      )}`
+      `&text=${encodeURIComponent(message)}`
     );
   }
 
-  /* =========================================================
-     CRIAR CARD
-  ========================================================= */
+  // =========================================================
+  // PREÇO EXIBIDO NA HOME
+  // =========================================================
 
-  function createProductCard(
-    product
-  ) {
-    const tag =
-      getTag(
-        product
-      );
+  function getHomePrice(product) {
+    const usePix =
+      product.home_price_type === "pix" && Number(product.cash_price) > 0;
 
-    const gas =
-      getGasText(
-        product
-      );
+    if (usePix) {
+      return {
+        value: product.cash_price,
+        label: "no PIX",
+      };
+    }
 
-    const productUrl =
-      getProductUrl(
-        product
-      );
+    return {
+      value: product.price,
+      label: "",
+    };
+  }
 
-    const whatsappUrl =
-      getWhatsAppUrl(
-        product
-      );
+  // =========================================================
+  // PARCELAMENTO
+  // =========================================================
+
+  function getInstallmentHtml(product) {
+    const installments = Number(product.installments || 0);
+    const installmentValue = Number(product.installment_value || 0);
+
+    if (!installments || !installmentValue) {
+      return "";
+    }
+
+    const extraText = product.installment_text
+      ? ` ${escapeHtml(product.installment_text)}`
+      : "";
+
+    return `
+      <span class="home-product-installment">
+        ou ${installments}x de
+        ${formatCurrency(installmentValue)}${extraText}
+      </span>
+    `;
+  }
+
+  // =========================================================
+  // CRIAR CARD
+  // =========================================================
+
+  function createProductCard(product) {
+    const tag = getTag(product);
+    const gas = getGasText(product);
+    const productUrl = getProductUrl(product);
+    const whatsappUrl = getWhatsAppUrl(product);
+    const homePrice = getHomePrice(product);
 
     return `
       <article
-        class="product-card ${
-          product.bestSeller
-            ? "featured"
-            : ""
-        }"
-        data-product="${escapeHtml(
-          product.name
-        )}"
+        class="product-card ${product.best_seller ? "featured" : ""}"
+        data-product="${escapeHtml(product.name)}"
       >
 
         <a
           class="product-image-link"
           href="${productUrl}"
-          aria-label="Ver detalhes do ${escapeHtml(
-            product.name
-          )}"
+          aria-label="Ver detalhes do ${escapeHtml(product.name)}"
         >
-
-          <div
-            class="product-image"
-          >
-
+          <div class="product-image">
             <img
-              src="${escapeHtml(
-                getImagePath(
-                  product
-                )
-              )}"
-              alt="${escapeHtml(
-                product.name
-              )}"
+              src="${escapeHtml(getImagePath(product))}"
+              alt="${escapeHtml(product.name)}"
               width="600"
               height="600"
               loading="lazy"
               decoding="async"
             />
-
           </div>
-
         </a>
 
         ${
           tag
             ? `
               <span class="tag">
-                ${escapeHtml(
-                  tag
-                )}
+                ${escapeHtml(tag)}
               </span>
             `
             : ""
         }
 
-        <span
-          class="product-category"
-        >
-          ${escapeHtml(
-            product.brand ||
-            "Aquecedor"
-          )}
+        <span class="product-category">
+          ${escapeHtml(product.brand || "Aquecedor")}
         </span>
 
         <h3>
-          ${escapeHtml(
-            product.name
-          )}
+          ${escapeHtml(product.name)}
         </h3>
 
         ${
           product.flow
             ? `
-              <span
-                class="product-flow"
-              >
-                ${escapeHtml(
-                  product.flow
-                )}
+              <span class="product-flow">
+                ${escapeHtml(product.flow)}
               </span>
             `
             : ""
@@ -380,12 +235,18 @@ Gostaria de confirmar disponibilidade e condições para compra.`;
         ${
           gas
             ? `
-              <span
-                class="product-gas"
-              >
-                ${escapeHtml(
-                  gas
-                )}
+              <span class="product-gas">
+                ${escapeHtml(gas)}
+              </span>
+            `
+            : ""
+        }
+
+        ${
+          product.color
+            ? `
+              <span class="product-color">
+                Cor: ${escapeHtml(product.color)}
               </span>
             `
             : ""
@@ -393,45 +254,23 @@ Gostaria de confirmar disponibilidade e condições para compra.`;
 
         <p>
           ${escapeHtml(
-            product.shortDescription ||
-            "Consulte informações e disponibilidade deste equipamento."
+            product.short_description ||
+              "Consulte informações e disponibilidade deste equipamento.",
           )}
         </p>
 
-        <div
-          class="home-product-price"
-        >
-
-          <small>
-            A partir de
-          </small>
+        <div class="home-product-price">
 
           <strong>
-            ${formatCurrency(
-              product.price
-            )}
+            ${formatCurrency(homePrice.value)}
+            ${homePrice.label}
           </strong>
 
-          ${
-            Number(
-              product.cashPrice
-            ) > 0
-              ? `
-                <span>
-                  À vista:
-                  ${formatCurrency(
-                    product.cashPrice
-                  )}
-                </span>
-              `
-              : ""
-          }
+          ${getInstallmentHtml(product)}
 
         </div>
 
-        <div
-          class="product-actions"
-        >
+        <div class="product-actions">
 
           <a
             class="btn btn-primary"
@@ -455,58 +294,79 @@ Gostaria de confirmar disponibilidade e condições para compra.`;
     `;
   }
 
-  /* =========================================================
-     RENDERIZAR PRODUTOS NA HOME
-  ========================================================= */
+  // =========================================================
+  // CARREGAR PRODUTOS DO SUPABASE
+  // =========================================================
 
-  function renderHomeProducts() {
-    const container =
-      $("#homeProductsGrid");
+  async function getFeaturedProducts() {
+    if (!db) {
+      throw new Error("Supabase não conectado.");
+    }
+
+    const { data, error } = await db
+      .from("products")
+      .select("*")
+      .eq("active", true)
+      .eq("featured", true)
+      .eq("category", "Aquecedores")
+      .order("created_at", { ascending: false })
+      .limit(4);
+
+    if (error) {
+      throw error;
+    }
+
+    return data || [];
+  }
+
+  // =========================================================
+  // RENDERIZAR HOME
+  // =========================================================
+
+  async function renderHomeProducts() {
+    const container = $("#homeProductsGrid");
 
     if (!container) {
       return;
     }
 
-    const products =
-      getProducts();
+    container.innerHTML = `
+      <div
+        style="
+          grid-column:1 / -1;
+          text-align:center;
+          padding:35px;
+          color:#667780;
+        "
+      >
+        Carregando produtos...
+      </div>
+    `;
 
-    /*
-      IMPORTANTE:
+    try {
+      const products = await getFeaturedProducts();
 
-      A Home principal mostra APENAS:
+      if (!products.length) {
+        container.innerHTML = `
+          <div
+            style="
+              grid-column:1 / -1;
+              text-align:center;
+              padding:35px;
+              color:#667780;
+            "
+          >
+            Nenhum aquecedor em destaque no momento.
+          </div>
+        `;
 
-      - produto ativo
-      - destaque na Home
-      - categoria Aquecedores
+        return;
+      }
 
-      Acessórios, Duchas e Peças
-      NÃO entram nessa vitrine.
-    */
+      container.innerHTML = products.map(createProductCard).join("");
+    } catch (error) {
+      console.error("Erro ao carregar produtos da Home:", error);
 
-    const featuredProducts =
-      products
-        .filter(
-          (product) =>
-            product.active &&
-            product.featured &&
-            getCategory(
-              product
-            ) ===
-              "Aquecedores"
-        )
-        .slice(
-          0,
-          4
-        );
-
-    /* =======================================================
-       SEM PRODUTOS
-    ======================================================== */
-
-    if (
-      featuredProducts.length ===
-      0
-    ) {
       container.innerHTML = `
         <div
           style="
@@ -516,44 +376,15 @@ Gostaria de confirmar disponibilidade e condições para compra.`;
             color:#667780;
           "
         >
-          Nenhum aquecedor em destaque no momento.
+          Não foi possível carregar os produtos no momento.
         </div>
       `;
-
-      return;
     }
-
-    /* =======================================================
-       PRODUTOS
-    ======================================================== */
-
-    container.innerHTML =
-      featuredProducts
-        .map(
-          createProductCard
-        )
-        .join("");
   }
 
-  /* =========================================================
-     ATUALIZAR ENTRE ABAS
-  ========================================================= */
-
-  window.addEventListener(
-    "storage",
-    (event) => {
-      if (
-        event.key ===
-        STORAGE_KEY
-      ) {
-        renderHomeProducts();
-      }
-    }
-  );
-
-  /* =========================================================
-     INICIALIZAÇÃO
-  ========================================================= */
+  // =========================================================
+  // INICIALIZAÇÃO
+  // =========================================================
 
   renderHomeProducts();
 })();
