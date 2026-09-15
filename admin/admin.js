@@ -1,17 +1,125 @@
 document.addEventListener("DOMContentLoaded", () => {
   "use strict";
 
-  console.log("✅ QUALITY THERM ADMIN.JS - UNIFICADO E CORRIGIDO");
+  console.log("✅ QUALITY THERM ADMIN.JS - UPLOAD DE IMAGEM ATIVO");
 
   const db = window.initQualityThermSupabase
     ? window.initQualityThermSupabase()
     : window.supabaseClient;
 
   // =========================================================
-  // FUNÇÃO GENÉRICA PARA MODAIS (Abre e Fecha com segurança)
+  // CONFIGURAÇÕES
   // =========================================================
+
+  const STORAGE_BUCKET = "product-images";
+
+  // 800 KB
+  const MAX_IMAGE_SIZE = 800 * 1024;
+
+  const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
+  // =========================================================
+  // PRÉ-VISUALIZAÇÃO DA IMAGEM DO PRODUTO
+  // =========================================================
+
+  const productImageFile = document.getElementById("productImageFile");
+
+  const productImageFileName = document.getElementById("productImageFileName");
+
+  if (productImageFile) {
+    productImageFile.addEventListener("change", () => {
+      const file = productImageFile.files?.[0];
+
+      if (!file) {
+        if (productImageFileName) {
+          productImageFileName.textContent = "Nenhuma imagem selecionada";
+        }
+
+        return;
+      }
+
+      // Valida formato
+      if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+        alert("Formato inválido. Escolha uma imagem JPG, PNG ou WebP.");
+
+        productImageFile.value = "";
+
+        if (productImageFileName) {
+          productImageFileName.textContent = "Nenhuma imagem selecionada";
+        }
+
+        return;
+      }
+
+      // Valida tamanho
+      if (file.size > MAX_IMAGE_SIZE) {
+        alert("A imagem deve ter no máximo 800 KB.");
+
+        productImageFile.value = "";
+
+        if (productImageFileName) {
+          productImageFileName.textContent = "Nenhuma imagem selecionada";
+        }
+
+        return;
+      }
+
+      // Mostra nome do arquivo
+      if (productImageFileName) {
+        productImageFileName.textContent = file.name;
+      }
+
+      // Procura uma prévia já existente
+      let preview = document.getElementById("productImagePreview");
+
+      // Se não existir, cria automaticamente
+      if (!preview) {
+        preview = document.createElement("img");
+
+        preview.id = "productImagePreview";
+
+        preview.alt = "Pré-visualização do produto";
+
+        preview.style.width = "160px";
+
+        preview.style.height = "160px";
+
+        preview.style.objectFit = "contain";
+
+        preview.style.display = "block";
+
+        preview.style.marginTop = "12px";
+
+        preview.style.padding = "8px";
+
+        preview.style.border = "1px solid #d8dee2";
+
+        preview.style.borderRadius = "12px";
+
+        preview.style.background = "#ffffff";
+
+        productImageFileName.insertAdjacentElement("afterend", preview);
+      }
+
+      // Cria a prévia local
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        preview.src = event.target.result;
+
+        preview.hidden = false;
+      };
+
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // =========================================================
+  // FUNÇÃO GENÉRICA PARA MODAIS
+  // =========================================================
+
   function setupModal(modalId, openBtnIds, closeBtnIds) {
     const modal = document.getElementById(modalId);
+
     if (!modal) return;
 
     const openBtns = openBtnIds
@@ -27,99 +135,337 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function open(e) {
       if (e) e.preventDefault();
+
       modal.hidden = false;
+
       document.body.style.overflow = "hidden";
+
       const form = modal.querySelector("form");
-      if (form) form.reset();
+
+      if (form) {
+        form.reset();
+      }
+
+      // Limpa a pré-visualização da imagem
+      if (modalId === "productModal") {
+        const imagePreview = document.getElementById("productImagePreview");
+
+        const imageFileName = document.getElementById("productImageFileName");
+
+        if (imagePreview) {
+          imagePreview.src = "";
+          imagePreview.hidden = true;
+        }
+
+        if (imageFileName) {
+          imageFileName.textContent = "Nenhuma imagem selecionada";
+        }
+      }
     }
 
     function close(e) {
       if (e) e.preventDefault();
+
       modal.hidden = true;
+
       document.body.style.overflow = "";
     }
 
-    openBtns.forEach((btn) => btn.addEventListener("click", open));
-    closeElements.forEach((el) => el.addEventListener("click", close));
+    openBtns.forEach((btn) => {
+      btn.addEventListener("click", open);
+    });
 
-    // Fechar clicando no fundo escuro (backdrop)
+    closeElements.forEach((el) => {
+      el.addEventListener("click", close);
+    });
+
     const backdrop = modal.querySelector(".admin-modal-backdrop");
-    if (backdrop) backdrop.addEventListener("click", close);
+
+    if (backdrop) {
+      backdrop.addEventListener("click", close);
+    }
   }
 
-  // Configura os modais das 3 páginas
+  // =========================================================
+  // CONFIGURA OS MODAIS
+  // =========================================================
+
   setupModal(
     "productModal",
     ["newProductButton", "newProductButtonSecondary"],
     ["productModalClose", "productCancelButton"],
   );
+
   setupModal(
     "reviewModal",
     ["newReviewButton", "newReviewButtonSecondary"],
     ["reviewModalClose", "reviewCancelButton"],
   );
+
   setupModal(
     "clientModal",
     ["newClientButton", "newClientButtonSecondary"],
     ["clientModalClose", "clientCancelButton"],
   );
 
-  // Fechar com ESC
+  // =========================================================
+  // FECHAR MODAL COM ESC
+  // =========================================================
+
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       ["productModal", "reviewModal", "clientModal"].forEach((id) => {
-        const m = document.getElementById(id);
-        if (m) m.hidden = true;
+        const modal = document.getElementById(id);
+
+        if (modal) {
+          modal.hidden = true;
+        }
       });
+
       document.body.style.overflow = "";
     }
   });
 
   // =========================================================
+  // FUNÇÃO PARA CRIAR NOME SEGURO PARA A IMAGEM
+  // =========================================================
+
+  function criarNomeImagem(file) {
+    const extensao = file.name.split(".").pop()?.toLowerCase() || "jpg";
+
+    const nomeUnico = `${Date.now()}-${crypto.randomUUID()}.${extensao}`;
+
+    return `products/${nomeUnico}`;
+  }
+
+  // =========================================================
+  // VALIDAR IMAGEM
+  // =========================================================
+
+  function validarImagem(file) {
+    if (!file) {
+      throw new Error("Escolha uma imagem para o produto.");
+    }
+
+    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+      throw new Error("Formato inválido. Utilize JPG, PNG ou WebP.");
+    }
+
+    if (file.size > MAX_IMAGE_SIZE) {
+      throw new Error("A imagem deve ter no máximo 800 KB.");
+    }
+
+    return true;
+  }
+
+  // =========================================================
+  // UPLOAD DA IMAGEM PARA O SUPABASE STORAGE
+  // =========================================================
+
+  async function enviarImagem(file) {
+    validarImagem(file);
+
+    const caminhoImagem = criarNomeImagem(file);
+
+    console.log("📤 Enviando imagem:", caminhoImagem);
+
+    const { data: uploadData, error: uploadError } = await db.storage
+      .from(STORAGE_BUCKET)
+      .upload(caminhoImagem, file, {
+        cacheControl: "3600",
+        upsert: false,
+        contentType: file.type,
+      });
+
+    if (uploadError) {
+      console.error("❌ Erro no upload:", uploadError);
+
+      throw new Error(
+        "Não foi possível enviar a imagem: " + uploadError.message,
+      );
+    }
+
+    console.log("✅ Imagem enviada:", uploadData);
+
+    // =======================================================
+    // PEGA A URL PÚBLICA DA IMAGEM
+    // =======================================================
+
+    const { data: publicUrlData } = db.storage
+      .from(STORAGE_BUCKET)
+      .getPublicUrl(caminhoImagem);
+
+    const publicUrl = publicUrlData?.publicUrl;
+
+    if (!publicUrl) {
+      throw new Error(
+        "A imagem foi enviada, mas não foi possível gerar a URL pública.",
+      );
+    }
+
+    console.log("🌐 URL da imagem:", publicUrl);
+
+    return {
+      publicUrl,
+      path: caminhoImagem,
+    };
+  }
+
+  // =========================================================
   // SALVAR PRODUTO NO SUPABASE
   // =========================================================
+
   const productForm = document.getElementById("productForm");
+
   productForm?.addEventListener("submit", async (e) => {
     e.preventDefault();
+
     if (!db) {
       alert("Erro: Supabase não conectado.");
+
       return;
     }
 
     const formData = new FormData(productForm);
-    const productData = {
-      name: formData.get("name"),
-      category: formData.get("category"),
-      brand: formData.get("brand"),
-      model: formData.get("model") || null,
-      price: parseFloat(formData.get("price") || 0),
-      cash_price: parseFloat(formData.get("cashPrice") || 0),
-      sku: formData.get("sku") || null,
-      slug: formData.get("slug"),
-      flow: formData.get("flow") || null,
-      description: formData.get("description") || null,
-      short_description: formData.get("shortDescription") || null,
-      image: formData.get("image") || null,
-      gas_gn: formData.get("gasGN") === "on",
-      gas_glp: formData.get("gasGLP") === "on",
-      active: formData.get("active") === "on",
-      featured: formData.get("featured") === "on",
-      best_seller: formData.get("bestSeller") === "on",
-      promotion: formData.get("promotion") === "on",
-    };
+
+    // =====================================================
+    // PEGA O ARQUIVO ESCOLHIDO
+    // =====================================================
+
+    const imageFile = formData.get("image");
+
+    let imagemEnviada = null;
+
+    // =====================================================
+    // BOTÃO SALVAR
+    // =====================================================
+
+    const saveButton = productForm.querySelector('button[type="submit"]');
+
+    const originalButtonText = saveButton?.textContent || "Salvar produto";
+
+    if (saveButton) {
+      saveButton.disabled = true;
+      saveButton.textContent = "Enviando imagem...";
+    }
 
     try {
-      const { error } = await db.from("products").insert([productData]);
-      if (error) throw error;
+      // ===================================================
+      // 1. VALIDA E ENVIA A IMAGEM
+      // ===================================================
+
+      if (!(imageFile instanceof File) || !imageFile.size) {
+        throw new Error("Escolha uma imagem para o produto.");
+      }
+
+      imagemEnviada = await enviarImagem(imageFile);
+
+      if (saveButton) {
+        saveButton.textContent = "Salvando produto...";
+      }
+
+      // ===================================================
+      // 2. MONTA OS DADOS DO PRODUTO
+      // ===================================================
+
+      const productData = {
+        name: formData.get("name"),
+
+        category: formData.get("category"),
+
+        brand: formData.get("brand"),
+
+        model: formData.get("model") || null,
+
+        price: parseFloat(formData.get("price") || 0),
+
+        cash_price: parseFloat(formData.get("cashPrice") || 0),
+
+        sku: formData.get("sku") || null,
+
+        slug: formData.get("slug"),
+
+        flow: formData.get("flow") || null,
+
+        description: formData.get("description") || null,
+
+        short_description: formData.get("shortDescription") || null,
+
+        // ===============================================
+        // AGORA SALVAMOS A URL, NÃO O ARQUIVO
+        // ===============================================
+
+        image: imagemEnviada.publicUrl,
+
+        gas_gn: formData.get("gasGN") === "on",
+
+        gas_glp: formData.get("gasGLP") === "on",
+
+        active: formData.get("active") === "on",
+
+        featured: formData.get("featured") === "on",
+
+        best_seller: formData.get("bestSeller") === "on",
+
+        promotion: formData.get("promotion") === "on",
+      };
+
+      console.log("📦 Produto a cadastrar:", productData);
+
+      // ===================================================
+      // 3. SALVA O PRODUTO
+      // ===================================================
+
+      const { data, error } = await db
+        .from("products")
+        .insert([productData])
+        .select();
+
+      if (error) {
+        throw error;
+      }
+
+      console.log("✅ Produto cadastrado:", data);
 
       alert("Produto cadastrado com sucesso!");
-      document.getElementById("productModal").hidden = true;
+
+      const productModal = document.getElementById("productModal");
+
+      if (productModal) {
+        productModal.hidden = true;
+      }
+
       document.body.style.overflow = "";
+
       productForm.reset();
-      location.reload(); // Atualiza a página para mostrar o produto
+
+      // Atualiza para mostrar o produto
+      location.reload();
     } catch (err) {
-      console.error("Erro ao salvar:", err);
+      console.error("❌ Erro ao salvar produto:", err);
+
+      // ===================================================
+      // SE A IMAGEM SUBIU MAS O PRODUTO NÃO FOI SALVO,
+      // REMOVE A IMAGEM PARA NÃO DEIXAR ARQUIVO ÓRFÃO.
+      // ===================================================
+
+      if (imagemEnviada?.path) {
+        try {
+          await db.storage.from(STORAGE_BUCKET).remove([imagemEnviada.path]);
+
+          console.log("🧹 Imagem removida após falha no cadastro.");
+        } catch (removeError) {
+          console.error("Não foi possível remover a imagem:", removeError);
+        }
+      }
+
       alert("Erro ao salvar produto: " + (err.message || err));
+    } finally {
+      if (saveButton) {
+        saveButton.disabled = false;
+
+        saveButton.textContent = originalButtonText;
+      }
     }
   });
 });
