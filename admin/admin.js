@@ -114,6 +114,34 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // =========================================================
+  // REMOVER IMAGEM SELECIONADA / PREPARAR PARA TROCA
+  // =========================================================
+
+  const removeProductImage = document.getElementById("removeProductImage");
+
+  removeProductImage?.addEventListener("click", () => {
+    if (productImageFile) {
+      productImageFile.value = "";
+    }
+
+    if (productImageFileName) {
+      productImageFileName.textContent = "Nenhuma imagem selecionada";
+    }
+
+    const preview = document.getElementById("productImagePreview");
+    const previewWrap = document.getElementById("productImagePreviewWrap");
+
+    if (preview) {
+      preview.src = "";
+      preview.hidden = true;
+    }
+
+    if (previewWrap) {
+      previewWrap.hidden = true;
+    }
+  });
+
+  // =========================================================
   // FUNÇÃO GENÉRICA PARA MODAIS
   // =========================================================
 
@@ -148,6 +176,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Limpa a pré-visualização da imagem
       if (modalId === "productModal") {
+        // Garante que estamos abrindo um NOVO produto
+        const modalTitle = document.getElementById("productModalTitle");
+        const productId = document.getElementById("productId");
+        const existingImage = document.getElementById("productImage");
+
+        if (modalTitle) {
+          modalTitle.textContent = "Novo produto";
+        }
+
+        if (productId) {
+          productId.value = "";
+        }
+
+        if (existingImage) {
+          existingImage.value = "";
+        }
         const imagePreview = document.getElementById("productImagePreview");
 
         const imageFileName = document.getElementById("productImageFileName");
@@ -327,6 +371,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const formData = new FormData(productForm);
+    const productId = formData.get("id");
+    const isEditing = Boolean(productId);
 
     // =====================================================
     // PEGA O ARQUIVO ESCOLHIDO
@@ -354,11 +400,14 @@ document.addEventListener("DOMContentLoaded", () => {
       // 1. VALIDA E ENVIA A IMAGEM
       // ===================================================
 
-      if (!(imageFile instanceof File) || !imageFile.size) {
+      let imageUrl = formData.get("existingImage") || null;
+
+      if (imageFile instanceof File && imageFile.size) {
+        imagemEnviada = await enviarImagem(imageFile);
+        imageUrl = imagemEnviada.publicUrl;
+      } else if (!isEditing) {
         throw new Error("Escolha uma imagem para o produto.");
       }
-
-      imagemEnviada = await enviarImagem(imageFile);
 
       if (saveButton) {
         saveButton.textContent = "Salvando produto...";
@@ -411,7 +460,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // AGORA SALVAMOS A URL, NÃO O ARQUIVO
         // ===============================================
 
-        image: imagemEnviada.publicUrl,
+        image: imageUrl,
 
         gas_gn: formData.get("gasGN") === "on",
 
@@ -432,10 +481,26 @@ document.addEventListener("DOMContentLoaded", () => {
       // 3. SALVA O PRODUTO
       // ===================================================
 
-      const { data, error } = await db
-        .from("products")
-        .insert([productData])
-        .select();
+      let data;
+      let error;
+
+      if (isEditing) {
+        // Atualiza o produto existente
+        const result = await db
+          .from("products")
+          .update(productData)
+          .eq("id", productId)
+          .select();
+
+        data = result.data;
+        error = result.error;
+      } else {
+        // Cadastra um produto novo
+        const result = await db.from("products").insert([productData]).select();
+
+        data = result.data;
+        error = result.error;
+      }
 
       if (error) {
         throw error;
@@ -443,7 +508,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       console.log("✅ Produto cadastrado:", data);
 
-      alert("Produto cadastrado com sucesso!");
+      alert(
+        isEditing
+          ? "Produto atualizado com sucesso!"
+          : "Produto cadastrado com sucesso!",
+      );
 
       const productModal = document.getElementById("productModal");
 
@@ -539,6 +608,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (emptyState) {
           emptyState.hidden = false;
+          emptyState.style.display = "";
         }
 
         return;
@@ -546,6 +616,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (emptyState) {
         emptyState.hidden = true;
+        emptyState.style.display = "none";
       }
 
       // Monta a tabela
@@ -607,6 +678,123 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     }
   }
+  // =========================================================
+  // ABRIR PRODUTO PARA EDIÇÃO
+  // =========================================================
+
+  document
+    .getElementById("productsTableBody")
+    ?.addEventListener("click", async (event) => {
+      const editButton = event.target.closest("[data-product-id]");
+
+      if (!editButton) return;
+
+      const productId = editButton.dataset.productId;
+
+      try {
+        const { data: product, error } = await db
+          .from("products")
+          .select("*")
+          .eq("id", productId)
+          .single();
+
+        if (error) throw error;
+
+        // Preenche os campos
+        document.getElementById("productId").value = product.id || "";
+        document.getElementById("productCategory").value =
+          product.category || "";
+        document.getElementById("productBrand").value = product.brand || "";
+        document.getElementById("productModel").value = product.model || "";
+        document.getElementById("productName").value = product.name || "";
+        document.getElementById("productSku").value = product.sku || "";
+        document.getElementById("productSlug").value = product.slug || "";
+        document.getElementById("productFlow").value = product.flow || "";
+        document.getElementById("productColor").value = product.color || "";
+
+        document.getElementById("productPrice").value = product.price ?? "";
+
+        document.getElementById("productCashPrice").value =
+          product.cash_price ?? "";
+
+        document.getElementById("productHomePriceType").value =
+          product.home_price_type || "pix";
+
+        document.getElementById("productInstallments").value =
+          product.installments ?? "";
+
+        document.getElementById("productInstallmentValue").value =
+          product.installment_value ?? "";
+
+        document.getElementById("productInstallmentText").value =
+          product.installment_text || "";
+
+        document.getElementById("productShortDescription").value =
+          product.short_description || "";
+
+        document.getElementById("productDescription").value =
+          product.description || "";
+
+        // Checkboxes
+        document.getElementById("productGasGN").checked = Boolean(
+          product.gas_gn,
+        );
+
+        document.getElementById("productGasGLP").checked = Boolean(
+          product.gas_glp,
+        );
+
+        document.getElementById("productActive").checked = Boolean(
+          product.active,
+        );
+
+        document.getElementById("productFeatured").checked = Boolean(
+          product.featured,
+        );
+
+        document.getElementById("productBestSeller").checked = Boolean(
+          product.best_seller,
+        );
+
+        document.getElementById("productPromotion").checked = Boolean(
+          product.promotion,
+        );
+
+        // Guarda a imagem já cadastrada
+        document.getElementById("productImage").value = product.image || "";
+
+        // Mostra imagem atual
+        const preview = document.getElementById("productImagePreview");
+
+        const previewWrap = document.getElementById("productImagePreviewWrap");
+
+        if (product.image && preview) {
+          preview.src = product.image;
+          preview.hidden = false;
+
+          if (previewWrap) {
+            previewWrap.hidden = false;
+          }
+        }
+
+        // Altera título do modal
+        const modalTitle = document.getElementById("productModalTitle");
+
+        if (modalTitle) {
+          modalTitle.textContent = "Editar produto";
+        }
+
+        // Abre modal
+        const modal = document.getElementById("productModal");
+
+        modal.hidden = false;
+        document.body.style.overflow = "hidden";
+      } catch (error) {
+        console.error("Erro ao carregar produto:", error);
+
+        alert("Não foi possível carregar este produto para edição.");
+      }
+    });
 
   carregarProdutos();
 });
