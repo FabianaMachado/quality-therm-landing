@@ -1,9 +1,11 @@
 (() => {
-  'use strict';
+  "use strict";
 
   const cfg = window.QT_CONFIG || {};
   const $ = (selector, context = document) => context.querySelector(selector);
-  const $$ = (selector, context = document) => [...context.querySelectorAll(selector)];
+  const $$ = (selector, context = document) => [
+    ...context.querySelectorAll(selector),
+  ];
 
   /* =========================================================
      RASTREAMENTO
@@ -13,8 +15,8 @@
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event, ...params });
 
-    if (typeof window.gtag === 'function') {
-      window.gtag('event', event, params);
+    if (typeof window.gtag === "function") {
+      window.gtag("event", event, params);
     }
   }
 
@@ -26,48 +28,48 @@
     const qs = new URLSearchParams(window.location.search);
 
     const fresh = {
-      utm_source: qs.get('utm_source') || '',
-      utm_medium: qs.get('utm_medium') || '',
-      utm_campaign: qs.get('utm_campaign') || '',
-      utm_content: qs.get('utm_content') || '',
-      utm_term: qs.get('utm_term') || '',
-      gclid: qs.get('gclid') || '',
-      fbclid: qs.get('fbclid') || '',
+      utm_source: qs.get("utm_source") || "",
+      utm_medium: qs.get("utm_medium") || "",
+      utm_campaign: qs.get("utm_campaign") || "",
+      utm_content: qs.get("utm_content") || "",
+      utm_term: qs.get("utm_term") || "",
+      gclid: qs.get("gclid") || "",
+      fbclid: qs.get("fbclid") || "",
       landing_page: window.location.pathname,
-      referrer: document.referrer || 'direct'
+      referrer: document.referrer || "direct",
     };
 
     try {
       const hasCampaign =
         Object.entries(fresh).some(
-          ([key, value]) => key.startsWith('utm_') && Boolean(value)
+          ([key, value]) => key.startsWith("utm_") && Boolean(value),
         ) ||
         Boolean(fresh.gclid) ||
         Boolean(fresh.fbclid);
 
-      if (!localStorage.getItem('qt_first_touch')) {
-        localStorage.setItem('qt_first_touch', JSON.stringify(fresh));
+      if (!localStorage.getItem("qt_first_touch")) {
+        localStorage.setItem("qt_first_touch", JSON.stringify(fresh));
       }
 
-      if (hasCampaign || !localStorage.getItem('qt_last_touch')) {
-        localStorage.setItem('qt_last_touch', JSON.stringify(fresh));
+      if (hasCampaign || !localStorage.getItem("qt_last_touch")) {
+        localStorage.setItem("qt_last_touch", JSON.stringify(fresh));
       }
 
-      return JSON.parse(localStorage.getItem('qt_last_touch')) || fresh;
+      return JSON.parse(localStorage.getItem("qt_last_touch")) || fresh;
     } catch (error) {
       return fresh;
     }
   }
 
   const attribution = getAttribution();
-  pushEvent('page_context', attribution);
+  pushEvent("page_context", attribution);
 
   /* =========================================================
      WHATSAPP
   ========================================================= */
 
   function waUrl(message) {
-    const phone = cfg.whatsapp || '5511985673883';
+    const phone = cfg.whatsapp || "5511985673883";
 
     return (
       `https://api.whatsapp.com/send` +
@@ -78,45 +80,45 @@
 
   const messages = {
     geral:
-      'Olá! Vim pelo site da Quality Therm e gostaria de atendimento. Pode me ajudar?',
+      "Olá! Vim pelo site da Quality Therm e gostaria de atendimento. Pode me ajudar?",
 
     header:
-      'Olá! Vim pelo site da Quality Therm e gostaria de atendimento. Pode me ajudar?',
+      "Olá! Vim pelo site da Quality Therm e gostaria de atendimento. Pode me ajudar?",
 
     catalogo:
-      'Olá! Vim pelo site da Quality Therm e gostaria de conhecer os modelos de aquecedores disponíveis.',
+      "Olá! Vim pelo site da Quality Therm e gostaria de conhecer os modelos de aquecedores disponíveis.",
 
     compra:
-      'Olá! Vim pelo site da Quality Therm e gostaria de um orçamento para aquecedor. Preciso de orientação para escolher o modelo ideal.',
+      "Olá! Vim pelo site da Quality Therm e gostaria de um orçamento para aquecedor. Preciso de orientação para escolher o modelo ideal.",
 
     final:
-      'Olá! Vim pelo site da Quality Therm e gostaria de solicitar um orçamento.'
+      "Olá! Vim pelo site da Quality Therm e gostaria de solicitar um orçamento.",
   };
 
   /* =========================================================
      BOTÕES GERAIS DO WHATSAPP
   ========================================================= */
 
-  $$('.js-whatsapp').forEach((element) => {
-    const intent = element.dataset.intent || 'geral';
+  $$(".js-whatsapp").forEach((element) => {
+    const intent = element.dataset.intent || "geral";
     const message = messages[intent] || messages.geral;
 
     element.href = waUrl(message);
-    element.target = '_blank';
-    element.rel = 'noopener';
+    element.target = "_blank";
+    element.rel = "noopener";
 
-    element.addEventListener('click', () => {
-      pushEvent('whatsapp_click', {
+    element.addEventListener("click", () => {
+      pushEvent("whatsapp_click", {
         intent,
-        ...attribution
+        ...attribution,
       });
 
-      pushEvent('generate_lead', {
-        lead_source: 'whatsapp',
+      pushEvent("generate_lead", {
+        lead_source: "whatsapp",
         lead_type: intent,
-        currency: 'BRL',
+        currency: "BRL",
         value: 1,
-        ...attribution
+        ...attribution,
       });
     });
   });
@@ -129,11 +131,11 @@
     if (!modal) return;
 
     modal.hidden = false;
-    document.body.classList.add('modal-open');
+    document.body.classList.add("modal-open");
 
     pushEvent(eventName, {
       lead_type: leadType,
-      ...attribution
+      ...attribution,
     });
 
     setTimeout(() => {
@@ -146,24 +148,23 @@
 
     modal.hidden = true;
 
-    const hasOpenModal =
-      [...document.querySelectorAll('.assistance-modal')].some(
-        (item) => !item.hidden
-      );
+    const hasOpenModal = [
+      ...document.querySelectorAll(".assistance-modal"),
+    ].some((item) => !item.hidden);
 
     if (!hasOpenModal) {
-      document.body.classList.remove('modal-open');
+      document.body.classList.remove("modal-open");
     }
   }
 
   function formatCep(value) {
-    const numbers = value.replace(/\D/g, '').slice(0, 8);
+    const numbers = value.replace(/\D/g, "").slice(0, 8);
 
     if (numbers.length <= 5) {
       return numbers;
     }
 
-    return numbers.slice(0, 5) + '-' + numbers.slice(5);
+    return numbers.slice(0, 5) + "-" + numbers.slice(5);
   }
 
   function isValidCep(cep) {
@@ -171,7 +172,7 @@
   }
 
   function bindCepMask(input) {
-    input?.addEventListener('input', (event) => {
+    input?.addEventListener("input", (event) => {
       event.target.value = formatCep(event.target.value);
     });
   }
@@ -180,54 +181,54 @@
      MODAL — ASSISTÊNCIA TÉCNICA
   ========================================================= */
 
-  const assistanceModal = $('#assistanceModal');
-  const assistanceForm = $('#assistanceForm');
-  const assistanceCep = $('#assistanceCep');
+  const assistanceModal = $("#assistanceModal");
+  const assistanceForm = $("#assistanceForm");
+  const assistanceCep = $("#assistanceCep");
 
-  $$('.js-open-assistance').forEach((button) => {
-    button.addEventListener('click', (event) => {
+  $$(".js-open-assistance").forEach((button) => {
+    button.addEventListener("click", (event) => {
       event.preventDefault();
 
       openModal(
         assistanceModal,
         assistanceForm,
-        'assistance_form_open',
-        'assistencia'
+        "assistance_form_open",
+        "assistencia",
       );
     });
   });
 
-  $$('.js-close-assistance').forEach((button) => {
-    button.addEventListener('click', () => {
+  $$(".js-close-assistance").forEach((button) => {
+    button.addEventListener("click", () => {
       closeModal(assistanceModal);
     });
   });
 
   bindCepMask(assistanceCep);
 
-  assistanceForm?.addEventListener('submit', (event) => {
+  assistanceForm?.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
 
-    const name = String(data.get('name') || '').trim();
-    const brand = String(data.get('brand') || '').trim();
-    const model = String(data.get('model') || '').trim();
-    const problem = String(data.get('problem') || '').trim();
-    const cep = String(data.get('cep') || '').trim();
+    const name = String(data.get("name") || "").trim();
+    const brand = String(data.get("brand") || "").trim();
+    const model = String(data.get("model") || "").trim();
+    const problem = String(data.get("problem") || "").trim();
+    const cep = String(data.get("cep") || "").trim();
 
     if (!name || !brand || !problem || !cep) {
-      alert('Por favor, preencha os campos obrigatórios.');
+      alert("Por favor, preencha os campos obrigatórios.");
       return;
     }
 
     if (!isValidCep(cep)) {
-      alert('Digite um CEP válido no formato 00000-000.');
+      alert("Digite um CEP válido no formato 00000-000.");
       assistanceCep?.focus();
       return;
     }
 
-    const modelText = model || 'Não informado';
+    const modelText = model || "Não informado";
 
     const message = `Olá! Vim pelo site da Quality Therm e gostaria de solicitar assistência técnica.
 
@@ -239,29 +240,29 @@ CEP: ${cep}
 
 Gostaria de verificar a disponibilidade para atendimento.`;
 
-    pushEvent('assistance_form_complete', {
-      lead_type: 'assistencia',
+    pushEvent("assistance_form_complete", {
+      lead_type: "assistencia",
       heater_brand: brand,
       model_provided: Boolean(model),
       cep_provided: true,
-      ...attribution
+      ...attribution,
     });
 
-    pushEvent('generate_lead', {
-      lead_source: 'whatsapp',
-      lead_type: 'assistencia',
+    pushEvent("generate_lead", {
+      lead_source: "whatsapp",
+      lead_type: "assistencia",
       heater_brand: brand,
-      currency: 'BRL',
+      currency: "BRL",
       value: 1,
-      ...attribution
+      ...attribution,
     });
 
-    pushEvent('whatsapp_click', {
-      intent: 'assistencia',
-      ...attribution
+    pushEvent("whatsapp_click", {
+      intent: "assistencia",
+      ...attribution,
     });
 
-    window.open(waUrl(message), '_blank', 'noopener');
+    window.open(waUrl(message), "_blank", "noopener");
     closeModal(assistanceModal);
   });
 
@@ -269,56 +270,54 @@ Gostaria de verificar a disponibilidade para atendimento.`;
      MODAL — MANUTENÇÃO PREVENTIVA
   ========================================================= */
 
-  const maintenanceModal = $('#maintenanceModal');
-  const maintenanceForm = $('#maintenanceForm');
-  const maintenanceCep = $('#maintenanceCep');
+  const maintenanceModal = $("#maintenanceModal");
+  const maintenanceForm = $("#maintenanceForm");
+  const maintenanceCep = $("#maintenanceCep");
 
-  $$('.js-open-maintenance').forEach((button) => {
-    button.addEventListener('click', (event) => {
+  $$(".js-open-maintenance").forEach((button) => {
+    button.addEventListener("click", (event) => {
       event.preventDefault();
 
       openModal(
         maintenanceModal,
         maintenanceForm,
-        'maintenance_form_open',
-        'manutencao_preventiva'
+        "maintenance_form_open",
+        "manutencao_preventiva",
       );
     });
   });
 
-  $$('.js-close-maintenance').forEach((button) => {
-    button.addEventListener('click', () => {
+  $$(".js-close-maintenance").forEach((button) => {
+    button.addEventListener("click", () => {
       closeModal(maintenanceModal);
     });
   });
 
   bindCepMask(maintenanceCep);
 
-  maintenanceForm?.addEventListener('submit', (event) => {
+  maintenanceForm?.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
 
-    const name = String(data.get('name') || '').trim();
-    const brand = String(data.get('brand') || '').trim();
-    const model = String(data.get('model') || '').trim();
-    const lastMaintenance = String(
-      data.get('lastMaintenance') || ''
-    ).trim();
-    const cep = String(data.get('cep') || '').trim();
+    const name = String(data.get("name") || "").trim();
+    const brand = String(data.get("brand") || "").trim();
+    const model = String(data.get("model") || "").trim();
+    const lastMaintenance = String(data.get("lastMaintenance") || "").trim();
+    const cep = String(data.get("cep") || "").trim();
 
     if (!name || !brand || !lastMaintenance || !cep) {
-      alert('Por favor, preencha os campos obrigatórios.');
+      alert("Por favor, preencha os campos obrigatórios.");
       return;
     }
 
     if (!isValidCep(cep)) {
-      alert('Digite um CEP válido no formato 00000-000.');
+      alert("Digite um CEP válido no formato 00000-000.");
       maintenanceCep?.focus();
       return;
     }
 
-    const modelText = model || 'Não informado';
+    const modelText = model || "Não informado";
 
     const message = `Olá! Vim pelo site da Quality Therm e gostaria de agendar uma manutenção preventiva.
 
@@ -330,28 +329,28 @@ CEP: ${cep}
 
 Gostaria de verificar a disponibilidade para atendimento.`;
 
-    pushEvent('maintenance_form_complete', {
-      lead_type: 'manutencao_preventiva',
+    pushEvent("maintenance_form_complete", {
+      lead_type: "manutencao_preventiva",
       heater_brand: brand,
       last_maintenance: lastMaintenance,
-      ...attribution
+      ...attribution,
     });
 
-    pushEvent('generate_lead', {
-      lead_source: 'whatsapp',
-      lead_type: 'manutencao_preventiva',
+    pushEvent("generate_lead", {
+      lead_source: "whatsapp",
+      lead_type: "manutencao_preventiva",
       heater_brand: brand,
-      currency: 'BRL',
+      currency: "BRL",
       value: 1,
-      ...attribution
+      ...attribution,
     });
 
-    pushEvent('whatsapp_click', {
-      intent: 'manutencao_preventiva',
-      ...attribution
+    pushEvent("whatsapp_click", {
+      intent: "manutencao_preventiva",
+      ...attribution,
     });
 
-    window.open(waUrl(message), '_blank', 'noopener');
+    window.open(waUrl(message), "_blank", "noopener");
     closeModal(maintenanceModal);
   });
 
@@ -359,60 +358,58 @@ Gostaria de verificar a disponibilidade para atendimento.`;
      MODAL — INSTALAÇÃO / SUBSTITUIÇÃO
   ========================================================= */
 
-  const installationModal = $('#installationModal');
-  const installationForm = $('#installationForm');
-  const installationCep = $('#installationCep');
+  const installationModal = $("#installationModal");
+  const installationForm = $("#installationForm");
+  const installationCep = $("#installationCep");
 
-  $$('.js-open-installation').forEach((button) => {
-    button.addEventListener('click', (event) => {
+  $$(".js-open-installation").forEach((button) => {
+    button.addEventListener("click", (event) => {
       event.preventDefault();
 
       openModal(
         installationModal,
         installationForm,
-        'installation_form_open',
-        'instalacao'
+        "installation_form_open",
+        "instalacao",
       );
     });
   });
 
-  $$('.js-close-installation').forEach((button) => {
-    button.addEventListener('click', () => {
+  $$(".js-close-installation").forEach((button) => {
+    button.addEventListener("click", () => {
       closeModal(installationModal);
     });
   });
 
   bindCepMask(installationCep);
 
-  installationForm?.addEventListener('submit', (event) => {
+  installationForm?.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
 
-    const name = String(data.get('name') || '').trim();
-    const installationType = String(
-      data.get('installationType') || ''
-    ).trim();
-    const brand = String(data.get('brand') || '').trim();
-    const model = String(data.get('model') || '').trim();
-    const gas = String(data.get('gas') || '').trim();
-    const cep = String(data.get('cep') || '').trim();
-    const notes = String(data.get('notes') || '').trim();
+    const name = String(data.get("name") || "").trim();
+    const installationType = String(data.get("installationType") || "").trim();
+    const brand = String(data.get("brand") || "").trim();
+    const model = String(data.get("model") || "").trim();
+    const gas = String(data.get("gas") || "").trim();
+    const cep = String(data.get("cep") || "").trim();
+    const notes = String(data.get("notes") || "").trim();
 
     if (!name || !installationType || !gas || !cep) {
-      alert('Por favor, preencha os campos obrigatórios.');
+      alert("Por favor, preencha os campos obrigatórios.");
       return;
     }
 
     if (!isValidCep(cep)) {
-      alert('Digite um CEP válido no formato 00000-000.');
+      alert("Digite um CEP válido no formato 00000-000.");
       installationCep?.focus();
       return;
     }
 
-    const brandText = brand || 'Não informado';
-    const modelText = model || 'Não informado';
-    const notesText = notes || 'Não informado';
+    const brandText = brand || "Não informado";
+    const modelText = model || "Não informado";
+    const notesText = notes || "Não informado";
 
     const message = `Olá! Vim pelo site da Quality Therm e gostaria de solicitar um orçamento para instalação/substituição.
 
@@ -426,29 +423,29 @@ Observações: ${notesText}
 
 Gostaria de verificar as condições e disponibilidade para atendimento.`;
 
-    pushEvent('installation_form_complete', {
-      lead_type: 'instalacao',
+    pushEvent("installation_form_complete", {
+      lead_type: "instalacao",
       installation_type: installationType,
       heater_brand: brandText,
       gas_type: gas,
-      ...attribution
+      ...attribution,
     });
 
-    pushEvent('generate_lead', {
-      lead_source: 'whatsapp',
-      lead_type: 'instalacao',
+    pushEvent("generate_lead", {
+      lead_source: "whatsapp",
+      lead_type: "instalacao",
       installation_type: installationType,
-      currency: 'BRL',
+      currency: "BRL",
       value: 1,
-      ...attribution
+      ...attribution,
     });
 
-    pushEvent('whatsapp_click', {
-      intent: 'instalacao',
-      ...attribution
+    pushEvent("whatsapp_click", {
+      intent: "instalacao",
+      ...attribution,
     });
 
-    window.open(waUrl(message), '_blank', 'noopener');
+    window.open(waUrl(message), "_blank", "noopener");
     closeModal(installationModal);
   });
 
@@ -456,8 +453,8 @@ Gostaria de verificar as condições e disponibilidade para atendimento.`;
      FECHAR MODAIS COM ESC
   ========================================================= */
 
-  document.addEventListener('keydown', (event) => {
-    if (event.key !== 'Escape') return;
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
 
     if (assistanceModal && !assistanceModal.hidden) {
       closeModal(assistanceModal);
@@ -476,23 +473,23 @@ Gostaria de verificar as condições e disponibilidade para atendimento.`;
      PRODUTOS
   ========================================================= */
 
-  $$('.js-product').forEach((button) => {
-    button.addEventListener('click', () => {
-      const card = button.closest('.product-card');
-      const product = card?.dataset.product || 'aquecedor';
+  $$(".js-product").forEach((button) => {
+    button.addEventListener("click", () => {
+      const card = button.closest(".product-card");
+      const product = card?.dataset.product || "aquecedor";
 
-      pushEvent('product_interest', {
+      pushEvent("product_interest", {
         item_name: product,
-        ...attribution
+        ...attribution,
       });
 
-      pushEvent('generate_lead', {
-        lead_source: 'whatsapp',
-        lead_type: 'produto',
+      pushEvent("generate_lead", {
+        lead_source: "whatsapp",
+        lead_type: "produto",
         item_name: product,
-        currency: 'BRL',
+        currency: "BRL",
         value: 1,
-        ...attribution
+        ...attribution,
       });
 
       const message = `Olá! Vim pelo site da Quality Therm e tenho interesse no ${product}.
@@ -505,7 +502,7 @@ Gostaria de confirmar:
 
 Pode me orientar?`;
 
-      window.open(waUrl(message), '_blank', 'noopener');
+      window.open(waUrl(message), "_blank", "noopener");
     });
   });
 
@@ -513,22 +510,22 @@ Pode me orientar?`;
      CONDOMÍNIOS
   ========================================================= */
 
-  $$('.js-condo').forEach((button) => {
-    button.addEventListener('click', () => {
-      const profile = button.dataset.profile || 'morador';
+  $$(".js-condo").forEach((button) => {
+    button.addEventListener("click", () => {
+      const profile = button.dataset.profile || "morador";
 
-      pushEvent('condo_interest', {
+      pushEvent("condo_interest", {
         profile,
-        ...attribution
+        ...attribution,
       });
 
-      pushEvent('generate_lead', {
-        lead_source: 'whatsapp',
-        lead_type: 'condominio',
+      pushEvent("generate_lead", {
+        lead_source: "whatsapp",
+        lead_type: "condominio",
         profile,
-        currency: 'BRL',
+        currency: "BRL",
         value: 1,
-        ...attribution
+        ...attribution,
       });
 
       const message = `Olá! Vim pelo site da Quality Therm.
@@ -537,7 +534,7 @@ Sou ${profile} e gostaria de informações sobre atendimento programado para con
 
 Pode me explicar como funciona?`;
 
-      window.open(waUrl(message), '_blank', 'noopener');
+      window.open(waUrl(message), "_blank", "noopener");
     });
   });
 
@@ -545,9 +542,9 @@ Pode me explicar como funciona?`;
      TELEFONE
   ========================================================= */
 
-  $('.js-phone')?.addEventListener('click', () => {
-    pushEvent('phone_click', {
-      ...attribution
+  $(".js-phone")?.addEventListener("click", () => {
+    pushEvent("phone_click", {
+      ...attribution,
     });
   });
 
@@ -555,10 +552,10 @@ Pode me explicar como funciona?`;
      CTAs / ROLAGEM
   ========================================================= */
 
-  $$('.js-scroll-track').forEach((element) => {
-    element.addEventListener('click', () => {
-      pushEvent(element.dataset.event || 'cta_click', {
-        ...attribution
+  $$(".js-scroll-track").forEach((element) => {
+    element.addEventListener("click", () => {
+      pushEvent(element.dataset.event || "cta_click", {
+        ...attribution,
       });
     });
   });
@@ -567,38 +564,31 @@ Pode me explicar como funciona?`;
      DIMENSIONADOR
   ========================================================= */
 
-  $('#sizingForm')?.addEventListener('submit', (event) => {
+  $("#sizingForm")?.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const form = event.currentTarget;
     const data = new FormData(form);
 
-    const showers = Number(data.get('showers'));
-    const flow = Number(data.get('flow'));
-    const gas = String(data.get('gas'));
+    const showers = Number(data.get("showers"));
+    const flow = Number(data.get("flow"));
+    const gas = String(data.get("gas"));
     const demand = showers * flow;
 
-    let band;
-    let examples;
+       let band;
 
     if (demand <= 10) {
-      band = '10 a 15 L/min';
-      examples = 'Ex.: linha compacta, como Rinnai E10';
+      band = "10 a 15 L/min";
     } else if (demand <= 21) {
-      band = '20 a 24 L/min';
-      examples = 'Ex.: faixa do Rinnai E21 / Komeco 21';
+      band = "20 a 24 L/min";
     } else if (demand <= 30) {
-      band = '26 a 33 L/min';
-      examples = 'Ex.: equipamentos de faixa intermediária/alta';
+      band = "26 a 33 L/min";
     } else if (demand <= 38) {
-      band = '33 a 36 L/min';
-      examples = 'Ex.: faixa semelhante ao Rinnai E33';
+      band = "33 a 36 L/min";
     } else {
-      band = '40 L/min ou mais';
-      examples = 'Ex.: linha de alta vazão';
+      band = "40 L/min ou mais";
     }
-
-    const result = $('#sizingResult');
+    const result = $("#sizingResult");
     if (!result) return;
 
     result.hidden = false;
@@ -607,12 +597,10 @@ Pode me explicar como funciona?`;
       <small>Estimativa inicial</small>
       <br>
       <strong>${band}</strong>
-      <p>
-        ${examples}.
-        Gás informado: ${gas}.
-        O dimensionamento final depende de pressão,
-        temperatura de entrada, simultaneidade
-        e condições da instalação.
+       <p>
+        O dimensionamento final pode variar conforme as
+        condições da sua instalação. Para a indicação correta
+        do modelo, fale com um especialista da Quality Therm.
       </p>
       <button
         type="button"
@@ -623,27 +611,27 @@ Pode me explicar como funciona?`;
       </button>
     `;
 
-    pushEvent('calculator_complete', {
+    pushEvent("calculator_complete", {
       showers,
       flow_per_shower: flow,
       gas_type: gas,
       estimated_band: band,
-      ...attribution
+      ...attribution,
     });
 
-    $('#sendSizing')?.addEventListener('click', () => {
-      pushEvent('generate_lead', {
-        lead_source: 'whatsapp',
-        lead_type: 'dimensionador',
+    $("#sendSizing")?.addEventListener("click", () => {
+      pushEvent("generate_lead", {
+        lead_source: "whatsapp",
+        lead_type: "dimensionador",
         estimated_band: band,
-        currency: 'BRL',
+        currency: "BRL",
         value: 1,
-        ...attribution
+        ...attribution,
       });
 
-      pushEvent('whatsapp_click', {
-        intent: 'dimensionador',
-        ...attribution
+      pushEvent("whatsapp_click", {
+        intent: "dimensionador",
+        ...attribution,
       });
 
       const message = `Olá! Vim pelo site da Quality Therm e utilizei o dimensionador de aquecedor.
@@ -656,7 +644,7 @@ Dados informados:
 
 Gostaria de confirmar qual modelo é mais indicado e receber um orçamento.`;
 
-      window.open(waUrl(message), '_blank', 'noopener');
+      window.open(waUrl(message), "_blank", "noopener");
     });
   });
 
@@ -664,21 +652,21 @@ Gostaria de confirmar qual modelo é mais indicado e receber um orçamento.`;
      MENU MOBILE
   ========================================================= */
 
-  const menuBtn = $('.menu-toggle');
-  const nav = $('.nav');
+  const menuBtn = $(".menu-toggle");
+  const nav = $(".nav");
 
-  menuBtn?.addEventListener('click', () => {
+  menuBtn?.addEventListener("click", () => {
     if (!nav) return;
 
-    const open = nav.classList.toggle('open');
+    const open = nav.classList.toggle("open");
 
-    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute("aria-expanded", String(open));
   });
 
-  $$('.nav a').forEach((link) => {
-    link.addEventListener('click', () => {
-      nav?.classList.remove('open');
-      menuBtn?.setAttribute('aria-expanded', 'false');
+  $$(".nav a").forEach((link) => {
+    link.addEventListener("click", () => {
+      nav?.classList.remove("open");
+      menuBtn?.setAttribute("aria-expanded", "false");
     });
   });
 
@@ -686,7 +674,7 @@ Gostaria de confirmar qual modelo é mais indicado e receber um orçamento.`;
      ANO AUTOMÁTICO
   ========================================================= */
 
-  const year = $('#year');
+  const year = $("#year");
 
   if (year) {
     year.textContent = new Date().getFullYear();

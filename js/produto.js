@@ -1,96 +1,94 @@
 (() => {
   "use strict";
 
-  const STORAGE_KEY =
-    "qt_admin_products";
+  const cfg = window.QT_CONFIG || {};
 
-  const cfg =
-    window.QT_CONFIG || {};
+  const $ = (selector, context = document) => context.querySelector(selector);
 
-  const $ = (
-    selector,
-    context = document
-  ) =>
-    context.querySelector(
-      selector
-    );
+  const $$ = (selector, context = document) => [
+    ...context.querySelectorAll(selector),
+  ];
 
-  const $$ = (
-    selector,
-    context = document
-  ) =>
-    [
-      ...context.querySelectorAll(
-        selector
-      ),
-    ];
+  const db = window.initQualityThermSupabase
+    ? window.initQualityThermSupabase()
+    : window.supabaseClient;
 
   /* =========================================================
-     PRODUTOS
-  ========================================================= */
-
-  function getProducts() {
-    try {
-      return (
-        JSON.parse(
-          localStorage.getItem(
-            STORAGE_KEY
-          )
-        ) || []
-      );
-    } catch {
-      return [];
-    }
-  }
-
-  /* =========================================================
-     SLUG
+     UTILITÁRIOS
   ========================================================= */
 
   function getSlug() {
-    const params =
-      new URLSearchParams(
-        window.location.search
-      );
+    const params = new URLSearchParams(window.location.search);
 
-    return (
-      params.get(
-        "produto"
-      ) || ""
-    ).trim();
+    return String(params.get("produto") || "")
+      .trim()
+      .toLowerCase();
+  }
+
+  function money(value) {
+    const number = Number(value || 0);
+
+    return number.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+  }
+
+  function text(value, fallback = "—") {
+    const result = String(value ?? "").trim();
+
+    return result || fallback;
+  }
+
+  function setText(selector, value) {
+    const element = $(selector);
+
+    if (element) {
+      element.textContent = value;
+    }
+  }
+
+  function show(selector) {
+    const element = $(selector);
+
+    if (element) {
+      element.hidden = false;
+    }
+  }
+
+  function hide(selector) {
+    const element = $(selector);
+
+    if (element) {
+      element.hidden = true;
+    }
+  }
+
+  function escapeHtml(value) {
+    return String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
   }
 
   /* =========================================================
-     FORMATAR DINHEIRO
+     WHATSAPP
   ========================================================= */
 
-  function money(value) {
-    return Number(
-      value || 0
-    ).toLocaleString(
-      "pt-BR",
-      {
-        style: "currency",
-        currency: "BRL",
-      }
+  function waUrl(message) {
+    const phone = cfg.whatsapp || "5511985673883";
+
+    return (
+      "https://api.whatsapp.com/send" +
+      `?phone=${encodeURIComponent(phone)}` +
+      `&text=${encodeURIComponent(message)}`
     );
   }
 
-  /* =========================================================
-     CAMINHO DA IMAGEM
-  ========================================================= */
-
-  function imagePath(product) {
-    const image =
-      String(
-        product.image || ""
-      ).trim();
-
-    if (!image) {
-      return "../assets/favicon.svg";
-    }
-
-    return image;
+  function selectedValue(name) {
+    return $(`input[name="${name}"]:checked`)?.value || "";
   }
 
   /* =========================================================
@@ -100,491 +98,750 @@
   function gasText(product) {
     const gases = [];
 
-    if (product.gasGN) {
+    if (product.gas_gn) {
       gases.push("GN");
     }
 
-    if (product.gasGLP) {
+    if (product.gas_glp) {
       gases.push("GLP");
     }
 
-    return (
-      gases.join(" / ") ||
-      "Consulte"
-    );
+    return gases.join(" / ") || "Consulte";
   }
 
   /* =========================================================
-     WHATSAPP
+     CATEGORIA
   ========================================================= */
 
-  function waUrl(message) {
-    const phone =
-      cfg.whatsapp ||
-      "5511985673883";
-
-    return (
-      "https://api.whatsapp.com/send" +
-      `?phone=${encodeURIComponent(
-        phone
-      )}` +
-      `&text=${encodeURIComponent(
-        message
-      )}`
-    );
+  function categoryLabel(product) {
+    return text(product.category, "Produto");
   }
 
-  function selectedValue(name) {
-    return (
-      $(
-        `input[name="${name}"]:checked`
-      )?.value || ""
-    );
-  }
+  function productEyebrow(product) {
+    const parts = [];
 
-  /* =========================================================
-     PRODUTO
-  ========================================================= */
-
-  const slug =
-    getSlug();
-
-  const products =
-    getProducts();
-
-  const product =
-    products.find(
-      (item) =>
-        item.slug === slug &&
-        item.active
-    );
-
-  /* =========================================================
-     NÃO ENCONTRADO
-  ========================================================= */
-
-  if (!product) {
-    $("#productNotFound").hidden =
-      false;
-
-    const year =
-      $("#year");
-
-    if (year) {
-      year.textContent =
-        new Date()
-          .getFullYear();
+    if (product.brand) {
+      parts.push(product.brand);
     }
 
-    return;
+    if (product.category) {
+      parts.push(product.category);
+    }
+
+    return parts.join(" • ") || "Produto";
   }
 
   /* =========================================================
-     SEO / TITLE
+     IMAGEM
   ========================================================= */
 
-  document.title =
-    `${product.name} | Quality Therm`;
+  function fallbackImage() {
+    return "../assets/favicon.svg";
+  }
 
-  const descriptionMeta =
-    $("#pageDescription");
-
-  if (descriptionMeta) {
-    descriptionMeta.content =
-      product.shortDescription ||
-      product.description ||
-      `Aquecedor ${product.name}`;
+  function principalImage(product) {
+    return String(product.image || "").trim() || fallbackImage();
   }
 
   /* =========================================================
-     MOSTRAR SEÇÕES
+     BUSCAR PRODUTO NO SUPABASE
   ========================================================= */
 
-  [
-    "#productContent",
-    "#productBenefits",
-    "#productInformation",
-    "#productSpecs",
-    "#productFaq",
-  ].forEach(
-    (selector) => {
-      const element =
-        $(selector);
+  async function getProduct(slug) {
+    if (!db || !slug) {
+      return null;
+    }
 
-      if (element) {
-        element.hidden =
-          false;
+    const { data, error } = await db
+      .from("products")
+      .select("*")
+      .eq("slug", slug)
+      .eq("active", true)
+      .maybeSingle();
+
+    if (error) {
+      console.error("Erro ao buscar produto:", error);
+
+      throw error;
+    }
+
+    return data || null;
+  }
+
+  /* =========================================================
+     BUSCAR GALERIA
+  ========================================================= */
+
+  async function getProductImages(productId) {
+    if (!db || !productId) {
+      return [];
+    }
+
+    const { data, error } = await db
+      .from("product_images")
+      .select("id, image_url, storage_path, sort_order")
+      .eq("product_id", productId)
+      .order("sort_order", {
+        ascending: true,
+      })
+      .order("created_at", {
+        ascending: true,
+      });
+
+    if (error) {
+      console.error("Erro ao carregar galeria:", error);
+
+      return [];
+    }
+
+    return data || [];
+  }
+
+  /* =========================================================
+     GALERIA
+  ========================================================= */
+
+  function renderGallery(product, galleryImages) {
+    const mainImage = $("#productMainImage");
+    const thumbnails = $("#productThumbnails");
+
+    if (!mainImage || !thumbnails) {
+      return;
+    }
+
+    const images = [];
+
+    const principal = principalImage(product);
+
+    if (principal) {
+      images.push({
+        url: principal,
+        label: "Imagem principal",
+      });
+    }
+
+    galleryImages.forEach((image, index) => {
+      const url = String(image.image_url || "").trim();
+
+      if (!url) {
+        return;
       }
+
+      /*
+       * Evita repetir a imagem principal
+       * caso ela também esteja cadastrada
+       * em product_images.
+       */
+      if (images.some((item) => item.url === url)) {
+        return;
+      }
+
+      images.push({
+        url,
+        label: `Imagem ${index + 2}`,
+      });
+    });
+
+    if (!images.length) {
+      images.push({
+        url: fallbackImage(),
+        label: "Produto",
+      });
     }
-  );
 
-  /* =========================================================
-     PRINCIPAL
-  ========================================================= */
+    mainImage.src = images[0].url;
+    mainImage.alt = product.name || "Produto";
 
-  $("#breadcrumbName").textContent =
-    product.name;
+    /*
+     * Se houver apenas uma imagem,
+     * não precisamos mostrar miniaturas.
+     */
+    if (images.length <= 1) {
+      thumbnails.innerHTML = "";
+      thumbnails.hidden = true;
+      return;
+    }
 
-  $("#productEyebrow").textContent =
-    `${product.brand} • Aquecedor a gás`;
-
-  $("#productName").textContent =
-    product.name;
-
-  $("#productSubtitle").textContent =
-    [
-      product.sku,
-      product.flow,
-    ]
-      .filter(Boolean)
-      .join(" • ");
-
-  $("#productMainImage").src =
-    imagePath(product);
-
-  $("#productMainImage").alt =
-    product.name;
-
-  /* =========================================================
-     BADGES
-  ========================================================= */
-
-  const badges = [];
-
-  if (product.bestSeller) {
-    badges.push(
-      "Mais procurado"
-    );
-  }
-
-  if (product.promotion) {
-    badges.push(
-      "Promoção"
-    );
-  }
-
-  if (product.featured) {
-    badges.push(
-      "Destaque"
-    );
-  }
-
-  badges.push(
-    gasText(product)
-  );
-
-  $("#productBadges").innerHTML =
-    badges
+    thumbnails.innerHTML = images
       .map(
-        (badge) =>
-          `<span>${badge}</span>`
+        (image, index) => `
+          <button
+            type="button"
+            class="product-thumbnail ${index === 0 ? "active" : ""}"
+            data-image="${escapeHtml(image.url)}"
+            aria-label="${escapeHtml(image.label)}"
+          >
+            <img
+              src="${escapeHtml(image.url)}"
+              alt="${escapeHtml(
+                `${product.name || "Produto"} - ${image.label}`,
+              )}"
+              loading="lazy"
+              decoding="async"
+            />
+          </button>
+        `,
       )
       .join("");
+
+    thumbnails.hidden = false;
+
+    $$(".product-thumbnail", thumbnails).forEach((button) => {
+      button.addEventListener("click", () => {
+        const imageUrl = button.dataset.image;
+
+        if (!imageUrl) {
+          return;
+        }
+
+        mainImage.src = imageUrl;
+
+        $$(".product-thumbnail", thumbnails).forEach((item) => {
+          item.classList.remove("active");
+        });
+
+        button.classList.add("active");
+      });
+    });
+  }
 
   /* =========================================================
      PREÇOS
   ========================================================= */
 
-  $("#productPrice").textContent =
-    money(product.price);
+  function renderPrices(product) {
+    const normalPrice = Number(product.price || 0);
 
-  $("#equipmentPrice").textContent =
-    money(product.price);
+    const pixPrice = Number(product.cash_price || 0);
 
-  if (
-    Number(
-      product.cashPrice
-    ) > 0
-  ) {
-    $("#productCashPrice").textContent =
-      `${money(
-        product.cashPrice
-      )} à vista*`;
-  } else {
-    $("#productCashPrice").hidden =
-      true;
+    const homePriceType = String(
+      product.home_price_type || "normal",
+    ).toLowerCase();
+
+    let displayedPrice = normalPrice;
+    let priceLabel = "Preço do produto";
+
+    /*
+     * Se o produto estiver configurado
+     * para destacar PIX e existir preço PIX,
+     * ele será o preço principal.
+     */
+    if (homePriceType === "pix" && pixPrice > 0) {
+      displayedPrice = pixPrice;
+      priceLabel = "Preço no PIX";
+    }
+
+    setText("#productPrice", money(displayedPrice));
+
+    setText("#productPriceLabel", priceLabel);
+
+    /*
+     * O card "Somente equipamento"
+     * acompanha o preço principal escolhido.
+     */
+    setText("#equipmentPrice", money(displayedPrice));
+
+    /*
+     * Não exibimos um segundo preço PIX
+     * quando PIX já é o preço principal.
+     */
+    const cashElement = $("#productCashPrice");
+
+    // Exibimos apenas um preço principal:
+    // PIX quando configurado como PIX;
+    // normal quando configurado como normal.
+    if (cashElement) {
+      cashElement.textContent = "";
+      cashElement.hidden = true;
+    }
+
+    /* PARCELAMENTO */
+
+    const installmentElement = $("#productInstallment");
+
+    if (!installmentElement) {
+      return;
+    }
+
+    const installments = Number(product.installments || 0);
+
+    const installmentValue = Number(product.installment_value || 0);
+
+    const customInstallmentText = String(product.installment_text || "").trim();
+
+    if (customInstallmentText) {
+      installmentElement.textContent = customInstallmentText;
+
+      installmentElement.hidden = false;
+
+      return;
+    }
+
+    if (installments > 0 && installmentValue > 0) {
+      installmentElement.textContent = `Ou em até ${installments}x de ${money(
+        installmentValue,
+      )} sem juros no cartão de crédito`;
+
+      installmentElement.hidden = false;
+
+      return;
+    }
+
+    installmentElement.textContent = "";
+    installmentElement.hidden = true;
+  }
+
+  function referencePrice(product) {
+    const normalPrice = Number(product.price || 0);
+
+    const pixPrice = Number(product.cash_price || 0);
+
+    const type = String(product.home_price_type || "normal").toLowerCase();
+
+    if (type === "pix" && pixPrice > 0) {
+      return pixPrice;
+    }
+
+    return normalPrice;
   }
 
   /* =========================================================
-     GÁS
+     BADGES
   ========================================================= */
 
-  const optionGN =
-    $("#optionGN");
+  function renderBadges(product) {
+    const badges = [];
 
-  const optionGLP =
-    $("#optionGLP");
+    if (product.best_seller) {
+      badges.push("Mais procurado");
+    }
 
-  optionGN.hidden =
-    !product.gasGN;
+    if (product.promotion) {
+      badges.push("Promoção");
+    }
 
-  optionGLP.hidden =
-    !product.gasGLP;
+    if (product.featured) {
+      badges.push("Destaque");
+    }
 
-  const firstGas =
-    $('input[name="gas"]:not(:disabled)');
+    const gases = gasText(product);
 
-  if (
-    product.gasGN
-  ) {
-    $(
-      'input[name="gas"][value="GN"]'
-    ).checked = true;
-  } else if (
-    product.gasGLP
-  ) {
-    $(
-      'input[name="gas"][value="GLP"]'
-    ).checked = true;
+    if (gases !== "Consulte") {
+      badges.push(gases);
+    }
+
+    const element = $("#productBadges");
+
+    if (!element) {
+      return;
+    }
+
+    element.innerHTML = badges
+      .map((badge) => `<span>${escapeHtml(badge)}</span>`)
+      .join("");
   }
 
   /* =========================================================
-     DESCRIÇÕES
+     OPÇÕES DE GÁS
   ========================================================= */
 
-  $("#informationTitle").textContent =
-    product.name;
+  function renderGasOptions(product) {
+    const optionGN = $("#optionGN");
 
-  $("#productDescription").textContent =
-    product.description ||
-    product.shortDescription ||
-    "Consulte informações deste equipamento.";
+    const optionGLP = $("#optionGLP");
 
-  $("#featureBrand").textContent =
-    `✓ Marca: ${product.brand}`;
+    const gasOptions = $("#gasOptions");
 
-  $("#featureFlow").textContent =
-    `✓ Vazão: ${
-      product.flow ||
-      "Consulte"
-    }`;
+    if (optionGN) {
+      optionGN.hidden = !product.gas_gn;
+    }
 
-  $("#featureGas").textContent =
-    `✓ Gás: ${gasText(
-      product
-    )}`;
+    if (optionGLP) {
+      optionGLP.hidden = !product.gas_glp;
+    }
+
+    /*
+     * Para peças/acessórios que não possuem
+     * opção GN/GLP, escondemos todo o bloco.
+     */
+    if (!product.gas_gn && !product.gas_glp) {
+      if (gasOptions) {
+        gasOptions.hidden = true;
+      }
+
+      return;
+    }
+
+    if (gasOptions) {
+      gasOptions.hidden = false;
+    }
+
+    if (product.gas_gn) {
+      const input = $('input[name="gas"][value="GN"]');
+
+      if (input) {
+        input.checked = true;
+      }
+
+      return;
+    }
+
+    if (product.gas_glp) {
+      const input = $('input[name="gas"][value="GLP"]');
+
+      if (input) {
+        input.checked = true;
+      }
+    }
+  }
 
   /* =========================================================
-     BENEFÍCIOS
+     PREENCHER PRODUTO
   ========================================================= */
 
-  $("#benefitFlow").textContent =
-    product.flow ||
-    "Consulte";
+  function renderProduct(product) {
+    document.title = `${product.name} | Quality Therm`;
 
-  $("#benefitGas").textContent =
-    gasText(product);
+    const descriptionMeta = $("#pageDescription");
 
-  $("#benefitSku").textContent =
-    product.sku ||
-    "Consulte";
+    if (descriptionMeta) {
+      descriptionMeta.content =
+        product.short_description ||
+        product.description ||
+        `${product.name} na Quality Therm.`;
+    }
+
+    setText("#breadcrumbName", text(product.name, "Produto"));
+
+    setText("#productEyebrow", productEyebrow(product));
+
+    setText("#productName", text(product.name, "Produto"));
+
+    const subtitle = [product.model, product.flow, product.color]
+      .filter(Boolean)
+      .join(" • ");
+
+    setText("#productSubtitle", subtitle);
+
+    renderBadges(product);
+    renderPrices(product);
+    renderGasOptions(product);
+
+    /* DESCRIÇÃO */
+
+    setText("#informationTitle", text(product.name, "Produto"));
+
+    setText(
+      "#productDescription",
+      product.description ||
+        product.short_description ||
+        "Consulte informações deste produto.",
+    );
+
+    setText("#featureBrand", `✓ Marca: ${text(product.brand, "Consulte")}`);
+
+    setText("#featureModel", `✓ Modelo: ${text(product.model, "Consulte")}`);
+
+    const featureFlow = $("#featureFlow");
+
+    if (featureFlow) {
+      if (product.flow) {
+        featureFlow.textContent = `✓ Vazão: ${product.flow}`;
+
+        featureFlow.hidden = false;
+      } else {
+        featureFlow.hidden = true;
+      }
+    }
+
+    const featureColor = $("#featureColor");
+
+    if (featureColor) {
+      if (product.color) {
+        featureColor.textContent = `✓ Cor: ${product.color}`;
+
+        featureColor.hidden = false;
+      } else {
+        featureColor.hidden = true;
+      }
+    }
+
+    const featureGas = $("#featureGas");
+
+    if (featureGas) {
+      if (product.gas_gn || product.gas_glp) {
+        featureGas.textContent = `✓ Gás: ${gasText(product)}`;
+
+        featureGas.hidden = false;
+      } else {
+        featureGas.hidden = true;
+      }
+    }
+
+    /* BENEFÍCIOS */
+
+    setText("#benefitFlow", text(product.flow, "Consulte"));
+
+    setText("#benefitGas", gasText(product));
+
+    setText("#benefitSku", text(product.sku, "Consulte"));
+
+    /* FICHA */
+
+    setText("#specCategory", categoryLabel(product));
+
+    setText("#specBrand", text(product.brand));
+
+    setText("#specModel", text(product.model));
+
+    setText("#specColor", text(product.color));
+
+    setText("#specSku", text(product.sku));
+
+    setText("#specFlow", text(product.flow));
+
+    setText("#specGas", gasText(product));
+
+    const availabilityLabels = {
+      consult: "Consulte disponibilidade",
+      available: "Disponível",
+      immediate: "Disponibilidade imediata",
+      out_of_stock: "Sem estoque",
+    };
+
+    const availability =
+      availabilityLabels[product.availability] || "Consulte disponibilidade";
+
+    setText("#featureAvailability", `✓ Disponibilidade: ${availability}`);
+
+    setText("#specAvailability", availability);
+
+    /*
+     * Para peças e acessórios sem vazão,
+     * o dimensionador não é necessário.
+     */
+    const help = $("#productHelp");
+
+    if (help) {
+      help.hidden = !product.flow;
+    }
+  }
 
   /* =========================================================
-     FICHA
+     MENSAGEM DE COMPRA
   ========================================================= */
 
-  $("#specBrand").textContent =
-    product.brand ||
-    "—";
-
-  $("#specModel").textContent =
-    product.model ||
-    "—";
-
-  $("#specSku").textContent =
-    product.sku ||
-    "—";
-
-  $("#specFlow").textContent =
-    product.flow ||
-    "—";
-
-  $("#specGas").textContent =
-    gasText(product);
-
-  /* =========================================================
-     MENSAGEM
-  ========================================================= */
-
-  function purchaseMessage(
-    forceInstallation = false
-  ) {
+  function purchaseMessage(product, forceInstallation = false) {
     const gas =
-      selectedValue(
-        "gas"
-      ) ||
-      "Não informado";
+      selectedValue("gas") ||
+      (product.gas_gn || product.gas_glp ? "Não informado" : "Não se aplica");
 
-    const purchaseType =
-      forceInstallation
-        ? "equipamento + instalação"
-        : selectedValue(
-            "purchaseType"
-          ) ||
-          "equipamento";
+    const purchaseType = forceInstallation
+      ? "equipamento + instalação"
+      : selectedValue("purchaseType") || "equipamento";
 
     const price =
-      purchaseType ===
-      "equipamento"
-        ? money(
-            product.price
-          )
+      purchaseType === "equipamento"
+        ? money(referencePrice(product))
         : "a confirmar após avaliação";
 
-    return `Olá! Vim pelo site da Quality Therm e gostaria de comprar o ${product.name}.
+    const details = [
+      `Olá! Vim pelo site da Quality Therm e gostaria de informações para comprar o ${product.name}.`,
+      "",
+      `Categoria: ${text(product.category, "Não informada")}`,
+      `Marca: ${text(product.brand, "Não informada")}`,
+      `Modelo: ${text(product.model, "Não informado")}`,
+    ];
 
-Marca: ${product.brand}
-Modelo: ${product.model || "Não informado"}
-Vazão: ${product.flow || "Não informado"}
-Versão: ${gas}
-Opção: ${purchaseType}
-Valor de referência: ${price}
+    if (product.color) {
+      details.push(`Cor: ${product.color}`);
+    }
 
-Gostaria de confirmar disponibilidade, entrega e condições para finalizar a compra.`;
+    if (product.flow) {
+      details.push(`Vazão: ${product.flow}`);
+    }
+
+    if (product.gas_gn || product.gas_glp) {
+      details.push(`Versão: ${gas}`);
+    }
+
+    const finalMessage =
+      product.availability === "out_of_stock"
+        ? "Vi que este produto está sem estoque. Gostaria de verificar a previsão de reposição ou opções similares com um vendedor."
+        : "Gostaria de confirmar disponibilidade, entrega e condições para finalizar a compra.";
+
+    details.push(
+      `Opção: ${purchaseType}`,
+      `Valor de referência: ${price}`,
+      `Disponibilidade: ${
+        {
+          consult: "Consulte disponibilidade",
+          available: "Disponível",
+          immediate: "Disponibilidade imediata",
+          out_of_stock: "Sem estoque",
+        }[product.availability] || "Consulte disponibilidade"
+      }`,
+      "",
+      finalMessage,
+    );
+
+    return details.join("\n");
   }
 
   /* =========================================================
-     COMPRAR
+     EVENTOS
   ========================================================= */
 
-  $("#buyWhatsApp")
-    ?.addEventListener(
-      "click",
-      () => {
-        window.open(
-          waUrl(
-            purchaseMessage(
-              false
-            )
-          ),
-          "_blank",
-          "noopener"
-        );
-      }
-    );
+  function configureEvents(product) {
+    $("#buyWhatsApp")?.addEventListener("click", () => {
+      window.open(waUrl(purchaseMessage(product, false)), "_blank", "noopener");
+    });
 
-  /* =========================================================
-     INSTALAÇÃO
-  ========================================================= */
+    $("#installationQuote")?.addEventListener("click", () => {
+      window.open(waUrl(purchaseMessage(product, true)), "_blank", "noopener");
+    });
 
-  $("#installationQuote")
-    ?.addEventListener(
-      "click",
-      () => {
-        window.open(
-          waUrl(
-            purchaseMessage(
-              true
-            )
-          ),
-          "_blank",
-          "noopener"
-        );
-      }
-    );
+    const generalMessage = `Olá! Vim pelo site da Quality Therm e gostaria de informações sobre o ${product.name}.`;
 
-  /* =========================================================
-     WHATSAPP GERAL
-  ========================================================= */
-
-  const generalMessage =
-    `Olá! Vim pelo site da Quality Therm e gostaria de informações sobre o ${product.name}.`;
-
-  [
-    $("#headerWhatsapp"),
-    $("#floatingWhatsapp"),
-  ].forEach(
-    (element) => {
+    [$("#headerWhatsapp"), $("#floatingWhatsapp")].forEach((element) => {
       if (!element) {
         return;
       }
 
-      element.href =
-        waUrl(
-          generalMessage
-        );
+      element.href = waUrl(generalMessage);
 
-      element.target =
-        "_blank";
+      element.target = "_blank";
 
-      element.rel =
-        "noopener";
-    }
-  );
+      element.rel = "noopener";
+    });
 
-  /* =========================================================
-     CARDS DE COMPRA
-  ========================================================= */
+    $$('input[name="purchaseType"]').forEach((input) => {
+      input.addEventListener("change", () => {
+        $$(".purchase-card").forEach((card) => {
+          const radio = card.querySelector("input");
 
-  $$(
-    'input[name="purchaseType"]'
-  ).forEach(
-    (input) => {
-      input.addEventListener(
-        "change",
-        () => {
-          $$(".purchase-card")
-            .forEach(
-              (card) => {
-                const radio =
-                  card.querySelector(
-                    "input"
-                  );
-
-                card.classList.toggle(
-                  "selected",
-                  Boolean(
-                    radio
-                      ?.checked
-                  )
-                );
-              }
-            );
-        }
-      );
-    }
-  );
+          card.classList.toggle("selected", Boolean(radio?.checked));
+        });
+      });
+    });
+  }
 
   /* =========================================================
      MENU MOBILE
   ========================================================= */
 
-  const menuBtn =
-    $(".menu-toggle");
+  function configureMenu() {
+    const menuBtn = $(".menu-toggle");
 
-  const nav =
-    $(".nav");
+    const nav = $(".nav");
 
-  menuBtn
-    ?.addEventListener(
-      "click",
-      () => {
-        if (!nav) {
-          return;
-        }
-
-        const open =
-          nav.classList.toggle(
-            "open"
-          );
-
-        menuBtn.setAttribute(
-          "aria-expanded",
-          String(open)
-        );
+    menuBtn?.addEventListener("click", () => {
+      if (!nav) {
+        return;
       }
-    );
+
+      const open = nav.classList.toggle("open");
+
+      menuBtn.setAttribute("aria-expanded", String(open));
+    });
+  }
 
   /* =========================================================
      ANO
   ========================================================= */
 
-  const year =
-    $("#year");
+  function configureYear() {
+    const year = $("#year");
 
-  if (year) {
-    year.textContent =
-      new Date()
-        .getFullYear();
+    if (year) {
+      year.textContent = new Date().getFullYear();
+    }
   }
+
+  /* =========================================================
+     ESTADO DA PÁGINA
+  ========================================================= */
+
+  function showProduct() {
+    hide("#productLoading");
+    hide("#productNotFound");
+
+    [
+      "#productContent",
+      "#productBenefits",
+      "#productInformation",
+      "#productSpecs",
+      "#productFaq",
+    ].forEach(show);
+  }
+
+  function showNotFound() {
+    hide("#productLoading");
+
+    [
+      "#productContent",
+      "#productBenefits",
+      "#productInformation",
+      "#productSpecs",
+      "#productFaq",
+    ].forEach(hide);
+
+    show("#productNotFound");
+  }
+
+  /* =========================================================
+     INICIAR
+  ========================================================= */
+
+  async function init() {
+    configureYear();
+    configureMenu();
+
+    const slug = getSlug();
+
+    if (!slug) {
+      showNotFound();
+      return;
+    }
+
+    if (!db) {
+      console.error("Supabase não foi inicializado.");
+
+      showNotFound();
+      return;
+    }
+
+    try {
+      /*
+       * Primeiro localizamos o produto ativo
+       * usando o slug da URL.
+       */
+      const product = await getProduct(slug);
+
+      if (!product) {
+        showNotFound();
+        return;
+      }
+
+      /*
+       * Depois buscamos todas as imagens
+       * adicionais vinculadas ao UUID dele.
+       */
+      const galleryImages = await getProductImages(product.id);
+
+      renderProduct(product);
+
+      renderGallery(product, galleryImages);
+
+      configureEvents(product);
+
+      showProduct();
+    } catch (error) {
+      console.error("Erro ao carregar página do produto:", error);
+
+      showNotFound();
+    }
+  }
+
+  init();
 })();

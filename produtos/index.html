@@ -12,24 +12,30 @@
       content="Catálogo de aquecedores, acessórios, duchas e peças."
     />
 
-    <title>Catálogo</title>
+    <title>Catálogo | Quality Therm</title>
 
     <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
 
     <link rel="stylesheet" href="../css/style.css" />
 
     <link rel="stylesheet" href="../css/produto.css" />
+
+    <!-- =====================================================
+         SUPABASE
+    ====================================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../js/supabase-config.js"></script>
   </head>
 
   <body>
     <!-- =====================================================
-        HEADER
-  ====================================================== -->
+         HEADER
+    ====================================================== -->
 
     <header class="site-header" id="topo">
       <div class="container nav-wrap">
-        <!-- MARCA -->
-
         <a
           class="brand"
           href="../index.html"
@@ -52,13 +58,11 @@
           />
 
           <span>
-            <strong data-company-short-name> Quality Therm </strong>
+            <strong data-company-short-name>Quality Therm</strong>
 
-            <small> Aquecedores </small>
+            <small>Aquecedores</small>
           </span>
         </a>
-
-        <!-- MOBILE -->
 
         <button
           class="menu-toggle"
@@ -68,23 +72,19 @@
           ☰
         </button>
 
-        <!-- NAVEGAÇÃO -->
-
         <nav class="nav" aria-label="Navegação principal">
-          <a href="../index.html#produtos"> Comprar </a>
+          <a href="../index.html#produtos">Comprar</a>
 
-          <a href="../index.html#servicos"> Serviços </a>
+          <a href="../index.html#servicos">Serviços</a>
 
-          <a href="../index.html#dimensionador"> Dimensionador </a>
+          <a href="../index.html#dimensionador">Dimensionador</a>
 
-          <a href="../index.html#condominios"> Condomínios </a>
+          <a href="../index.html#condominios">Condomínios</a>
 
-          <a href="../index.html#avaliacoes"> Avaliações </a>
+          <a href="../index.html#avaliacoes">Avaliações</a>
 
-          <a href="../index.html#contato"> Contato </a>
+          <a href="../index.html#contato">Contato</a>
         </nav>
-
-        <!-- WHATSAPP -->
 
         <a
           class="btn btn-primary nav-cta"
@@ -101,13 +101,13 @@
     </header>
 
     <!-- =====================================================
-        MAIN
-  ====================================================== -->
+         MAIN
+    ====================================================== -->
 
     <main>
       <!-- =====================================================
-         HERO
-    ====================================================== -->
+           HERO
+      ====================================================== -->
 
       <section class="section-pad">
         <div class="container">
@@ -129,8 +129,8 @@
       </section>
 
       <!-- =====================================================
-         FILTROS
-    ====================================================== -->
+           FILTROS
+      ====================================================== -->
 
       <section
         style="
@@ -140,8 +140,6 @@
         "
       >
         <div class="container" style="padding-top: 32px; padding-bottom: 32px">
-          <!-- BUSCA -->
-
           <div
             style="
               display: grid;
@@ -149,6 +147,8 @@
               gap: 18px;
             "
           >
+            <!-- BUSCA -->
+
             <input
               type="search"
               id="catalogSearch"
@@ -214,7 +214,7 @@
               </button>
             </div>
 
-            <!-- FILTRO SECUNDÁRIO -->
+            <!-- FILTROS SECUNDÁRIOS -->
 
             <div
               id="catalogSecondaryFilters"
@@ -232,8 +232,8 @@
       </section>
 
       <!-- =====================================================
-         PRODUTOS
-    ====================================================== -->
+           PRODUTOS
+      ====================================================== -->
 
       <section class="section-pad">
         <div class="container">
@@ -248,7 +248,7 @@
             "
           >
             <div>
-              <span class="eyebrow"> Produtos </span>
+              <span class="eyebrow">Produtos</span>
 
               <h2 id="catalogResultsTitle" style="margin-top: 8px">
                 Todos os produtos
@@ -256,15 +256,27 @@
             </div>
 
             <span id="catalogCount" style="color: #667780; font-size: 14px">
-              0 produtos encontrados
+              Carregando produtos...
             </span>
           </div>
 
           <!-- GRID -->
 
-          <div class="product-grid" id="catalogProductsGrid"></div>
+          <div class="product-grid" id="catalogProductsGrid">
+            <div
+              class="catalog-loading"
+              style="
+                grid-column: 1 / -1;
+                padding: 50px 20px;
+                text-align: center;
+                color: #667780;
+              "
+            >
+              Carregando produtos...
+            </div>
+          </div>
 
-          <!-- VAZIO -->
+          <!-- ESTADO VAZIO -->
 
           <div
             id="catalogEmpty"
@@ -278,6 +290,7 @@
             "
           >
             <strong
+              id="catalogEmptyTitle"
               style="
                 display: block;
                 margin-bottom: 6px;
@@ -288,7 +301,7 @@
               Nenhum produto encontrado.
             </strong>
 
-            <span style="color: #667780">
+            <span id="catalogEmptyText" style="color: #667780">
               Tente outra categoria ou termo de busca.
             </span>
           </div>
@@ -297,23 +310,19 @@
     </main>
 
     <!-- =====================================================
-        FOOTER
-  ====================================================== -->
+         FOOTER
+    ====================================================== -->
 
     <footer>
       <div class="container footer-grid">
-        <!-- EMPRESA -->
-
         <div>
           <strong data-company-name> Quality Therm Aquecedores </strong>
 
           <p>Venda, instalação, manutenção e assistência técnica.</p>
         </div>
 
-        <!-- ATENDIMENTO -->
-
         <div>
-          <strong> Atendimento </strong>
+          <strong>Atendimento</strong>
 
           <p>
             WhatsApp:
@@ -328,23 +337,17 @@
           </p>
         </div>
 
-        <!-- EMAIL -->
-
         <div>
-          <strong> E-mail </strong>
+          <strong>E-mail</strong>
 
           <p data-company-email>vendasqualitythermaquecedores@gmail.com</p>
         </div>
       </div>
 
-      <!-- FOOTER INFERIOR -->
-
       <div class="container footer-bottom">
         <span>
           ©
-
-          <span id="year"> </span>
-
+          <span id="year"></span>
           <span data-company-short-name> Quality Therm </span>
         </span>
 
@@ -353,8 +356,8 @@
     </footer>
 
     <!-- =====================================================
-        WHATSAPP FLUTUANTE
-  ====================================================== -->
+         WHATSAPP FLUTUANTE
+    ====================================================== -->
 
     <a
       class="floating-whatsapp"
@@ -369,32 +372,22 @@
     </a>
 
     <!-- =====================================================
-        CSS DO CATÁLOGO & CORREÇÃO DAS IMAGENS
-  ====================================================== -->
+         ESTILOS ESPECÍFICOS DO CATÁLOGO
+    ====================================================== -->
 
     <style>
       .catalog-filter-btn,
       .catalog-secondary-btn {
         min-height: 48px;
-
         padding: 0 19px;
-
         border: 1px solid #d4dde0;
-
         border-radius: 999px;
-
         background: #ffffff;
-
         color: #17252d;
-
         font: inherit;
-
         font-size: 14px;
-
         font-weight: 800;
-
         cursor: pointer;
-
         transition:
           border-color 0.2s ease,
           background 0.2s ease,
@@ -404,25 +397,20 @@
 
       .catalog-secondary-btn {
         min-height: 38px;
-
         padding: 0 14px;
-
         font-size: 12px;
       }
 
       .catalog-filter-btn:hover,
       .catalog-secondary-btn:hover {
         border-color: #df7e26;
-
         color: #df7e26;
       }
 
       .catalog-filter-btn.active,
       .catalog-secondary-btn.active {
         border-color: #df7e26;
-
         background: #df7e26;
-
         color: #ffffff;
       }
 
@@ -435,17 +423,8 @@
         display: none !important;
       }
 
-      @media (max-width: 620px) {
-        .catalog-filter-btn {
-          min-height: 43px;
+      /* IMAGENS */
 
-          padding: 0 14px;
-
-          font-size: 12px;
-        }
-      }
-
-      /* Correção das imagens dos produtos no catálogo */
       .product-image {
         width: 100%;
         height: 220px;
@@ -472,31 +451,103 @@
       .product-card:hover .product-image img {
         transform: scale(1.05);
       }
+
+      /* PREÇO */
+
+      .catalog-price {
+        margin-top: 18px;
+      }
+
+      .catalog-price small {
+        display: block;
+        margin-bottom: 4px;
+        color: #667780;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .catalog-price strong {
+        display: block;
+        color: #17252d;
+        font-size: 25px;
+        line-height: 1.15;
+      }
+
+      .catalog-installment {
+        display: block;
+        margin-top: 6px;
+        color: #667780;
+        font-size: 13px;
+        line-height: 1.45;
+      }
+
+      .catalog-gas {
+        display: block;
+        margin-top: 7px;
+        color: #667780;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .catalog-no-price {
+        display: block;
+        margin-top: 18px;
+        color: #17252d;
+        font-size: 16px;
+        font-weight: 800;
+      }
+
+      /* CARREGAMENTO */
+
+      .catalog-loading {
+        min-height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      @media (max-width: 620px) {
+        .catalog-filter-btn {
+          min-height: 43px;
+          padding: 0 14px;
+          font-size: 12px;
+        }
+
+        .product-image {
+          height: 190px;
+        }
+
+        .catalog-price strong {
+          font-size: 22px;
+        }
+      }
     </style>
 
     <!-- =====================================================
-        CONFIGURAÇÕES DA EMPRESA
-  ====================================================== -->
+         CONFIGURAÇÕES DA EMPRESA
+    ====================================================== -->
 
     <script src="../js/site-settings.js"></script>
 
     <!-- =====================================================
-        JAVASCRIPT DO CATÁLOGO
-  ====================================================== -->
+         JAVASCRIPT DO CATÁLOGO
+    ====================================================== -->
 
     <script>
       (() => {
         "use strict";
 
         /* =====================================================
-         STORAGE
-      ====================================================== */
+           SUPABASE
+        ====================================================== */
 
-        const STORAGE_KEY = "qt_admin_products";
+        const db = window.initQualityThermSupabase
+          ? window.initQualityThermSupabase()
+          : window.supabaseClient;
 
         /* =====================================================
-         SELETORES
-      ====================================================== */
+           SELETORES
+        ====================================================== */
 
         const $ = (selector, context = document) =>
           context.querySelector(selector);
@@ -506,64 +557,52 @@
         ];
 
         /* =====================================================
-         ESTADO
-      ====================================================== */
+           ESTADO
+        ====================================================== */
+
+        let products = [];
 
         let activeCategory = "todos";
 
         let activeSecondary = "todos";
 
         /* =====================================================
-         PRODUTOS
-      ====================================================== */
-
-        function getProducts() {
-          try {
-            return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-          } catch {
-            return [];
-          }
-        }
-
-        /* =====================================================
-         CATEGORIA
-      ====================================================== */
+           CATEGORIA
+        ====================================================== */
 
         function getCategory(product) {
           return product.category || "Aquecedores";
         }
 
         /* =====================================================
-         DINHEIRO
-      ====================================================== */
+           DINHEIRO
+        ====================================================== */
 
         function money(value) {
-          return Number(value || 0).toLocaleString("pt-BR", {
+          const number = Number(value || 0);
+
+          return number.toLocaleString("pt-BR", {
             style: "currency",
             currency: "BRL",
           });
         }
 
         /* =====================================================
-         SEGURANÇA
-      ====================================================== */
+           SEGURANÇA
+        ====================================================== */
 
         function escapeHtml(text) {
-          return String(text || "")
+          return String(text ?? "")
             .replace(/&/g, "&amp;")
-
             .replace(/</g, "&lt;")
-
             .replace(/>/g, "&gt;")
-
             .replace(/"/g, "&quot;")
-
             .replace(/'/g, "&#039;");
         }
 
         /* =====================================================
-         IMAGEM
-      ====================================================== */
+           IMAGEM
+        ====================================================== */
 
         function getImagePath(product) {
           const image = String(product.image || "").trim();
@@ -572,35 +611,21 @@
             return "../assets/favicon.svg";
           }
 
-          /*
-          Imagem enviada pelo painel.
-        */
-
-          if (image.startsWith("data:image")) {
-            return image;
-          }
-
-          /*
-          Imagens antigas:
-
-          ../assets/produtos/arquivo.webp
-        */
-
           return image;
         }
 
         /* =====================================================
-         GÁS
-      ====================================================== */
+           GÁS
+        ====================================================== */
 
         function getGasText(product) {
           const gases = [];
 
-          if (product.gasGN) {
+          if (product.gas_gn) {
             gases.push("GN");
           }
 
-          if (product.gasGLP) {
+          if (product.gas_glp) {
             gases.push("GLP");
           }
 
@@ -608,15 +633,15 @@
         }
 
         /* =====================================================
-         SELOS
-      ====================================================== */
+           SELOS
+        ====================================================== */
 
         function getTag(product) {
           if (product.promotion) {
             return "Promoção";
           }
 
-          if (product.bestSeller) {
+          if (product.best_seller) {
             return "Mais procurado";
           }
 
@@ -628,37 +653,133 @@
         }
 
         /* =====================================================
-         LINK DO PRODUTO
-      ====================================================== */
+           LINK DO PRODUTO
+        ====================================================== */
 
         function productPage(product) {
-          if (!product.slug) {
+          const slug = String(product.slug || "").trim();
+
+          if (!slug) {
             return "#";
           }
 
-          return (
-            "produto.html" + `?produto=${encodeURIComponent(product.slug)}`
-          );
+          return "produto.html" + `?produto=${encodeURIComponent(slug)}`;
         }
 
         /* =====================================================
-         WHATSAPP DINÂMICO
-      ====================================================== */
+           PREÇO PRINCIPAL
+
+           REGRA:
+
+           home_price_type = pix
+           -> mostra preço PIX quando houver.
+
+           home_price_type = normal
+           -> mostra preço normal.
+
+           Nunca mostramos os dois preços principais
+           ao mesmo tempo.
+        ====================================================== */
+
+        function getPriceData(product) {
+          const normalPrice = Number(product.price || 0);
+
+          const pixPrice = Number(product.cash_price || 0);
+
+          const priceType = String(product.home_price_type || "normal")
+            .trim()
+            .toLowerCase();
+
+          if (priceType === "pix" && pixPrice > 0) {
+            return {
+              label: "Preço no PIX",
+              value: pixPrice,
+              type: "pix",
+            };
+          }
+
+          return {
+            label: "Preço do produto",
+            value: normalPrice,
+            type: "normal",
+          };
+        }
+
+        /* =====================================================
+           PARCELAMENTO
+        ====================================================== */
+
+        function getInstallmentText(product) {
+          const customText = String(product.installment_text || "").trim();
+
+          if (customText) {
+            return customText;
+          }
+
+          const installments = Number(product.installments || 0);
+
+          const installmentValue = Number(product.installment_value || 0);
+
+          if (installments > 0 && installmentValue > 0) {
+            return (
+              `Ou em até ${installments}x de ` +
+              `${money(installmentValue)} sem juros`
+            );
+          }
+
+          return "";
+        }
+
+        /* =====================================================
+           WHATSAPP
+        ====================================================== */
 
         function whatsappUrl(product) {
           const gas = getGasText(product);
 
           const category = getCategory(product);
 
+          const priceData = getPriceData(product);
+
           const company =
             window.QT_SITE?.settings?.()?.companyShortName || "Quality Therm";
 
-          const message = `Olá! Vim pelo catálogo da ${company} e tenho interesse no ${product.name}.
+          const details = [
+            `Olá! Vim pelo catálogo da ${company} e tenho interesse no ${product.name || "produto"}.`,
+            "",
+            `Categoria: ${category}`,
+          ];
 
-Categoria: ${category}
-${product.subcategory ? `Subcategoria: ${product.subcategory}\n` : ""}${product.flow ? `Vazão: ${product.flow}\n` : ""}${gas ? `Versão: ${gas}\n` : ""}Valor de referência: ${money(product.price)}
+          if (product.subcategory) {
+            details.push(`Subcategoria: ${product.subcategory}`);
+          }
 
-Gostaria de confirmar disponibilidade e condições para compra.`;
+          if (product.brand) {
+            details.push(`Marca: ${product.brand}`);
+          }
+
+          if (product.model) {
+            details.push(`Modelo: ${product.model}`);
+          }
+
+          if (product.flow) {
+            details.push(`Vazão: ${product.flow}`);
+          }
+
+          if (gas) {
+            details.push(`Versão: ${gas}`);
+          }
+
+          if (priceData.value > 0) {
+            details.push(`${priceData.label}: ${money(priceData.value)}`);
+          }
+
+          details.push(
+            "",
+            "Gostaria de confirmar disponibilidade e condições para compra.",
+          );
+
+          const message = details.join("\n");
 
           if (window.QT_SITE) {
             return window.QT_SITE.whatsappUrl(message);
@@ -668,8 +789,8 @@ Gostaria de confirmar disponibilidade e condições para compra.`;
         }
 
         /* =====================================================
-         CARD
-      ====================================================== */
+           CARD DO PRODUTO
+        ====================================================== */
 
         function createCard(product) {
           const tag = getTag(product);
@@ -680,261 +801,328 @@ Gostaria de confirmar disponibilidade e condições para compra.`;
 
           const category = getCategory(product);
 
+          const priceData = getPriceData(product);
+
+          const installmentText = getInstallmentText(product);
+
+          const name = product.name || product.model || "Produto";
+
+          const description =
+            product.short_description ||
+            "Consulte informações e disponibilidade deste produto.";
+
           return `
-
-          <article
-            class="product-card ${product.bestSeller ? "featured" : ""}"
-          >
-
-            <!-- IMAGEM -->
-
-            <a
-              class="product-image-link"
-              href="${page}"
-              aria-label="Ver ${escapeHtml(product.name)}"
+            <article
+              class="product-card ${product.best_seller ? "featured" : ""}"
             >
 
-              <div class="product-image">
+              <!-- IMAGEM -->
 
-                <img
-                  src="${escapeHtml(getImagePath(product))}"
-                  alt="${escapeHtml(product.name)}"
-                  width="600"
-                  height="600"
-                  loading="lazy"
-                  decoding="async"
-                />
+              <a
+                class="product-image-link"
+                href="${escapeHtml(page)}"
+                aria-label="Ver ${escapeHtml(name)}"
+              >
+                <div class="product-image">
 
-              </div>
+                  <img
+                    src="${escapeHtml(getImagePath(product))}"
+                    alt="${escapeHtml(name)}"
+                    width="600"
+                    height="600"
+                    loading="lazy"
+                    decoding="async"
+                  />
 
-            </a>
+                </div>
+              </a>
 
-            <!-- SELO -->
+              <!-- SELO -->
 
-            ${
-              tag
-                ? `
+              ${
+                tag
+                  ? `
                     <span class="tag">
                       ${escapeHtml(tag)}
                     </span>
                   `
-                : ""
-            }
+                  : ""
+              }
 
-            <!-- MARCA -->
+              <!-- MARCA -->
 
-            <span
-              class="product-category"
-            >
+              <span class="product-category">
+                ${escapeHtml(product.brand || category)}
+              </span>
 
-              ${escapeHtml(product.brand || category)}
+              <!-- NOME -->
 
-            </span>
+              <h3>
+                ${escapeHtml(name)}
+              </h3>
 
-            <!-- NOME -->
+              <!-- SUBCATEGORIA -->
 
-            <h3>
-
-              ${escapeHtml(product.name)}
-
-            </h3>
-
-            <!-- SUBCATEGORIA -->
-
-            ${
-              product.subcategory
-                ? `
-
+              ${
+                product.subcategory
+                  ? `
                     <span
                       style="
-                        display:block;
-                        margin-top:3px;
-                        color:#75848c;
-                        font-size:12px;
+                        display: block;
+                        margin-top: 3px;
+                        color: #75848c;
+                        font-size: 12px;
                       "
                     >
-
                       ${escapeHtml(product.subcategory)}
-
                     </span>
-
                   `
-                : ""
-            }
+                  : ""
+              }
 
-            <!-- VAZÃO -->
+              <!-- VAZÃO -->
 
-            ${
-              product.flow
-                ? `
-
-                    <span
-                      class="product-flow"
-                    >
-
+              ${
+                product.flow
+                  ? `
+                    <span class="product-flow">
                       ${escapeHtml(product.flow)}
+                    </span>
+                  `
+                  : ""
+              }
 
+              <!-- DESCRIÇÃO -->
+
+              <p>
+                ${escapeHtml(description)}
+              </p>
+
+              <!-- PREÇO -->
+
+              ${
+                priceData.value > 0
+                  ? `
+                    <div class="catalog-price">
+
+                      <small>
+                        ${escapeHtml(priceData.label)}
+                      </small>
+
+                      <strong>
+                        ${money(priceData.value)}
+                      </strong>
+
+                      ${
+                        installmentText
+                          ? `
+                            <span
+                              class="catalog-installment"
+                            >
+                              ${escapeHtml(installmentText)}
+                            </span>
+                          `
+                          : ""
+                      }
+
+                      ${
+                        gas
+                          ? `
+                            <span
+                              class="catalog-gas"
+                            >
+                              ${escapeHtml(gas)}
+                            </span>
+                          `
+                          : ""
+                      }
+
+                    </div>
+                  `
+                  : `
+                    <span
+                      class="catalog-no-price"
+                    >
+                      Consulte o valor
                     </span>
 
+                    ${
+                      gas
+                        ? `
+                          <span
+                            class="catalog-gas"
+                          >
+                            ${escapeHtml(gas)}
+                          </span>
+                        `
+                        : ""
+                    }
                   `
-                : ""
-            }
-
-            <!-- DESCRIÇÃO -->
-
-            <p>
-
-              ${escapeHtml(
-                product.shortDescription ||
-                  "Consulte informações e disponibilidade deste produto.",
-              )}
-
-            </p>
-
-            <!-- PREÇO -->
-
-            <div
-              class="home-product-price"
-            >
-
-              <small>
-                A partir de
-              </small>
-
-              <strong>
-
-                ${money(product.price)}
-
-              </strong>
-
-              ${
-                Number(product.cashPrice) > 0
-                  ? `
-
-                      <span>
-
-                        À vista:
-
-                        ${money(product.cashPrice)}
-
-                      </span>
-
-                    `
-                  : ""
               }
 
-              ${
-                gas
-                  ? `
+              <!-- BOTÕES -->
 
-                      <span>
+              <div class="product-actions">
 
-                        ${escapeHtml(gas)}
+                <a
+                  class="btn btn-primary"
+                  href="${escapeHtml(page)}"
+                >
+                  Ver produto
+                </a>
 
-                      </span>
+                <a
+                  class="btn btn-outline"
+                  href="${escapeHtml(whatsappUrl(product))}"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Consultar
+                </a>
 
-                    `
-                  : ""
-              }
+              </div>
 
-            </div>
-
-            <!-- BOTÕES -->
-
-            <div
-              class="product-actions"
-            >
-
-              <a
-                class="btn btn-primary"
-                href="${page}"
-              >
-                Ver produto
-              </a>
-
-              <a
-                class="btn btn-outline"
-                href="${whatsappUrl(product)}"
-                target="_blank"
-                rel="noopener"
-              >
-                Consultar
-              </a>
-
-            </div>
-
-          </article>
-
-        `;
+            </article>
+          `;
         }
 
         /* =====================================================
-         VALORES DO FILTRO SECUNDÁRIO
-      ====================================================== */
+           BUSCAR PRODUTOS NO SUPABASE
+        ====================================================== */
 
-        function secondaryValues(products) {
+        async function loadProducts() {
+          const grid = $("#catalogProductsGrid");
+
+          const empty = $("#catalogEmpty");
+
+          const emptyTitle = $("#catalogEmptyTitle");
+
+          const emptyText = $("#catalogEmptyText");
+
+          if (!db) {
+            console.error("Supabase não foi inicializado.");
+
+            if (grid) {
+              grid.innerHTML = "";
+            }
+
+            if (empty) {
+              empty.hidden = false;
+            }
+
+            if (emptyTitle) {
+              emptyTitle.textContent = "Não foi possível carregar os produtos.";
+            }
+
+            if (emptyText) {
+              emptyText.textContent = "Atualize a página e tente novamente.";
+            }
+
+            updateTitles(0);
+
+            return;
+          }
+
+          try {
+            const { data, error } = await db
+              .from("products")
+              .select("*")
+              .eq("active", true)
+              .order("created_at", {
+                ascending: false,
+              });
+
+            if (error) {
+              throw error;
+            }
+
+            products = Array.isArray(data) ? data : [];
+
+            renderSecondaryFilters();
+
+            renderCatalog();
+          } catch (error) {
+            console.error("Erro ao carregar catálogo:", error);
+
+            products = [];
+
+            if (grid) {
+              grid.innerHTML = "";
+            }
+
+            if (empty) {
+              empty.hidden = false;
+            }
+
+            if (emptyTitle) {
+              emptyTitle.textContent = "Não foi possível carregar os produtos.";
+            }
+
+            if (emptyText) {
+              emptyText.textContent = "Atualize a página e tente novamente.";
+            }
+
+            updateTitles(0);
+          }
+        }
+
+        /* =====================================================
+           FILTRO SECUNDÁRIO
+        ====================================================== */
+
+        function secondaryValues() {
           /*
-          AQUecedores:
-
-          O segundo filtro será MARCA.
-
-          Exemplo:
-          Rinnai
-          Komeco
-        */
+            AQUECEDORES:
+            segundo filtro = marca.
+          */
 
           if (activeCategory === "Aquecedores") {
             return [
               ...new Set(
                 products
-
                   .filter(
                     (product) =>
                       getCategory(product) === "Aquecedores" && product.brand,
                   )
-
                   .map((product) => product.brand),
               ),
-            ].sort();
+            ].sort((a, b) => String(a).localeCompare(String(b), "pt-BR"));
           }
 
           /*
-          ACESSÓRIOS / DUCHAS / PEÇAS:
-
-          O segundo filtro será SUBCATEGORIA.
-        */
+            ACESSÓRIOS / DUCHAS / PEÇAS:
+            segundo filtro = subcategoria.
+          */
 
           if (["Acessórios", "Duchas", "Peças"].includes(activeCategory)) {
             return [
               ...new Set(
                 products
-
                   .filter(
                     (product) =>
                       getCategory(product) === activeCategory &&
                       product.subcategory,
                   )
-
                   .map((product) => product.subcategory),
               ),
-            ].sort();
+            ].sort((a, b) => String(a).localeCompare(String(b), "pt-BR"));
           }
 
           return [];
         }
 
         /* =====================================================
-         FILTROS SECUNDÁRIOS
-      ====================================================== */
+           RENDERIZAR FILTROS SECUNDÁRIOS
+        ====================================================== */
 
-        function renderSecondaryFilters(products) {
+        function renderSecondaryFilters() {
           const container = $("#catalogSecondaryFilters");
 
           if (!container) {
             return;
           }
 
-          const values = secondaryValues(products);
+          const values = secondaryValues();
 
           if (values.length === 0 || activeCategory === "todos") {
             container.hidden = true;
@@ -949,38 +1137,28 @@ Gostaria de confirmar disponibilidade e condições para compra.`;
           container.hidden = false;
 
           container.innerHTML = `
+            <button
+              type="button"
+              class="catalog-secondary-btn active"
+              data-secondary="todos"
+            >
+              Todos
+            </button>
 
-          <button
-            type="button"
-            class="catalog-secondary-btn active"
-            data-secondary="todos"
-          >
-            Todos
-          </button>
-
-          ${values
-
-            .map(
-              (value) => `
-
-                <button
-                  type="button"
-                  class="catalog-secondary-btn"
-                  data-secondary="${escapeHtml(value)}"
-                >
-
-                  ${escapeHtml(value)}
-
-                </button>
-
-              `,
-            )
-
-            .join("")}
-
-        `;
-
-          /* EVENTOS */
+            ${values
+              .map(
+                (value) => `
+                  <button
+                    type="button"
+                    class="catalog-secondary-btn"
+                    data-secondary="${escapeHtml(value)}"
+                  >
+                    ${escapeHtml(value)}
+                  </button>
+                `,
+              )
+              .join("")}
+          `;
 
           $$(".catalog-secondary-btn").forEach((button) => {
             button.addEventListener("click", () => {
@@ -998,58 +1176,52 @@ Gostaria de confirmar disponibilidade e condições para compra.`;
         }
 
         /* =====================================================
-         TÍTULOS
-      ====================================================== */
+           TÍTULOS
+        ====================================================== */
 
         function updateTitles(count) {
           const title = $("#catalogResultsTitle");
 
           const countElement = $("#catalogCount");
 
-          if (activeCategory === "todos") {
-            title.textContent = "Todos os produtos";
-          } else {
-            title.textContent =
-              activeSecondary === "todos"
-                ? activeCategory
-                : `${activeCategory} • ${activeSecondary}`;
+          if (title) {
+            if (activeCategory === "todos") {
+              title.textContent = "Todos os produtos";
+            } else {
+              title.textContent =
+                activeSecondary === "todos"
+                  ? activeCategory
+                  : `${activeCategory} • ${activeSecondary}`;
+            }
           }
 
-          countElement.textContent = `${count} ${
-            count === 1 ? "produto encontrado" : "produtos encontrados"
-          }`;
+          if (countElement) {
+            countElement.textContent = `${count} ${
+              count === 1 ? "produto encontrado" : "produtos encontrados"
+            }`;
+          }
         }
 
         /* =====================================================
-         RENDER DO CATÁLOGO
-      ====================================================== */
+           RENDER DO CATÁLOGO
+        ====================================================== */
 
         function renderCatalog() {
           const grid = $("#catalogProductsGrid");
 
           const empty = $("#catalogEmpty");
 
+          const emptyTitle = $("#catalogEmptyTitle");
+
+          const emptyText = $("#catalogEmptyText");
+
           if (!grid || !empty) {
             return;
           }
 
-          /*
-          Apenas produtos ativos.
-        */
-
-          const products = getProducts().filter((product) => product.active);
-
-          /*
-          Busca.
-        */
-
           const term = String($("#catalogSearch")?.value || "")
             .toLowerCase()
             .trim();
-
-          /*
-          Filtragem.
-        */
 
           const filtered = products.filter((product) => {
             const category = getCategory(product);
@@ -1064,128 +1236,90 @@ Gostaria de confirmar disponibilidade e condições para compra.`;
             let matchesSecondary = true;
 
             if (activeSecondary !== "todos") {
-              /*
-                  Aquecedor:
-                  filtra marca.
-                */
-
               if (activeCategory === "Aquecedores") {
                 matchesSecondary = product.brand === activeSecondary;
               } else {
-                /*
-                    Demais:
-                    filtra subcategoria.
-                  */
-
                 matchesSecondary = product.subcategory === activeSecondary;
               }
             }
 
             /* BUSCA */
 
-            const searchable = `
+            const searchable = [
+              product.name,
+              product.brand,
+              product.model,
+              product.sku,
+              category,
+              product.subcategory,
+              product.flow,
+              product.color,
+              product.short_description,
+            ]
+              .filter(Boolean)
+              .join(" ")
+              .toLowerCase();
 
-                  ${product.name}
-
-                  ${product.brand}
-
-                  ${product.model}
-
-                  ${product.sku}
-
-                  ${category}
-
-                  ${product.subcategory}
-
-                  ${product.flow}
-
-                `.toLowerCase();
-
-            const matchesSearch = searchable.includes(term);
+            const matchesSearch = !term || searchable.includes(term);
 
             return matchesCategory && matchesSecondary && matchesSearch;
           });
 
-          /* TÍTULO */
-
           updateTitles(filtered.length);
-
-          /* NENHUM RESULTADO */
 
           if (filtered.length === 0) {
             grid.innerHTML = "";
 
             empty.hidden = false;
 
+            if (emptyTitle) {
+              emptyTitle.textContent = "Nenhum produto encontrado.";
+            }
+
+            if (emptyText) {
+              emptyText.textContent =
+                "Tente outra categoria ou termo de busca.";
+            }
+
             return;
           }
 
-          /* RESULTADOS */
-
           empty.hidden = true;
 
-          grid.innerHTML = filtered
-
-            .map(createCard)
-
-            .join("");
+          grid.innerHTML = filtered.map(createCard).join("");
         }
 
         /* =====================================================
-         FILTROS PRINCIPAIS
-      ====================================================== */
+           FILTROS PRINCIPAIS
+        ====================================================== */
 
         $$(".catalog-filter-btn").forEach((button) => {
           button.addEventListener("click", () => {
-            /*
-                  Remove active.
-                */
-
             $$(".catalog-filter-btn").forEach((item) => {
               item.classList.remove("active");
             });
 
-            /*
-                  Adiciona active.
-                */
-
             button.classList.add("active");
-
-            /*
-                  Categoria atual.
-                */
 
             activeCategory = button.dataset.category || "todos";
 
-            /*
-                  Reinicia filtro secundário.
-                */
-
             activeSecondary = "todos";
 
-            /*
-                  Recria filtros.
-                */
-
-            renderSecondaryFilters(getProducts());
-
-            /*
-                  Render.
-                */
+            renderSecondaryFilters();
 
             renderCatalog();
           });
         });
 
         /* =====================================================
-         BUSCA
-      ====================================================== */
+           BUSCA
+        ====================================================== */
 
         $("#catalogSearch")?.addEventListener("input", renderCatalog);
 
         /* =====================================================
-         MENU MOBILE
-      ====================================================== */
+           MENU MOBILE
+        ====================================================== */
 
         const menuButton = $(".menu-toggle");
 
@@ -1201,21 +1335,17 @@ Gostaria de confirmar disponibilidade e condições para compra.`;
           menuButton.setAttribute("aria-expanded", String(open));
         });
 
-        /* =====================================================
-         ATUALIZAÇÃO ENTRE ABAS
-      ====================================================== */
+        $$(".nav a").forEach((link) => {
+          link.addEventListener("click", () => {
+            nav?.classList.remove("open");
 
-        window.addEventListener("storage", (event) => {
-          if (event.key === STORAGE_KEY) {
-            renderSecondaryFilters(getProducts());
-
-            renderCatalog();
-          }
+            menuButton?.setAttribute("aria-expanded", "false");
+          });
         });
 
         /* =====================================================
-         ANO
-      ====================================================== */
+           ANO
+        ====================================================== */
 
         const year = $("#year");
 
@@ -1224,20 +1354,16 @@ Gostaria de confirmar disponibilidade e condições para compra.`;
         }
 
         /* =====================================================
-         INICIALIZAÇÃO
-      ====================================================== */
-
-        renderSecondaryFilters(getProducts());
-
-        renderCatalog();
-
-        /*
-        Aplicar nome, telefone,
-        WhatsApp, email, logo e cores
-        definidos no Admin.
-      */
+           CONFIGURAÇÕES DO SITE
+        ====================================================== */
 
         window.QT_SITE?.applySettings?.();
+
+        /* =====================================================
+           INICIAR CATÁLOGO
+        ====================================================== */
+
+        loadProducts();
       })();
     </script>
   </body>

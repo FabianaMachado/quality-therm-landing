@@ -1189,238 +1189,604 @@ textarea {
   .admin-form-actions .admin-button {
     width: 100%;
   }
-  /* =========================================================
+}
+
+/* =========================================================
    UPLOAD DE IMAGEM
+   DESKTOP / TABLET / MOBILE
 ========================================================= */
 
-  .admin-image-upload {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+.admin-image-upload {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
 
-    flex-wrap: wrap;
+.admin-upload-button {
+  min-height: 44px;
 
-    margin-top: 6px;
-  }
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 
-  .admin-upload-button {
-    min-height: 44px;
+  padding: 0 16px;
 
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  border: 1px solid var(--admin-line);
+  border-radius: 12px;
 
-    gap: 8px;
+  background: #ffffff;
+  color: var(--admin-text);
 
-    padding: 0 16px;
+  font-size: 13px;
+  font-weight: 800;
 
-    border: 1px solid var(--admin-line);
-    border-radius: 12px;
+  cursor: pointer;
 
-    background: #ffffff;
-    color: var(--admin-text);
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
 
-    font-size: 13px;
-    font-weight: 800;
+.admin-upload-button:hover {
+  border-color: var(--admin-brand);
+  color: var(--admin-brand);
+  background: rgba(214, 125, 47, 0.04);
+  transform: translateY(-1px);
+}
 
-    cursor: pointer;
+.admin-upload-button span {
+  color: var(--admin-brand);
+  font-size: 18px;
+}
 
-    transition:
-      border-color 0.2s ease,
-      color 0.2s ease,
-      background 0.2s ease;
-  }
+.admin-upload-name {
+  color: var(--admin-muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
 
-  .admin-upload-button:hover {
-    border-color: var(--admin-brand);
+/* =========================================================
+   PREVIEW DA IMAGEM PRINCIPAL
+========================================================= */
 
-    color: var(--admin-brand);
+.admin-image-preview {
+  width: min(100%, 260px);
 
-    background: rgba(214, 125, 47, 0.04);
-  }
+  margin-top: 16px;
+  padding: 14px;
 
-  .admin-upload-button span {
-    color: var(--admin-brand);
+  border: 1px solid var(--admin-line);
+  border-radius: 16px;
 
-    font-size: 18px;
-  }
+  background: #ffffff;
+}
 
-  .admin-upload-name {
-    color: var(--admin-muted);
+.admin-image-preview[hidden] {
+  display: none !important;
+}
 
-    font-size: 12px;
-  }
+.admin-image-preview img {
+  width: 100%;
+  height: 190px;
 
-  .admin-image-preview {
-    width: 230px;
+  display: block;
 
-    margin-top: 16px;
+  object-fit: contain;
 
-    padding: 14px;
+  margin-bottom: 12px;
 
-    border: 1px solid var(--admin-line);
-    border-radius: 16px;
+  border-radius: 10px;
 
-    background: #ffffff;
-  }
+  background: #f5f7f6;
+}
 
-  .admin-image-preview[hidden] {
-    display: none;
-  }
+.admin-image-preview .admin-button {
+  width: 100%;
+}
 
-  .admin-image-preview img {
-    width: 100%;
-    height: 170px;
+.admin-field-help {
+  display: block;
 
-    display: block;
+  margin-top: 8px;
 
-    object-fit: contain;
+  color: var(--admin-muted);
 
-    margin-bottom: 12px;
+  font-size: 11px;
+  line-height: 1.5;
+}
 
-    border-radius: 10px;
+/* =========================================================
+   GALERIA DE IMAGENS DO PRODUTO
+   Preparado para múltiplas imagens
+========================================================= */
 
-    background: #f5f7f6;
-  }
+.admin-gallery {
+  grid-column: 1 / -1;
 
-  .admin-image-preview .admin-button {
-    width: 100%;
-  }
+  margin-top: 4px;
+}
 
-  .admin-field-help {
-    display: block;
+.admin-gallery-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 
-    margin-top: 8px;
+  margin-bottom: 12px;
+}
 
-    color: var(--admin-muted);
+.admin-gallery-title strong {
+  color: var(--admin-text);
 
-    font-size: 11px;
+  font-size: 13px;
+  font-weight: 800;
+}
 
-    line-height: 1.5;
-  }
-  /* =========================================================
+.admin-gallery-title span {
+  color: var(--admin-muted);
+
+  font-size: 11px;
+}
+
+.admin-gallery-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: 12px;
+}
+
+.admin-gallery-item {
+  position: relative;
+
+  min-width: 0;
+
+  padding: 8px;
+
+  border: 1px solid var(--admin-line);
+  border-radius: 14px;
+
+  background: #ffffff;
+}
+
+.admin-gallery-item img {
+  width: 100%;
+  height: 130px;
+
+  display: block;
+
+  object-fit: contain;
+
+  border-radius: 9px;
+
+  background: #f5f7f6;
+}
+
+.admin-gallery-remove {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: rgba(14, 23, 29, 0.88);
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.admin-gallery-remove:hover {
+  background: var(--admin-danger);
+}
+
+.admin-gallery-add {
+  min-height: 148px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  padding: 15px;
+
+  border: 2px dashed #ccd5d8;
+  border-radius: 14px;
+
+  background: #fafbfa;
+  color: var(--admin-muted);
+
+  text-align: center;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+.admin-gallery-add:hover {
+  border-color: var(--admin-brand);
+
+  background: rgba(214, 125, 47, 0.04);
+  color: var(--admin-brand);
+}
+
+.admin-gallery-add strong {
+  color: inherit;
+
+  font-size: 13px;
+}
+
+.admin-gallery-add span {
+  font-size: 11px;
+}
+
+/* =========================================================
    FILTROS DE PRODUTOS
 ========================================================= */
 
-  .admin-product-toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.admin-product-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    gap: 18px;
+  gap: 18px;
 
-    flex-wrap: wrap;
+  flex-wrap: wrap;
 
-    margin-bottom: 24px;
-  }
-
-  .admin-category-filters {
-    display: flex;
-    align-items: center;
-
-    gap: 8px;
-
-    flex-wrap: wrap;
-  }
-
-  .admin-category-filter {
-    min-height: 42px;
-
-    padding: 0 16px;
-
-    border: 1px solid #d7dfe2;
-    border-radius: 999px;
-
-    background: #ffffff;
-    color: #26363e;
-
-    font: inherit;
-    font-size: 13px;
-    font-weight: 800;
-
-    cursor: pointer;
-
-    transition:
-      background 0.2s ease,
-      border-color 0.2s ease,
-      color 0.2s ease;
-  }
-
-  .admin-category-filter:hover {
-    border-color: #d97d2b;
-
-    color: #d97d2b;
-  }
-
-  .admin-category-filter.active {
-    border-color: #d97d2b;
-
-    background: #d97d2b;
-    color: #ffffff;
-  }
-
-  .admin-product-toolbar .admin-search {
-    flex: 1;
-
-    min-width: 260px;
-    max-width: 480px;
-  }
-
-  .admin-product-toolbar .admin-search input {
-    width: 100%;
-
-    min-height: 44px;
-
-    padding: 0 14px;
-
-    border: 1px solid #d7dfe2;
-    border-radius: 10px;
-
-    background: #ffffff;
-    color: #17252d;
-
-    font: inherit;
-
-    outline: none;
-  }
-
-  .admin-product-toolbar .admin-search input:focus {
-    border-color: #d97d2b;
-
-    box-shadow: 0 0 0 3px rgba(217, 125, 43, 0.08);
-  }
-
-  @media (max-width: 760px) {
-    .admin-product-toolbar {
-      align-items: stretch;
-
-      flex-direction: column;
-    }
-
-    .admin-product-toolbar .admin-search {
-      width: 100%;
-      max-width: none;
-    }
-  }
-  .admin-logout-button {
-    width: 100%;
-    border: 0;
-    background: transparent;
-    font: inherit;
-    text-align: left;
-    cursor: pointer;
-  }
-
-  .admin-logout-button:hover {
-    background: rgba(255, 255, 255, 0.06);
-  }
+  margin-bottom: 24px;
 }
-/* Garante que o modal fique oculto quando o atributo hidden estiver presente */
+
+.admin-category-filters {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  flex-wrap: wrap;
+}
+
+.admin-category-filter {
+  min-height: 42px;
+
+  padding: 0 16px;
+
+  border: 1px solid #d7dfe2;
+  border-radius: 999px;
+
+  background: #ffffff;
+  color: #26363e;
+
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.admin-category-filter:hover {
+  border-color: var(--admin-brand);
+  color: var(--admin-brand);
+}
+
+.admin-category-filter.active {
+  border-color: var(--admin-brand);
+
+  background: var(--admin-brand);
+  color: #ffffff;
+}
+
+.admin-product-toolbar .admin-search {
+  flex: 1;
+
+  min-width: 260px;
+  max-width: 480px;
+}
+
+.admin-product-toolbar .admin-search input {
+  width: 100%;
+
+  min-height: 44px;
+
+  padding: 0 14px;
+
+  border: 1px solid #d7dfe2;
+  border-radius: 10px;
+
+  background: #ffffff;
+  color: var(--admin-text);
+
+  font: inherit;
+
+  outline: none;
+}
+
+.admin-product-toolbar .admin-search input:focus {
+  border-color: var(--admin-brand);
+
+  box-shadow: 0 0 0 3px rgba(214, 125, 47, 0.08);
+}
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+.admin-logout-button {
+  width: 100%;
+
+  border: 0;
+
+  background: transparent;
+
+  color: inherit;
+
+  font: inherit;
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.admin-logout-button:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
 .admin-modal[hidden] {
   display: none !important;
 }
 
-/* Garante que o modal apareça corretamente quando o hidden for removido */
 .admin-modal:not([hidden]) {
   display: flex !important;
+}
+
+/* =========================================================
+   TABLET
+   AJUSTES PARA IMAGENS E GALERIA
+========================================================= */
+
+@media (max-width: 900px) {
+  .admin-gallery-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .admin-gallery-item img {
+    height: 120px;
+  }
+}
+
+/* =========================================================
+   TABLET MENOR
+========================================================= */
+
+@media (max-width: 760px) {
+  .admin-product-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .admin-product-toolbar .admin-search {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+  }
+
+  .admin-gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* =========================================================
+   SMARTPHONE
+========================================================= */
+
+@media (max-width: 620px) {
+  .admin-image-upload {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .admin-upload-button {
+    width: 100%;
+  }
+
+  .admin-upload-name {
+    width: 100%;
+    text-align: center;
+  }
+
+  .admin-image-preview {
+    width: 100%;
+  }
+
+  .admin-image-preview img {
+    height: 220px;
+  }
+
+  .admin-category-filters {
+    width: 100%;
+
+    overflow-x: auto;
+    flex-wrap: nowrap;
+
+    padding-bottom: 5px;
+  }
+
+  .admin-category-filter {
+    flex: 0 0 auto;
+  }
+
+  .admin-gallery-title {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .admin-gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 9px;
+  }
+
+  .admin-gallery-item {
+    padding: 6px;
+  }
+
+  .admin-gallery-item img {
+    height: 120px;
+  }
+
+  .admin-gallery-add {
+    min-height: 134px;
+
+    padding: 10px;
+  }
+}
+
+/* =========================================================
+   SMARTPHONE PEQUENO
+========================================================= */
+
+@media (max-width: 390px) {
+  .admin-gallery-item img {
+    height: 105px;
+  }
+
+  .admin-image-preview img {
+    height: 190px;
+  }
+}
+/* =========================================================
+   GALERIA NOVA - PRODUTOS
+========================================================= */
+
+.admin-product-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.admin-product-gallery[hidden] {
+  display: none !important;
+}
+
+.admin-product-gallery .admin-gallery-item {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+
+  border: 1px solid var(--admin-line);
+  border-radius: 14px;
+
+  background: #ffffff;
+}
+
+.admin-product-gallery .admin-gallery-item img {
+  width: 100%;
+  height: 130px;
+
+  display: block;
+
+  object-fit: contain;
+
+  border-radius: 9px;
+
+  background: #f5f7f6;
+}
+
+.admin-product-gallery .admin-gallery-item small {
+  display: block;
+
+  overflow: hidden;
+
+  color: var(--admin-muted);
+
+  font-size: 11px;
+  line-height: 1.4;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-product-gallery .admin-gallery-item .admin-button {
+  width: 100%;
+  min-height: 38px;
+
+  margin-top: auto;
+
+  padding: 0 10px;
+
+  font-size: 12px;
+}
+
+/* TABLET */
+
+@media (max-width: 900px) {
+  .admin-product-gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* TABLET MENOR */
+
+@media (max-width: 760px) {
+  .admin-product-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* CELULAR */
+
+@media (max-width: 620px) {
+  .admin-product-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  .admin-product-gallery .admin-gallery-item {
+    padding: 6px;
+  }
+
+  .admin-product-gallery .admin-gallery-item img {
+    height: 120px;
+  }
+}
+
+/* CELULAR PEQUENO */
+
+@media (max-width: 390px) {
+  .admin-product-gallery .admin-gallery-item img {
+    height: 105px;
+  }
 }

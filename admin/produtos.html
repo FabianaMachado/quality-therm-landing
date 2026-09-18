@@ -619,17 +619,43 @@
           </label>
 
           <!-- =================================================
+             DISPONIBILIDADE
+          ================================================== -->
+
+          <label class="admin-field">
+            <span> Disponibilidade </span>
+
+            <select name="availability" id="productAvailability">
+              <option value="consult" selected>Consulte disponibilidade</option>
+
+              <option value="available">Disponível</option>
+
+              <option value="immediate">Disponibilidade imediata</option>
+
+              <option value="out_of_stock">Sem estoque</option>
+            </select>
+
+            <small class="admin-field-help">
+              Esta informação será exibida na página do produto. A compra
+              continuará sendo finalizada pelo WhatsApp.
+            </small>
+          </label>
+
+          <!-- =================================================
              IMAGEM DO PRODUTO
         ================================================== -->
 
+          <!-- =================================================
+   IMAGENS DO PRODUTO
+================================================== -->
+
           <div class="admin-field full">
-            <span> Imagem do produto </span>
+            <span>Imagem principal do produto</span>
 
             <div class="admin-image-upload">
               <label class="admin-upload-button" for="productImageFile">
-                <span> ↑ </span>
-
-                Escolher imagem
+                <span>↑</span>
+                Escolher imagem principal
               </label>
 
               <input
@@ -645,12 +671,10 @@
               </span>
             </div>
 
-            <!-- VALOR SALVO -->
-
+            <!-- IMAGEM PRINCIPAL JÁ SALVA -->
             <input type="hidden" name="existingImage" id="productImage" />
 
-            <!-- PREVIEW -->
-
+            <!-- PREVIEW DA IMAGEM PRINCIPAL -->
             <div
               class="admin-image-preview"
               id="productImagePreviewWrap"
@@ -659,7 +683,7 @@
               <img
                 id="productImagePreview"
                 src=""
-                alt="Pré-visualização do produto"
+                alt="Pré-visualização da imagem principal"
               />
 
               <button
@@ -672,10 +696,57 @@
             </div>
 
             <small class="admin-field-help">
-              JPG, PNG ou WebP. Nesta fase de testes, utilize arquivos com até
-              800 KB. Para os aquecedores, recomendamos imagem quadrada com
-              fundo claro.
+              Você pode selecionar uma foto grande do celular ou computador.
+              Antes do envio ao Storage, o painel otimizará a imagem
+              automaticamente e a converterá para WebP.
             </small>
+          </div>
+
+          <!-- =================================================
+   GALERIA DE IMAGENS
+================================================== -->
+
+          <div class="admin-field full admin-gallery-field">
+            <span>Galeria do produto</span>
+
+            <div class="admin-image-upload">
+              <label class="admin-upload-button" for="productGalleryFiles">
+                <span>＋</span>
+                Adicionar fotos
+              </label>
+
+              <input
+                type="file"
+                id="productGalleryFiles"
+                accept="image/jpeg,image/png,image/webp"
+                multiple
+                hidden
+              />
+
+              <span class="admin-upload-name" id="productGalleryFileName">
+                Nenhuma foto adicional selecionada
+              </span>
+            </div>
+
+            <small class="admin-field-help">
+              Você pode selecionar várias imagens de uma só vez. Elas serão
+              redimensionadas, comprimidas e convertidas para WebP antes do
+              envio.
+            </small>
+
+            <!-- FOTOS NOVAS, AINDA NÃO SALVAS -->
+            <div
+              class="admin-product-gallery"
+              id="productGalleryPreview"
+              hidden
+            ></div>
+
+            <!-- FOTOS DA GALERIA JÁ SALVAS NO SUPABASE -->
+            <div
+              class="admin-product-gallery"
+              id="productGalleryExisting"
+              hidden
+            ></div>
           </div>
 
           <!-- =================================================
