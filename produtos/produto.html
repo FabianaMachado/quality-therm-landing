@@ -42,12 +42,18 @@
           href="../index.html"
           aria-label="Quality Therm - início"
         >
-          <span class="brand-mark" aria-hidden="true"> QT </span>
-
-          <span>
-            <strong>Quality Therm</strong>
-            <small>Aquecedores</small>
-          </span>
+          <img
+            data-company-logo
+            src=""
+            alt="Quality Therm Aquecedores"
+            hidden
+            style="
+              width: auto;
+              height: 64px;
+              max-width: 280px;
+              object-fit: contain;
+            "
+          />
         </a>
 
         <button
@@ -609,6 +615,10 @@
       WA
     </a>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/site-settings.js"></script>
     <script src="../js/produto.js" defer></script>
   </body>
 </html>
