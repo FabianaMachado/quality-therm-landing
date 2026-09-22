@@ -27,34 +27,38 @@
           <div>
             <strong> Quality Therm </strong>
 
-            <small> Painel Administrativo </small>
+            <small data-admin-i18n="dashboard.adminPanel">
+              Painel Administrativo
+            </small>
           </div>
         </div>
 
         <nav class="admin-menu">
           <a href="index.html" class="admin-menu-link">
             <span>⌂</span>
-            Dashboard
+            <span data-admin-i18n="nav.dashboard">Dashboard</span>
           </a>
 
           <a href="produtos.html" class="admin-menu-link active">
             <span>▦</span>
-            Produtos
+            <span data-admin-i18n="nav.products">Produtos</span>
           </a>
 
           <a href="avaliacoes.html" class="admin-menu-link">
             <span>★</span>
-            Avaliações
+            <span data-admin-i18n="nav.reviews">Avaliações</span>
           </a>
 
           <a href="clientes.html" class="admin-menu-link">
             <span>▣</span>
-            Clientes atendidos
+            <span data-admin-i18n="dashboard.clientsServed"
+              >Clientes atendidos</span
+            >
           </a>
 
           <a href="configuracoes.html" class="admin-menu-link">
             <span>⚙</span>
-            Configurações
+            <span data-admin-i18n="nav.settings">Configurações</span>
           </a>
 
           <a
@@ -64,7 +68,7 @@
             rel="noopener"
           >
             <span>↗</span>
-            Ver site
+            <span data-admin-i18n="dashboard.viewSite">Ver site</span>
           </a>
           <button
             type="button"
@@ -72,14 +76,16 @@
             onclick="sairDoPainel()"
           >
             <span>⇥</span>
-            Sair
+            <span data-admin-i18n="nav.logout">Sair</span>
           </button>
         </nav>
 
         <div class="admin-sidebar-footer">
           <small> Quality Therm </small>
 
-          <span> Administração da loja </span>
+          <span data-admin-i18n="dashboard.storeAdministration">
+            Administração da loja
+          </span>
         </div>
       </aside>
 
@@ -94,9 +100,11 @@
 
         <header class="admin-topbar">
           <div>
-            <span class="admin-page-label"> Catálogo </span>
+            <span class="admin-page-label" data-admin-i18n="products.catalog">
+              Catálogo
+            </span>
 
-            <h1>Produtos</h1>
+            <h1 data-admin-i18n="products.title">Produtos</h1>
           </div>
 
           <div class="admin-topbar-actions">
@@ -105,7 +113,7 @@
               class="admin-button admin-button-primary"
               id="newProductButton"
             >
-              + Novo produto
+              <span data-admin-i18n="products.newProduct">+ Novo produto</span>
             </button>
           </div>
         </header>
@@ -121,39 +129,67 @@
 
           <section class="admin-stats-grid">
             <article class="admin-stat-card">
-              <span class="admin-stat-label"> Produtos cadastrados </span>
+              <span
+                class="admin-stat-label"
+                data-admin-i18n="dashboard.registeredProducts"
+              >
+                Produtos cadastrados
+              </span>
 
               <strong class="admin-stat-number" id="totalProducts"> 0 </strong>
 
-              <small> Total de produtos </small>
+              <small data-admin-i18n="dashboard.storeProductTotal">
+                Total de produtos
+              </small>
             </article>
 
             <article class="admin-stat-card">
-              <span class="admin-stat-label"> Produtos ativos </span>
+              <span
+                class="admin-stat-label"
+                data-admin-i18n="dashboard.activeProducts"
+              >
+                Produtos ativos
+              </span>
 
               <strong class="admin-stat-number" id="activeProducts"> 0 </strong>
 
-              <small> Visíveis no catálogo </small>
+              <small data-admin-i18n="dashboard.visibleInCatalog">
+                Visíveis no catálogo
+              </small>
             </article>
 
             <article class="admin-stat-card">
-              <span class="admin-stat-label"> Destaques na Home </span>
+              <span
+                class="admin-stat-label"
+                data-admin-i18n="dashboard.homeFeatured"
+              >
+                Destaques na Home
+              </span>
 
               <strong class="admin-stat-number" id="featuredProducts">
                 0
               </strong>
 
-              <small> Produtos principais </small>
+              <small data-admin-i18n="dashboard.mainProducts">
+                Produtos principais
+              </small>
             </article>
 
             <article class="admin-stat-card">
-              <span class="admin-stat-label"> Produtos inativos </span>
+              <span
+                class="admin-stat-label"
+                data-admin-i18n="dashboard.inactiveProducts"
+              >
+                Produtos inativos
+              </span>
 
               <strong class="admin-stat-number" id="inactiveProducts">
                 0
               </strong>
 
-              <small> Ocultos da loja </small>
+              <small data-admin-i18n="dashboard.hiddenFromStore">
+                Ocultos da loja
+              </small>
             </article>
           </section>
 
@@ -164,9 +200,16 @@
           <section class="admin-panel">
             <div class="admin-panel-header">
               <div>
-                <span class="admin-page-label"> Gerenciamento </span>
+                <span
+                  class="admin-page-label"
+                  data-admin-i18n="products.management"
+                >
+                  Gerenciamento
+                </span>
 
-                <h2>Produtos cadastrados</h2>
+                <h2 data-admin-i18n="dashboard.registeredProducts">
+                  Produtos cadastrados
+                </h2>
               </div>
 
               <button
@@ -174,7 +217,7 @@
                 class="admin-button admin-button-primary"
                 id="newProductButtonSecondary"
               >
-                + Adicionar
+                <span data-admin-i18n="products.add">+ Adicionar</span>
               </button>
             </div>
 
@@ -189,7 +232,7 @@
                   class="admin-category-filter active"
                   data-category="todos"
                 >
-                  Todos
+                  <span data-admin-i18n="products.all">Todos</span>
                 </button>
 
                 <button
@@ -197,7 +240,7 @@
                   class="admin-category-filter"
                   data-category="Aquecedores"
                 >
-                  Aquecedores
+                  <span data-admin-i18n="products.heaters">Aquecedores</span>
                 </button>
 
                 <button
@@ -205,7 +248,7 @@
                   class="admin-category-filter"
                   data-category="Acessórios"
                 >
-                  Acessórios
+                  <span data-admin-i18n="products.accessories">Acessórios</span>
                 </button>
 
                 <button
@@ -213,7 +256,7 @@
                   class="admin-category-filter"
                   data-category="Duchas"
                 >
-                  Duchas
+                  <span data-admin-i18n="products.showers">Duchas</span>
                 </button>
 
                 <button
@@ -221,7 +264,7 @@
                   class="admin-category-filter"
                   data-category="Peças"
                 >
-                  Peças
+                  <span data-admin-i18n="products.parts">Peças</span>
                 </button>
               </div>
 
@@ -230,6 +273,7 @@
                   type="search"
                   id="productSearch"
                   placeholder="Pesquisar produto, marca, modelo, SKU ou categoria..."
+                  data-admin-i18n-placeholder="products.searchPlaceholder"
                   autocomplete="off"
                 />
               </div>
@@ -243,14 +287,14 @@
               <table class="admin-table">
                 <thead>
                   <tr>
-                    <th>Produto</th>
-                    <th>Categoria</th>
-                    <th>Marca</th>
-                    <th>Vazão</th>
-                    <th>Preço</th>
-                    <th>Status</th>
-                    <th>Home</th>
-                    <th>Ações</th>
+                    <th data-admin-i18n="products.product">Produto</th>
+                    <th data-admin-i18n="products.category">Categoria</th>
+                    <th data-admin-i18n="products.brand">Marca</th>
+                    <th data-admin-i18n="products.flow">Vazão</th>
+                    <th data-admin-i18n="products.price">Preço</th>
+                    <th data-admin-i18n="common.status">Status</th>
+                    <th data-admin-i18n="common.home">Home</th>
+                    <th data-admin-i18n="common.actions">Ações</th>
                   </tr>
                 </thead>
 
@@ -263,9 +307,13 @@
           ================================================== -->
 
             <div class="admin-empty" id="productsEmpty" hidden>
-              <strong> Nenhum produto encontrado. </strong>
+              <strong data-admin-i18n="products.notFound">
+                Nenhum produto encontrado.
+              </strong>
 
-              <span> Cadastre um novo produto ou altere os filtros. </span>
+              <span data-admin-i18n="products.notFoundHelp">
+                Cadastre um novo produto ou altere os filtros.
+              </span>
             </div>
           </section>
         </main>
@@ -291,9 +339,13 @@
 
         <div class="admin-modal-header">
           <div>
-            <span class="admin-page-label"> Produto </span>
+            <span class="admin-page-label" data-admin-i18n="products.product">
+              Produto
+            </span>
 
-            <h2 id="productModalTitle">Novo produto</h2>
+            <h2 id="productModalTitle" data-admin-i18n="products.newProduct">
+              Novo produto
+            </h2>
           </div>
 
           <button
@@ -301,6 +353,7 @@
             class="admin-modal-close"
             id="productModalClose"
             aria-label="Fechar"
+            data-admin-i18n-title="common.close"
           >
             ×
           </button>
@@ -319,7 +372,7 @@
 
           <div class="admin-form-grid">
             <label class="admin-field">
-              <span> Categoria </span>
+              <span data-admin-i18n="products.category"> Categoria </span>
 
               <select name="category" id="productCategory" required>
                 <option value="">Selecione</option>
@@ -338,7 +391,7 @@
 
             <label class="admin-field">
               <span>
-                Subcategoria
+                <span data-admin-i18n="products.subcategory">Subcategoria</span>
                 <small> opcional </small>
               </span>
 
@@ -400,7 +453,7 @@
 
           <div class="admin-form-grid">
             <label class="admin-field">
-              <span> Marca </span>
+              <span data-admin-i18n="products.brand"> Marca </span>
 
               <input
                 type="text"
@@ -413,7 +466,7 @@
 
             <label class="admin-field">
               <span>
-                Modelo
+                <span data-admin-i18n="products.model">Modelo</span>
                 <small> opcional </small>
               </span>
 
@@ -431,7 +484,9 @@
         ================================================== -->
 
           <label class="admin-field">
-            <span> Nome do produto </span>
+            <span data-admin-i18n="products.productName">
+              Nome do produto
+            </span>
 
             <input
               type="text"
@@ -462,7 +517,7 @@
             </label>
 
             <label class="admin-field">
-              <span> URL / Slug </span>
+              <span data-admin-i18n="products.slug"> URL / Slug </span>
 
               <input
                 type="text"
@@ -507,6 +562,7 @@
               name="color"
               id="productColor"
               placeholder="Ex.: Branco"
+              data-admin-i18n-placeholder="products.colorPlaceholder"
             />
           </label>
 
@@ -516,7 +572,7 @@
 
           <div class="admin-form-grid">
             <label class="admin-field">
-              <span> Preço </span>
+              <span data-admin-i18n="products.price"> Preço </span>
 
               <input
                 type="number"
@@ -531,7 +587,7 @@
 
             <label class="admin-field">
               <span>
-                Preço no PIX
+                <span data-admin-i18n="products.cashPrice">Preço no PIX</span>
                 <small> opcional </small>
               </span>
 
@@ -551,7 +607,9 @@
         ================================================== -->
 
           <label class="admin-field">
-            <span> Preço exibido na Home </span>
+            <span data-admin-i18n="products.homePrice">
+              Preço exibido na Home
+            </span>
 
             <select name="homePriceType" id="productHomePriceType">
               <option value="pix" selected>Preço no PIX</option>
@@ -572,7 +630,9 @@
           <div class="admin-form-grid">
             <label class="admin-field">
               <span>
-                Nº de parcelas
+                <span data-admin-i18n="products.installments"
+                  >Nº de parcelas</span
+                >
                 <small> opcional </small>
               </span>
 
@@ -589,7 +649,9 @@
 
             <label class="admin-field">
               <span>
-                Valor da parcela
+                <span data-admin-i18n="products.installmentValue"
+                  >Valor da parcela</span
+                >
                 <small> opcional </small>
               </span>
 
@@ -615,6 +677,7 @@
               name="installmentText"
               id="productInstallmentText"
               placeholder="Ex.: sem juros no cartão de crédito"
+              data-admin-i18n-placeholder="products.installmentTextPlaceholder"
             />
           </label>
 
@@ -623,7 +686,9 @@
           ================================================== -->
 
           <label class="admin-field">
-            <span> Disponibilidade </span>
+            <span data-admin-i18n="products.availability">
+              Disponibilidade
+            </span>
 
             <select name="availability" id="productAvailability">
               <option value="consult" selected>Consulte disponibilidade</option>
@@ -650,12 +715,16 @@
 ================================================== -->
 
           <div class="admin-field full">
-            <span>Imagem principal do produto</span>
+            <span data-admin-i18n="products.mainImage"
+              >Imagem principal do produto</span
+            >
 
             <div class="admin-image-upload">
               <label class="admin-upload-button" for="productImageFile">
                 <span>↑</span>
-                Escolher imagem principal
+                <span data-admin-i18n="products.chooseMainImage"
+                  >Escolher imagem principal</span
+                >
               </label>
 
               <input
@@ -667,7 +736,9 @@
               />
 
               <span class="admin-upload-name" id="productImageFileName">
-                Nenhuma imagem selecionada
+                <span data-admin-i18n="products.noImageSelected"
+                  >Nenhuma imagem selecionada</span
+                >
               </span>
             </div>
 
@@ -691,7 +762,9 @@
                 class="admin-button"
                 id="removeProductImage"
               >
-                Remover imagem
+                <span data-admin-i18n="products.removeImage"
+                  >Remover imagem</span
+                >
               </button>
             </div>
 
@@ -707,12 +780,14 @@
 ================================================== -->
 
           <div class="admin-field full admin-gallery-field">
-            <span>Galeria do produto</span>
+            <span data-admin-i18n="products.gallery">Galeria do produto</span>
 
             <div class="admin-image-upload">
               <label class="admin-upload-button" for="productGalleryFiles">
                 <span>＋</span>
-                Adicionar fotos
+                <span data-admin-i18n="products.addPhotos"
+                  >Adicionar fotos</span
+                >
               </label>
 
               <input
@@ -724,7 +799,9 @@
               />
 
               <span class="admin-upload-name" id="productGalleryFileName">
-                Nenhuma foto adicional selecionada
+                <span data-admin-i18n="products.noGallerySelected"
+                  >Nenhuma foto adicional selecionada</span
+                >
               </span>
             </div>
 
@@ -754,7 +831,9 @@
         ================================================== -->
 
           <label class="admin-field">
-            <span> Descrição curta </span>
+            <span data-admin-i18n="products.shortDescription">
+              Descrição curta
+            </span>
 
             <textarea
               name="shortDescription"
@@ -762,6 +841,7 @@
               rows="3"
               maxlength="300"
               placeholder="Descrição resumida para os cards do site."
+              data-admin-i18n-placeholder="products.shortDescriptionPlaceholder"
               required
             ></textarea>
           </label>
@@ -771,7 +851,9 @@
         ================================================== -->
 
           <label class="admin-field">
-            <span> Descrição completa </span>
+            <span data-admin-i18n="products.description">
+              Descrição completa
+            </span>
 
             <textarea
               name="description"
@@ -779,6 +861,7 @@
               rows="6"
               maxlength="1500"
               placeholder="Descrição completa do produto."
+              data-admin-i18n-placeholder="products.descriptionPlaceholder"
             ></textarea>
           </label>
 
@@ -786,48 +869,126 @@
              TIPO DE GÁS
         ================================================== -->
 
-          <div class="admin-form-options">
+          <!-- =================================================
+             TIPO DE GÁS
+          ================================================== -->
+
+          <div class="admin-form-options admin-gas-options">
             <label class="admin-check">
               <input type="checkbox" name="gasGN" id="productGasGN" />
 
-              <span> Gás Natural - GN </span>
+              <span data-admin-i18n="products.gn">Gás Natural - GN</span>
             </label>
 
             <label class="admin-check">
               <input type="checkbox" name="gasGLP" id="productGasGLP" />
 
-              <span> GLP </span>
+              <span>GLP</span>
             </label>
           </div>
 
           <!-- =================================================
-             CONFIGURAÇÕES
-        ================================================== -->
+             VISIBILIDADE DO PRODUTO
+          ================================================== -->
 
-          <div class="admin-form-options">
-            <label class="admin-check">
-              <input type="checkbox" name="active" id="productActive" checked />
+          <div class="admin-product-settings">
+            <div class="admin-settings-heading">
+              <strong data-admin-i18n="products.visibility"
+                >Visibilidade do produto</strong
+              >
 
-              <span> Produto ativo </span>
-            </label>
+              <span> Escolha onde este produto será exibido no site. </span>
+            </div>
 
-            <label class="admin-check">
-              <input type="checkbox" name="featured" id="productFeatured" />
+            <div class="admin-settings-grid">
+              <label class="admin-setting-card">
+                <input
+                  type="checkbox"
+                  name="active"
+                  id="productActive"
+                  checked
+                />
 
-              <span> Exibir na Home </span>
-            </label>
+                <span class="admin-setting-content">
+                  <strong data-admin-i18n="products.active"
+                    >Produto ativo</strong
+                  >
 
-            <label class="admin-check">
-              <input type="checkbox" name="bestSeller" id="productBestSeller" />
+                  <small>
+                    Mantém o produto disponível no site e na categoria
+                    correspondente.
+                  </small>
+                </span>
+              </label>
 
-              <span> Mais vendido </span>
-            </label>
+              <label class="admin-setting-card">
+                <input type="checkbox" name="showAll" id="productShowAll" />
 
-            <label class="admin-check">
-              <input type="checkbox" name="promotion" id="productPromotion" />
+                <span class="admin-setting-content">
+                  <strong>
+                    <span data-admin-i18n="products.showAll"
+                      >Aparecer em "Todos os produtos"</span
+                    >
+                  </strong>
 
-              <span> Promoção </span>
-            </label>
+                  <small>
+                    Além da categoria, o produto também aparecerá na aba Todos.
+                  </small>
+                </span>
+              </label>
+
+              <label class="admin-setting-card">
+                <input type="checkbox" name="featured" id="productFeatured" />
+
+                <span class="admin-setting-content">
+                  <strong data-admin-i18n="products.featured"
+                    >Destaque na Home</strong
+                  >
+
+                  <small>
+                    Exibe o produto entre os 4 destaques da página inicial.
+                  </small>
+                </span>
+              </label>
+            </div>
+
+            <div
+              class="admin-settings-heading admin-settings-heading-secondary"
+            >
+              <strong data-admin-i18n="products.badges"
+                >Selos do produto</strong
+              >
+
+              <span> Estas opções identificam produtos especiais. </span>
+            </div>
+
+            <div class="admin-settings-grid admin-settings-grid-small">
+              <label class="admin-setting-card">
+                <input
+                  type="checkbox"
+                  name="bestSeller"
+                  id="productBestSeller"
+                />
+
+                <span class="admin-setting-content">
+                  <strong data-admin-i18n="products.bestSeller"
+                    >Mais vendido</strong
+                  >
+
+                  <small> Exibe o selo de produto mais vendido. </small>
+                </span>
+              </label>
+
+              <label class="admin-setting-card">
+                <input type="checkbox" name="promotion" id="productPromotion" />
+
+                <span class="admin-setting-content">
+                  <strong data-admin-i18n="products.promotion">Promoção</strong>
+
+                  <small> Exibe o selo de promoção no produto. </small>
+                </span>
+              </label>
+            </div>
           </div>
 
           <!-- =================================================
@@ -836,11 +997,11 @@
 
           <div class="admin-form-actions">
             <button type="button" class="admin-button" id="productCancelButton">
-              Cancelar
+              <span data-admin-i18n="common.cancel">Cancelar</span>
             </button>
 
             <button type="submit" class="admin-button admin-button-primary">
-              Salvar produto
+              <span data-admin-i18n="products.saveProduct">Salvar produto</span>
             </button>
           </div>
         </form>
@@ -855,6 +1016,8 @@
     <script src="../js/supabase-config.js"></script>
 
     <script src="../js/supabase-service.js"></script>
+
+    <script src="admin-i18n.js"></script>
 
     <script src="admin-auth.js"></script>
 

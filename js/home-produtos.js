@@ -12,6 +12,90 @@
   const $ = (selector, context = document) => context.querySelector(selector);
 
   // =========================================================
+  // IDIOMA DOS PRODUTOS DA HOME
+  // =========================================================
+
+  function getLanguage() {
+    const language =
+      window.QT_SITE?.settings?.()?.siteLanguage ||
+      window.QT_I18N?.getLanguage?.() ||
+      "pt-BR";
+
+    return window.QT_I18N?.normalizeLanguage?.(language) || "pt-BR";
+  }
+
+  const productTranslations = {
+    "pt-BR": {
+      bestSeller: "Mais procurado",
+      promotion: "Promoção",
+      featured: "Destaque",
+      heater: "Aquecedor",
+      color: "Cor",
+      defaultDescription:
+        "Consulte informações e disponibilidade deste equipamento.",
+      pix: "no PIX",
+      installments: "ou {count}x de",
+      details: "Ver detalhes",
+      consult: "Consultar",
+      loading: "Carregando produtos...",
+      empty: "Nenhum produto em destaque no momento.",
+      error: "Não foi possível carregar os produtos no momento.",
+      ariaDetails: "Ver detalhes de {product}",
+    },
+
+    en: {
+      bestSeller: "Most popular",
+      promotion: "Promotion",
+      featured: "Featured",
+      heater: "Heater",
+      color: "Color",
+      defaultDescription:
+        "Check information and availability for this product.",
+      pix: "via PIX",
+      installments: "or {count}x of",
+      details: "View details",
+      consult: "Contact us",
+      loading: "Loading products...",
+      empty: "No featured products at the moment.",
+      error: "Products could not be loaded at the moment.",
+      ariaDetails: "View details for {product}",
+    },
+
+    es: {
+      bestSeller: "Más buscado",
+      promotion: "Promoción",
+      featured: "Destacado",
+      heater: "Calentador",
+      color: "Color",
+      defaultDescription:
+        "Consulta información y disponibilidad de este producto.",
+      pix: "por PIX",
+      installments: "o {count}x de",
+      details: "Ver detalles",
+      consult: "Consultar",
+      loading: "Cargando productos...",
+      empty: "No hay productos destacados en este momento.",
+      error: "No fue posible cargar los productos en este momento.",
+      ariaDetails: "Ver detalles de {product}",
+    },
+  };
+
+  function pt(key, replacements = {}) {
+    const language = getLanguage();
+
+    let text =
+      productTranslations[language]?.[key] ||
+      productTranslations["pt-BR"][key] ||
+      key;
+
+    Object.entries(replacements).forEach(([name, value]) => {
+      text = text.replace(`{${name}}`, String(value));
+    });
+
+    return text;
+  }
+
+  // =========================================================
   // FORMATAR PREÇO
   // =========================================================
 
@@ -59,15 +143,15 @@
 
   function getTag(product) {
     if (product.best_seller) {
-      return "Mais procurado";
+      return pt("bestSeller");
     }
 
     if (product.promotion) {
-      return "Promoção";
+      return pt("promotion");
     }
 
     if (product.featured) {
-      return "Destaque";
+      return pt("featured");
     }
 
     return "";
@@ -136,7 +220,7 @@
     if (usePix) {
       return {
         value: product.cash_price,
-        label: "no PIX",
+        label: pt("pix"),
       };
     }
 
@@ -164,7 +248,7 @@
 
     return `
       <span class="home-product-installment">
-        ou ${installments}x de
+        ${pt("installments", { count: installments })}
         ${formatCurrency(installmentValue)}${extraText}
       </span>
     `;
@@ -190,7 +274,9 @@
         <a
           class="product-image-link"
           href="${productUrl}"
-          aria-label="Ver detalhes do ${escapeHtml(product.name)}"
+          aria-label="${escapeHtml(
+            pt("ariaDetails", { product: product.name }),
+          )}"
         >
           <div class="product-image">
             <img
@@ -215,7 +301,7 @@
         }
 
         <span class="product-category">
-          ${escapeHtml(product.brand || "Aquecedor")}
+          ${escapeHtml(product.brand || pt("heater"))}
         </span>
 
         <h3>
@@ -246,17 +332,14 @@
           product.color
             ? `
               <span class="product-color">
-                Cor: ${escapeHtml(product.color)}
+               ${escapeHtml(pt("color"))}: ${escapeHtml(product.color)}
               </span>
             `
             : ""
         }
 
         <p>
-          ${escapeHtml(
-            product.short_description ||
-              "Consulte informações e disponibilidade deste equipamento.",
-          )}
+          ${escapeHtml(product.short_description || pt("defaultDescription"))}
         </p>
 
         <div class="home-product-price">
@@ -276,7 +359,7 @@
             class="btn btn-primary"
             href="${productUrl}"
           >
-            Ver detalhes
+           ${pt("details")}
           </a>
 
           <a
@@ -285,7 +368,7 @@
             target="_blank"
             rel="noopener"
           >
-            Consultar
+            ${pt("consult")}
           </a>
 
         </div>
@@ -308,7 +391,6 @@
       .select("*")
       .eq("active", true)
       .eq("featured", true)
-      .eq("category", "Aquecedores")
       .order("created_at", { ascending: false })
       .limit(4);
 
@@ -339,7 +421,7 @@
           color:#667780;
         "
       >
-        Carregando produtos...
+       ${pt("loading")}
       </div>
     `;
 
@@ -356,7 +438,7 @@
               color:#667780;
             "
           >
-            Nenhum aquecedor em destaque no momento.
+            ${pt("empty")}
           </div>
         `;
 
@@ -376,7 +458,7 @@
             color:#667780;
           "
         >
-          Não foi possível carregar os produtos no momento.
+          ${pt("error")}
         </div>
       `;
     }

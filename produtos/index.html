@@ -36,33 +36,26 @@
 
     <header class="site-header" id="topo">
       <div class="container nav-wrap">
-        <a
-          class="brand"
-          href="../index.html"
-          aria-label="Voltar para a página inicial"
-        >
-          <span
-            class="brand-mark"
-            data-company-logo-fallback
-            aria-hidden="true"
-          >
-            QT
-          </span>
+       <a
+  class="brand"
+  href="../index.html"
+  aria-label="Voltar para a página inicial"
+>
+  <img
+    data-company-logo
+    src=""
+    alt="Quality Therm Aquecedores"
+    hidden
+    style="
+      width: auto;
+      height: 64px;
+      max-width: 280px;
+      object-fit: contain;
+    "
+  />
 
-          <img
-            data-company-logo
-            src=""
-            alt="Logo da empresa"
-            hidden
-            style="width: 46px; height: 46px; object-fit: contain"
-          />
-
-          <span>
-            <strong data-company-short-name>Quality Therm</strong>
-
-            <small>Aquecedores</small>
-          </span>
-        </a>
+  </span>
+</a>
 
         <button
           class="menu-toggle"
@@ -73,17 +66,25 @@
         </button>
 
         <nav class="nav" aria-label="Navegação principal">
-          <a href="../index.html#produtos">Comprar</a>
+          <a href="../index.html#produtos" data-i18n="nav.buy"> Comprar </a>
 
-          <a href="../index.html#servicos">Serviços</a>
+          <a href="../index.html#servicos" data-i18n="nav.services">
+            Serviços
+          </a>
 
-          <a href="../index.html#dimensionador">Dimensionador</a>
+          <a href="../index.html#dimensionador" data-i18n="nav.sizing">
+            Dimensionador
+          </a>
 
-          <a href="../index.html#condominios">Condomínios</a>
+          <a href="../index.html#condominios" data-i18n="nav.condominiums">
+            Condomínios
+          </a>
 
-          <a href="../index.html#avaliacoes">Avaliações</a>
+          <a href="../index.html#avaliacoes" data-i18n="nav.reviews">
+            Avaliações
+          </a>
 
-          <a href="../index.html#contato">Contato</a>
+          <a href="../index.html#contato" data-i18n="nav.contact"> Contato </a>
         </nav>
 
         <a
@@ -113,17 +114,30 @@
         <div class="container">
           <div class="section-heading">
             <div>
-              <span class="eyebrow" id="catalogEyebrow"> Catálogo </span>
+         <span
+  class="eyebrow"
+  id="catalogEyebrow"
+  data-i18n="catalog.eyebrow"
+>
+  Catálogo
+</span>
 
-              <h1 id="catalogTitle" style="margin: 12px 0 0; max-width: 720px">
-                Encontre o produto ideal para sua necessidade.
-              </h1>
-            </div>
+<h1
+  id="catalogTitle"
+  data-i18n="catalog.title"
+  style="margin: 12px 0 0; max-width: 720px"
+>
+  Encontre o produto ideal para sua necessidade.
+</h1>
 
-            <p id="catalogDescription" style="max-width: 520px">
-              Explore aquecedores, acessórios, duchas e peças cadastrados no
-              painel administrativo.
-            </p>
+<p
+  id="catalogDescription"
+  data-i18n="catalog.description"
+  style="max-width: 520px"
+>
+  Explore aquecedores, acessórios, duchas e peças cadastrados no painel
+  administrativo.
+</p>
           </div>
         </div>
       </section>
@@ -133,12 +147,13 @@
       ====================================================== -->
 
       <section
-        style="
-          border-top: 1px solid #e2e7e8;
-          border-bottom: 1px solid #e2e7e8;
-          background: #ffffff;
-        "
-      >
+  style="
+    border-top: 1px solid #e2e7e8;
+    border-bottom: 1px solid #e2e7e8;
+    background: #ffffff;
+  "
+>
+      
         <div class="container" style="padding-top: 32px; padding-bottom: 32px">
           <div
             style="
@@ -153,6 +168,7 @@
               type="search"
               id="catalogSearch"
               placeholder="Buscar por produto, marca, modelo, SKU ou categoria..."
+data-i18n-placeholder="catalog.searchPlaceholder"
               autocomplete="off"
               style="
                 width: 100%;
@@ -177,6 +193,7 @@
                 type="button"
                 class="catalog-filter-btn active"
                 data-category="todos"
+                 data-i18n="catalog.all"
               >
                 Todos
               </button>
@@ -185,6 +202,7 @@
                 type="button"
                 class="catalog-filter-btn"
                 data-category="Aquecedores"
+                 data-i18n="catalog.heaters"
               >
                 Aquecedores
               </button>
@@ -193,6 +211,8 @@
                 type="button"
                 class="catalog-filter-btn"
                 data-category="Acessórios"
+                data-i18n="catalog.accessories"
+                
               >
                 Acessórios
               </button>
@@ -201,6 +221,7 @@
                 type="button"
                 class="catalog-filter-btn"
                 data-category="Duchas"
+                data-i18n="catalog.showers"
               >
                 Duchas
               </button>
@@ -209,6 +230,7 @@
                 type="button"
                 class="catalog-filter-btn"
                 data-category="Peças"
+                data-i18n="catalog.parts"
               >
                 Peças
               </button>
@@ -248,11 +270,17 @@
             "
           >
             <div>
-              <span class="eyebrow">Produtos</span>
+              <span class="eyebrow" data-i18n="catalog.products">
+  Produtos
+</span>
 
-              <h2 id="catalogResultsTitle" style="margin-top: 8px">
-                Todos os produtos
-              </h2>
+              <h2
+  id="catalogResultsTitle"
+  data-i18n="catalog.allProducts"
+  style="margin-top: 8px"
+>
+  Todos os produtos
+</h2>
             </div>
 
             <span id="catalogCount" style="color: #667780; font-size: 14px">
@@ -265,6 +293,7 @@
           <div class="product-grid" id="catalogProductsGrid">
             <div
               class="catalog-loading"
+              data-i18n="catalog.loading"
               style="
                 grid-column: 1 / -1;
                 padding: 50px 20px;
@@ -280,6 +309,7 @@
 
           <div
             id="catalogEmpty"
+          
             hidden
             style="
               padding: 50px 20px;
@@ -291,6 +321,7 @@
           >
             <strong
               id="catalogEmptyTitle"
+              data-i18n="catalog.emptyTitle"
               style="
                 display: block;
                 margin-bottom: 6px;
@@ -301,7 +332,9 @@
               Nenhum produto encontrado.
             </strong>
 
-            <span id="catalogEmptyText" style="color: #667780">
+            <span id="catalogEmptyText" 
+            data-i18n="catalog.emptyText"
+            style="color: #667780">
               Tente outra categoria ou termo de busca.
             </span>
           </div>
@@ -524,9 +557,10 @@
     </style>
 
     <!-- =====================================================
-         CONFIGURAÇÕES DA EMPRESA
-    ====================================================== -->
+     SISTEMA MULTILÍNGUE + CONFIGURAÇÕES DA EMPRESA
+====================================================== -->
 
+    <script src="../js/i18n.js"></script>
     <script src="../js/site-settings.js"></script>
 
     <!-- =====================================================
@@ -555,6 +589,111 @@
         const $$ = (selector, context = document) => [
           ...context.querySelectorAll(selector),
         ];
+
+                /* =====================================================
+           IDIOMA DO CATÁLOGO
+        ====================================================== */
+
+        function getCatalogLanguage() {
+          const language =
+            window.QT_SITE?.settings?.()?.siteLanguage ||
+            window.QT_I18N?.getLanguage?.() ||
+            "pt-BR";
+
+          return (
+            window.QT_I18N?.normalizeLanguage?.(language) ||
+            "pt-BR"
+          );
+        }
+
+        const catalogTranslations = {
+          "pt-BR": {
+            promotion: "Promoção",
+            bestSeller: "Mais procurado",
+            featured: "Destaque",
+            pixPrice: "Preço no PIX",
+            normalPrice: "Preço do produto",
+            installments: "Ou em até {count}x de {value} sem juros",
+            product: "Produto",
+            defaultDescription:
+              "Consulte informações e disponibilidade deste produto.",
+            consultPrice: "Consulte o valor",
+            viewProduct: "Ver produto",
+            consult: "Consultar",
+            viewAria: "Ver {product}",
+            all: "Todos",
+            allProducts: "Todos os produtos",
+            oneFound: "1 produto encontrado",
+            manyFound: "{count} produtos encontrados",
+            emptyTitle: "Nenhum produto encontrado.",
+            emptyText: "Tente outra categoria ou termo de busca.",
+            loadError: "Não foi possível carregar os produtos.",
+            reload: "Atualize a página e tente novamente.",
+          },
+
+          en: {
+            promotion: "Promotion",
+            bestSeller: "Most popular",
+            featured: "Featured",
+            pixPrice: "PIX price",
+            normalPrice: "Product price",
+            installments: "Up to {count}x of {value} interest-free",
+            product: "Product",
+            defaultDescription:
+              "Check information and availability for this product.",
+            consultPrice: "Contact us for price",
+            viewProduct: "View product",
+            consult: "Contact us",
+            viewAria: "View {product}",
+            all: "All",
+            allProducts: "All products",
+            oneFound: "1 product found",
+            manyFound: "{count} products found",
+            emptyTitle: "No products found.",
+            emptyText: "Try another category or search term.",
+            loadError: "Products could not be loaded.",
+            reload: "Refresh the page and try again.",
+          },
+
+          es: {
+            promotion: "Promoción",
+            bestSeller: "Más buscado",
+            featured: "Destacado",
+            pixPrice: "Precio por PIX",
+            normalPrice: "Precio del producto",
+            installments: "Hasta {count}x de {value} sin intereses",
+            product: "Producto",
+            defaultDescription:
+              "Consulta información y disponibilidad de este producto.",
+            consultPrice: "Consultar precio",
+            viewProduct: "Ver producto",
+            consult: "Consultar",
+            viewAria: "Ver {product}",
+            all: "Todos",
+            allProducts: "Todos los productos",
+            oneFound: "1 producto encontrado",
+            manyFound: "{count} productos encontrados",
+            emptyTitle: "No se encontraron productos.",
+            emptyText: "Prueba otra categoría o término de búsqueda.",
+            loadError: "No fue posible cargar los productos.",
+            reload: "Actualiza la página e inténtalo de nuevo.",
+          },
+        };
+
+        function ct(key, replacements = {}) {
+          const language = getCatalogLanguage();
+
+          let text =
+            catalogTranslations[language]?.[key] ||
+            catalogTranslations["pt-BR"][key] ||
+            key;
+
+          Object.entries(replacements).forEach(([name, value]) => {
+            text = text.replace(`{${name}}`, String(value));
+          });
+
+          return text;
+        }
 
         /* =====================================================
            ESTADO
@@ -637,21 +776,20 @@
         ====================================================== */
 
         function getTag(product) {
-          if (product.promotion) {
-            return "Promoção";
-          }
+  if (product.promotion) {
+    return ct("promotion");
+  }
 
-          if (product.best_seller) {
-            return "Mais procurado";
-          }
+  if (product.best_seller) {
+    return ct("bestSeller");
+  }
 
-          if (product.featured) {
-            return "Destaque";
-          }
+  if (product.featured) {
+    return ct("featured");
+  }
 
-          return "";
-        }
-
+  return "";
+}
         /* =====================================================
            LINK DO PRODUTO
         ====================================================== */
@@ -692,14 +830,14 @@
 
           if (priceType === "pix" && pixPrice > 0) {
             return {
-              label: "Preço no PIX",
+              label: ct("pixPrice"),
               value: pixPrice,
               type: "pix",
             };
           }
 
           return {
-            label: "Preço do produto",
+            label: ct("normalPrice"),
             value: normalPrice,
             type: "normal",
           };
@@ -721,11 +859,11 @@
           const installmentValue = Number(product.installment_value || 0);
 
           if (installments > 0 && installmentValue > 0) {
-            return (
-              `Ou em até ${installments}x de ` +
-              `${money(installmentValue)} sem juros`
-            );
-          }
+  return ct("installments", {
+    count: installments,
+    value: money(installmentValue),
+  });
+}
 
           return "";
         }
@@ -805,12 +943,12 @@
 
           const installmentText = getInstallmentText(product);
 
-          const name = product.name || product.model || "Produto";
+          const name = product.name || product.model || ct("product");
 
           const description =
-            product.short_description ||
-            "Consulte informações e disponibilidade deste produto.";
-
+  product.short_description ||
+  ct("defaultDescription");
+  
           return `
             <article
               class="product-card ${product.best_seller ? "featured" : ""}"
@@ -821,7 +959,10 @@
               <a
                 class="product-image-link"
                 href="${escapeHtml(page)}"
-                aria-label="Ver ${escapeHtml(name)}"
+                aria-label="${escapeHtml(
+                  ct("viewAria", { product: name }),
+               )}"
+
               >
                 <div class="product-image">
 
@@ -943,7 +1084,7 @@
                     <span
                       class="catalog-no-price"
                     >
-                      Consulte o valor
+                      ${ct("consultPrice")}
                     </span>
 
                     ${
@@ -968,7 +1109,7 @@
                   class="btn btn-primary"
                   href="${escapeHtml(page)}"
                 >
-                  Ver produto
+                 ${ct("viewProduct")}
                 </a>
 
                 <a
@@ -977,7 +1118,7 @@
                   target="_blank"
                   rel="noopener"
                 >
-                  Consultar
+                  ${ct("consult")}
                 </a>
 
               </div>
@@ -1011,11 +1152,11 @@
             }
 
             if (emptyTitle) {
-              emptyTitle.textContent = "Não foi possível carregar os produtos.";
+              emptyTitle.textContent = ct("loadError");
             }
 
             if (emptyText) {
-              emptyText.textContent = "Atualize a página e tente novamente.";
+              emptyText.textContent = ct("reload");
             }
 
             updateTitles(0);
@@ -1055,7 +1196,7 @@
             }
 
             if (emptyTitle) {
-              emptyTitle.textContent = "Não foi possível carregar os produtos.";
+              emptyTitle.textContent = ct("loadError");
             }
 
             if (emptyText) {
@@ -1063,6 +1204,7 @@
             }
 
             updateTitles(0);
+            emptyText.textContent = ct("reload");
           }
         }
 
@@ -1142,7 +1284,7 @@
               class="catalog-secondary-btn active"
               data-secondary="todos"
             >
-              Todos
+              ${ct("all")}
             </button>
 
             ${values
@@ -1179,14 +1321,13 @@
            TÍTULOS
         ====================================================== */
 
-        function updateTitles(count) {
+               function updateTitles(count) {
           const title = $("#catalogResultsTitle");
-
           const countElement = $("#catalogCount");
 
           if (title) {
             if (activeCategory === "todos") {
-              title.textContent = "Todos os produtos";
+              title.textContent = ct("allProducts");
             } else {
               title.textContent =
                 activeSecondary === "todos"
@@ -1196,11 +1337,19 @@
           }
 
           if (countElement) {
-            countElement.textContent = `${count} ${
-              count === 1 ? "produto encontrado" : "produtos encontrados"
-            }`;
+            countElement.textContent =
+              count === 1
+                ? ct("oneFound")
+                : ct("manyFound", { count });
           }
-        }
+        
+        if (countElement) {
+  countElement.textContent =
+    count === 1
+      ? ct("oneFound")
+      : ct("manyFound", { count });
+}
+}
 
         /* =====================================================
            RENDER DO CATÁLOGO
@@ -1229,7 +1378,9 @@
             /* CATEGORIA */
 
             const matchesCategory =
-              activeCategory === "todos" || category === activeCategory;
+              activeCategory === "todos"
+                ? product.show_all === true
+                : category === activeCategory;
 
             /* FILTRO SECUNDÁRIO */
 

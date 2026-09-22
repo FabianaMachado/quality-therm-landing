@@ -2,10 +2,28 @@
   "use strict";
 
   const cfg = window.QT_CONFIG || {};
+
   const $ = (selector, context = document) => context.querySelector(selector);
+
   const $$ = (selector, context = document) => [
     ...context.querySelectorAll(selector),
   ];
+
+  /* =========================================================
+     IDIOMA
+  ========================================================= */
+
+  function getLanguage() {
+    return window.QT_I18N?.getLanguage?.() || "pt-BR";
+  }
+
+  function tr(key, variables = {}) {
+    if (!window.QT_I18N?.t) {
+      return key;
+    }
+
+    return window.QT_I18N.t(key, getLanguage(), variables);
+  }
 
   /* =========================================================
      RASTREAMENTO
@@ -13,7 +31,11 @@
 
   function pushEvent(event, params = {}) {
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event, ...params });
+
+    window.dataLayer.push({
+      event,
+      ...params,
+    });
 
     if (typeof window.gtag === "function") {
       window.gtag("event", event, params);
@@ -47,6 +69,14 @@
         Boolean(fresh.gclid) ||
         Boolean(fresh.fbclid);
 
+      /*
+       * localStorage é utilizado somente para atribuição
+       * temporária de marketing.
+       *
+       * Produtos, clientes, avaliações e demais dados
+       * persistentes continuam no Supabase.
+       */
+
       if (!localStorage.getItem("qt_first_touch")) {
         localStorage.setItem("qt_first_touch", JSON.stringify(fresh));
       }
@@ -62,6 +92,7 @@
   }
 
   const attribution = getAttribution();
+
   pushEvent("page_context", attribution);
 
   /* =========================================================
@@ -72,42 +103,56 @@
     const phone = cfg.whatsapp || "5511985673883";
 
     return (
-      `https://api.whatsapp.com/send` +
+      "https://api.whatsapp.com/send" +
       `?phone=${encodeURIComponent(phone)}` +
       `&text=${encodeURIComponent(message)}`
     );
   }
 
-  const messages = {
-    geral:
-      "Olá! Vim pelo site da Quality Therm e gostaria de atendimento. Pode me ajudar?",
-
-    header:
-      "Olá! Vim pelo site da Quality Therm e gostaria de atendimento. Pode me ajudar?",
-
-    catalogo:
-      "Olá! Vim pelo site da Quality Therm e gostaria de conhecer os modelos de aquecedores disponíveis.",
-
-    compra:
-      "Olá! Vim pelo site da Quality Therm e gostaria de um orçamento para aquecedor. Preciso de orientação para escolher o modelo ideal.",
-
-    final:
-      "Olá! Vim pelo site da Quality Therm e gostaria de solicitar um orçamento.",
+  const generalMessageKeys = {
+    geral: "dynamic.whatsapp.general",
+    header: "dynamic.whatsapp.general",
+    catalogo: "dynamic.whatsapp.catalog",
+    compra: "dynamic.whatsapp.purchase",
+    final: "dynamic.whatsapp.final",
   };
+
+  function getGeneralMessage(intent) {
+    const key = generalMessageKeys[intent] || generalMessageKeys.geral;
+
+    return tr(key);
+  }
+
+  function updateGeneralWhatsAppLinks() {
+    $$(".js-whatsapp").forEach((element) => {
+      const intent = element.dataset.intent || "geral";
+
+      element.href = waUrl(getGeneralMessage(intent));
+
+      element.target = "_blank";
+      element.rel = "noopener";
+    });
+  }
+
+  updateGeneralWhatsAppLinks();
+
+  /*
+   * Se o idioma mudar enquanto a página estiver
+   * aberta, os links do WhatsApp são atualizados.
+   */
+
+  document.addEventListener("qt:languagechange", () => {
+    updateGeneralWhatsAppLinks();
+  });
 
   /* =========================================================
      BOTÕES GERAIS DO WHATSAPP
   ========================================================= */
 
   $$(".js-whatsapp").forEach((element) => {
-    const intent = element.dataset.intent || "geral";
-    const message = messages[intent] || messages.geral;
-
-    element.href = waUrl(message);
-    element.target = "_blank";
-    element.rel = "noopener";
-
     element.addEventListener("click", () => {
+      const intent = element.dataset.intent || "geral";
+
       pushEvent("whatsapp_click", {
         intent,
         ...attribution,
@@ -128,9 +173,12 @@
   ========================================================= */
 
   function openModal(modal, form, eventName, leadType) {
-    if (!modal) return;
+    if (!modal) {
+      return;
+    }
 
     modal.hidden = false;
+
     document.body.classList.add("modal-open");
 
     pushEvent(eventName, {
@@ -144,7 +192,9 @@
   }
 
   function closeModal(modal) {
-    if (!modal) return;
+    if (!modal) {
+      return;
+    }
 
     modal.hidden = true;
 
@@ -157,8 +207,14 @@
     }
   }
 
+  /* =========================================================
+     CEP
+  ========================================================= */
+
   function formatCep(value) {
-    const numbers = value.replace(/\D/g, "").slice(0, 8);
+    const numbers = String(value || "")
+      .replace(/\D/g, "")
+      .slice(0, 8);
 
     if (numbers.length <= 5) {
       return numbers;
@@ -177,12 +233,38 @@
     });
   }
 
+  function validateRequired(values) {
+    const missing = values.some((value) => !String(value || "").trim());
+
+    if (missing) {
+      alert(tr("dynamic.validation.required"));
+
+      return false;
+    }
+
+    return true;
+  }
+
+  function validateCep(cep, input) {
+    if (!isValidCep(cep)) {
+      alert(tr("dynamic.validation.invalidCep"));
+
+      input?.focus();
+
+      return false;
+    }
+
+    return true;
+  }
+
   /* =========================================================
-     MODAL — ASSISTÊNCIA TÉCNICA
+     ASSISTÊNCIA TÉCNICA
   ========================================================= */
 
   const assistanceModal = $("#assistanceModal");
+
   const assistanceForm = $("#assistanceForm");
+
   const assistanceCep = $("#assistanceCep");
 
   $$(".js-open-assistance").forEach((button) => {
@@ -212,33 +294,32 @@
     const data = new FormData(event.currentTarget);
 
     const name = String(data.get("name") || "").trim();
+
     const brand = String(data.get("brand") || "").trim();
+
     const model = String(data.get("model") || "").trim();
+
     const problem = String(data.get("problem") || "").trim();
+
     const cep = String(data.get("cep") || "").trim();
 
-    if (!name || !brand || !problem || !cep) {
-      alert("Por favor, preencha os campos obrigatórios.");
+    if (!validateRequired([name, brand, problem, cep])) {
       return;
     }
 
-    if (!isValidCep(cep)) {
-      alert("Digite um CEP válido no formato 00000-000.");
-      assistanceCep?.focus();
+    if (!validateCep(cep, assistanceCep)) {
       return;
     }
 
-    const modelText = model || "Não informado";
+    const modelText = model || tr("dynamic.validation.notInformed");
 
-    const message = `Olá! Vim pelo site da Quality Therm e gostaria de solicitar assistência técnica.
-
-Nome: ${name}
-Marca: ${brand}
-Modelo: ${modelText}
-Problema informado: ${problem}
-CEP: ${cep}
-
-Gostaria de verificar a disponibilidade para atendimento.`;
+    const message = tr("dynamic.whatsapp.assistance", {
+      name,
+      brand,
+      model: modelText,
+      problem,
+      cep,
+    });
 
     pushEvent("assistance_form_complete", {
       lead_type: "assistencia",
@@ -263,15 +344,18 @@ Gostaria de verificar a disponibilidade para atendimento.`;
     });
 
     window.open(waUrl(message), "_blank", "noopener");
+
     closeModal(assistanceModal);
   });
 
   /* =========================================================
-     MODAL — MANUTENÇÃO PREVENTIVA
+     MANUTENÇÃO PREVENTIVA
   ========================================================= */
 
   const maintenanceModal = $("#maintenanceModal");
+
   const maintenanceForm = $("#maintenanceForm");
+
   const maintenanceCep = $("#maintenanceCep");
 
   $$(".js-open-maintenance").forEach((button) => {
@@ -301,65 +385,76 @@ Gostaria de verificar a disponibilidade para atendimento.`;
     const data = new FormData(event.currentTarget);
 
     const name = String(data.get("name") || "").trim();
+
     const brand = String(data.get("brand") || "").trim();
+
     const model = String(data.get("model") || "").trim();
+
     const lastMaintenance = String(data.get("lastMaintenance") || "").trim();
+
     const cep = String(data.get("cep") || "").trim();
 
-    if (!name || !brand || !lastMaintenance || !cep) {
-      alert("Por favor, preencha os campos obrigatórios.");
+    if (!validateRequired([name, brand, lastMaintenance, cep])) {
       return;
     }
 
-    if (!isValidCep(cep)) {
-      alert("Digite um CEP válido no formato 00000-000.");
-      maintenanceCep?.focus();
+    if (!validateCep(cep, maintenanceCep)) {
       return;
     }
 
-    const modelText = model || "Não informado";
+    const modelText = model || tr("dynamic.validation.notInformed");
 
-    const message = `Olá! Vim pelo site da Quality Therm e gostaria de agendar uma manutenção preventiva.
-
-Nome: ${name}
-Marca: ${brand}
-Modelo: ${modelText}
-Última manutenção: ${lastMaintenance}
-CEP: ${cep}
-
-Gostaria de verificar a disponibilidade para atendimento.`;
+    const message = tr("dynamic.whatsapp.maintenance", {
+      name,
+      brand,
+      model: modelText,
+      lastMaintenance,
+      cep,
+    });
 
     pushEvent("maintenance_form_complete", {
       lead_type: "manutencao_preventiva",
+
       heater_brand: brand,
+
       last_maintenance: lastMaintenance,
+
       ...attribution,
     });
 
     pushEvent("generate_lead", {
       lead_source: "whatsapp",
+
       lead_type: "manutencao_preventiva",
+
       heater_brand: brand,
+
       currency: "BRL",
+
       value: 1,
+
       ...attribution,
     });
 
     pushEvent("whatsapp_click", {
       intent: "manutencao_preventiva",
+
       ...attribution,
     });
 
     window.open(waUrl(message), "_blank", "noopener");
+
     closeModal(maintenanceModal);
   });
 
   /* =========================================================
-     MODAL — INSTALAÇÃO / SUBSTITUIÇÃO
+     INSTALAÇÃO / SUBSTITUIÇÃO
   ========================================================= */
 
   const installationModal = $("#installationModal");
+
   const installationForm = $("#installationForm");
+
   const installationCep = $("#installationCep");
 
   $$(".js-open-installation").forEach((button) => {
@@ -389,63 +484,85 @@ Gostaria de verificar a disponibilidade para atendimento.`;
     const data = new FormData(event.currentTarget);
 
     const name = String(data.get("name") || "").trim();
+
     const installationType = String(data.get("installationType") || "").trim();
+
     const brand = String(data.get("brand") || "").trim();
+
     const model = String(data.get("model") || "").trim();
+
     const gas = String(data.get("gas") || "").trim();
+
     const cep = String(data.get("cep") || "").trim();
+
     const notes = String(data.get("notes") || "").trim();
 
-    if (!name || !installationType || !gas || !cep) {
-      alert("Por favor, preencha os campos obrigatórios.");
+    if (!validateRequired([name, installationType, gas, cep])) {
       return;
     }
 
-    if (!isValidCep(cep)) {
-      alert("Digite um CEP válido no formato 00000-000.");
-      installationCep?.focus();
+    if (!validateCep(cep, installationCep)) {
       return;
     }
 
-    const brandText = brand || "Não informado";
-    const modelText = model || "Não informado";
-    const notesText = notes || "Não informado";
+    const fallback = tr("dynamic.validation.notInformed");
 
-    const message = `Olá! Vim pelo site da Quality Therm e gostaria de solicitar um orçamento para instalação/substituição.
+    const brandText = brand || fallback;
 
-Nome: ${name}
-Serviço: ${installationType}
-Marca: ${brandText}
-Modelo: ${modelText}
-Tipo de gás: ${gas}
-CEP: ${cep}
-Observações: ${notesText}
+    const modelText = model || fallback;
 
-Gostaria de verificar as condições e disponibilidade para atendimento.`;
+    const notesText = notes || fallback;
+
+    const message = tr("dynamic.whatsapp.installation", {
+      name,
+
+      service: installationType,
+
+      brand: brandText,
+
+      model: modelText,
+
+      gas,
+
+      cep,
+
+      notes: notesText,
+    });
 
     pushEvent("installation_form_complete", {
       lead_type: "instalacao",
+
       installation_type: installationType,
+
       heater_brand: brandText,
+
       gas_type: gas,
+
       ...attribution,
     });
 
     pushEvent("generate_lead", {
       lead_source: "whatsapp",
+
       lead_type: "instalacao",
+
       installation_type: installationType,
+
       currency: "BRL",
+
       value: 1,
+
       ...attribution,
     });
 
     pushEvent("whatsapp_click", {
       intent: "instalacao",
+
       ...attribution,
     });
 
     window.open(waUrl(message), "_blank", "noopener");
+
     closeModal(installationModal);
   });
 
@@ -454,7 +571,9 @@ Gostaria de verificar as condições e disponibilidade para atendimento.`;
   ========================================================= */
 
   document.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape") return;
+    if (event.key !== "Escape") {
+      return;
+    }
 
     if (assistanceModal && !assistanceModal.hidden) {
       closeModal(assistanceModal);
@@ -470,12 +589,13 @@ Gostaria de verificar as condições e disponibilidade para atendimento.`;
   });
 
   /* =========================================================
-     PRODUTOS
+     PRODUTOS ESTÁTICOS
   ========================================================= */
 
   $$(".js-product").forEach((button) => {
     button.addEventListener("click", () => {
       const card = button.closest(".product-card");
+
       const product = card?.dataset.product || "aquecedor";
 
       pushEvent("product_interest", {
@@ -485,22 +605,21 @@ Gostaria de verificar as condições e disponibilidade para atendimento.`;
 
       pushEvent("generate_lead", {
         lead_source: "whatsapp",
+
         lead_type: "produto",
+
         item_name: product,
+
         currency: "BRL",
+
         value: 1,
+
         ...attribution,
       });
 
-      const message = `Olá! Vim pelo site da Quality Therm e tenho interesse no ${product}.
-
-Gostaria de confirmar:
-• disponibilidade;
-• versão GN ou GLP;
-• valor do equipamento;
-• valor da instalação.
-
-Pode me orientar?`;
+      const message = tr("dynamic.whatsapp.product", {
+        product,
+      });
 
       window.open(waUrl(message), "_blank", "noopener");
     });
@@ -521,18 +640,21 @@ Pode me orientar?`;
 
       pushEvent("generate_lead", {
         lead_source: "whatsapp",
+
         lead_type: "condominio",
+
         profile,
+
         currency: "BRL",
+
         value: 1,
+
         ...attribution,
       });
 
-      const message = `Olá! Vim pelo site da Quality Therm.
-
-Sou ${profile} e gostaria de informações sobre atendimento programado para condomínio.
-
-Pode me explicar como funciona?`;
+      const message = tr("dynamic.whatsapp.condominium", {
+        profile,
+      });
 
       window.open(waUrl(message), "_blank", "noopener");
     });
@@ -568,14 +690,18 @@ Pode me explicar como funciona?`;
     event.preventDefault();
 
     const form = event.currentTarget;
+
     const data = new FormData(form);
 
     const showers = Number(data.get("showers"));
+
     const flow = Number(data.get("flow"));
-    const gas = String(data.get("gas"));
+
+    const gas = String(data.get("gas") || "");
+
     const demand = showers * flow;
 
-       let band;
+    let band;
 
     if (demand <= 10) {
       band = "10 a 15 L/min";
@@ -586,63 +712,90 @@ Pode me explicar como funciona?`;
     } else if (demand <= 38) {
       band = "33 a 36 L/min";
     } else {
-      band = "40 L/min ou mais";
+      band = tr("dynamic.sizingResult.band40");
     }
+
     const result = $("#sizingResult");
-    if (!result) return;
+
+    if (!result) {
+      return;
+    }
 
     result.hidden = false;
 
-    result.innerHTML = `
-      <small>Estimativa inicial</small>
-      <br>
-      <strong>${band}</strong>
-       <p>
-        O dimensionamento final pode variar conforme as
-        condições da sua instalação. Para a indicação correta
-        do modelo, fale com um especialista da Quality Therm.
-      </p>
-      <button
-        type="button"
-        class="btn btn-primary"
-        id="sendSizing"
-      >
-        Confirmar com especialista
-      </button>
-    `;
+    /*
+     * Em vez de montar HTML com textos
+     * fixos em português, os elementos
+     * são criados separadamente.
+     */
+
+    result.innerHTML = "";
+
+    const small = document.createElement("small");
+
+    small.textContent = tr("dynamic.sizingResult.estimate");
+
+    const lineBreak = document.createElement("br");
+
+    const strong = document.createElement("strong");
+
+    strong.textContent = band;
+
+    const paragraph = document.createElement("p");
+
+    paragraph.textContent = tr("dynamic.sizingResult.disclaimer");
+
+    const button = document.createElement("button");
+
+    button.type = "button";
+
+    button.className = "btn btn-primary";
+
+    button.id = "sendSizing";
+
+    button.textContent = tr("dynamic.sizingResult.confirm");
+
+    result.append(small, lineBreak, strong, paragraph, button);
 
     pushEvent("calculator_complete", {
       showers,
+
       flow_per_shower: flow,
+
       gas_type: gas,
+
       estimated_band: band,
+
       ...attribution,
     });
 
-    $("#sendSizing")?.addEventListener("click", () => {
+    button.addEventListener("click", () => {
       pushEvent("generate_lead", {
         lead_source: "whatsapp",
+
         lead_type: "dimensionador",
+
         estimated_band: band,
+
         currency: "BRL",
+
         value: 1,
+
         ...attribution,
       });
 
       pushEvent("whatsapp_click", {
         intent: "dimensionador",
+
         ...attribution,
       });
 
-      const message = `Olá! Vim pelo site da Quality Therm e utilizei o dimensionador de aquecedor.
-
-Dados informados:
-• Uso simultâneo: ${showers} chuveiro(s)
-• Vazão aproximada: ${flow} L/min por ducha
-• Tipo de gás: ${gas}
-• Faixa estimada: ${band}
-
-Gostaria de confirmar qual modelo é mais indicado e receber um orçamento.`;
+      const message = tr("dynamic.whatsapp.sizing", {
+        showers,
+        flow,
+        gas,
+        band,
+      });
 
       window.open(waUrl(message), "_blank", "noopener");
     });
@@ -653,10 +806,13 @@ Gostaria de confirmar qual modelo é mais indicado e receber um orçamento.`;
   ========================================================= */
 
   const menuBtn = $(".menu-toggle");
+
   const nav = $(".nav");
 
   menuBtn?.addEventListener("click", () => {
-    if (!nav) return;
+    if (!nav) {
+      return;
+    }
 
     const open = nav.classList.toggle("open");
 
@@ -666,6 +822,7 @@ Gostaria de confirmar qual modelo é mais indicado e receber um orçamento.`;
   $$(".nav a").forEach((link) => {
     link.addEventListener("click", () => {
       nav?.classList.remove("open");
+
       menuBtn?.setAttribute("aria-expanded", "false");
     });
   });
@@ -679,4 +836,19 @@ Gostaria de confirmar qual modelo é mais indicado e receber um orçamento.`;
   if (year) {
     year.textContent = new Date().getFullYear();
   }
+
+  /* =========================================================
+     VOLTAR AO TOPO
+  ========================================================= */
+
+  const backToTop = $("#backToTop");
+
+  backToTop?.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
 })();

@@ -1,566 +1,416 @@
 <!doctype html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
 
-<head>
-  <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1"
-  />
+    <meta name="theme-color" content="#0e171d" />
 
-  <meta
-    name="theme-color"
-    content="#0e171d"
-  />
+    <meta name="robots" content="noindex,nofollow" />
 
-  <meta
-    name="robots"
-    content="noindex,nofollow"
-  />
+    <title>Painel Administrativo | Quality Therm</title>
 
-  <title>
-    Painel Administrativo | Quality Therm
-  </title>
+    <link rel="stylesheet" href="admin.css" />
+  </head>
 
-  <link
-    rel="stylesheet"
-    href="admin.css"
-  />
-</head>
+  <body>
+    <div class="admin-layout">
+      <!-- =====================================================
+           MENU LATERAL
+      ====================================================== -->
 
-<body>
+      <aside class="admin-sidebar">
+        <div class="admin-brand">
+          <div class="admin-brand-mark">QT</div>
 
-  <div class="admin-layout">
+          <div>
+            <strong>Quality Therm</strong>
 
-    <!-- =====================================================
-         MENU LATERAL
-    ====================================================== -->
-
-    <aside class="admin-sidebar">
-
-      <div class="admin-brand">
-
-        <div class="admin-brand-mark">
-          QT
+            <small data-admin-i18n="dashboard.adminPanel">
+              Painel Administrativo
+            </small>
+          </div>
         </div>
 
-        <div>
-
-          <strong>
-            Quality Therm
-          </strong>
-
-          <small>
-            Painel Administrativo
-          </small>
-
-        </div>
-
-      </div>
-
-      <nav class="admin-menu">
-
-        <a
-          href="index.html"
-          class="admin-menu-link active"
-        >
-          <span>⌂</span>
-          Dashboard
-        </a>
-
-        <a
-          href="produtos.html"
-          class="admin-menu-link"
-        >
-          <span>▦</span>
-          Produtos
-        </a>
-
-        <a
-          href="avaliacoes.html"
-          class="admin-menu-link"
-        >
-          <span>★</span>
-          Avaliações
-        </a>
-
-        <a
-          href="clientes.html"
-          class="admin-menu-link"
-        >
-          <span>▣</span>
-          Clientes atendidos
-        </a>
-
-        <a
-          href="configuracoes.html"
-          class="admin-menu-link"
-        >
-          <span>⚙</span>
-          Configurações
-        </a>
-
-        <a
-          href="../index.html"
-          class="admin-menu-link"
-          target="_blank"
-          rel="noopener"
-        >
-          <span>↗</span>
-          Ver site
-        </a>
-<button
-  type="button"
-  class="admin-menu-link admin-logout-button"
-  onclick="sairDoPainel()"
->
-  <span>⇥</span>
-  Sair
-</button>
-      </nav>
-
-      <div class="admin-sidebar-footer">
-
-        <small>
-          Quality Therm
-        </small>
-
-        <span>
-          Administração da loja
-        </span>
-
-      </div>
-
-    </aside>
-
-    <!-- =====================================================
-         CONTEÚDO
-    ====================================================== -->
-
-    <div class="admin-main">
-
-      <!-- ===================================================
-           TOPO
-      ==================================================== -->
-
-      <header class="admin-topbar">
-
-        <div>
-
-          <span class="admin-page-label">
-            Painel
-          </span>
-
-          <h1>
-            Visão geral
-          </h1>
-
-        </div>
-
-        <div class="admin-topbar-actions">
-
-          <a
-            href="produtos.html"
-            class="admin-button admin-button-primary"
-          >
-            + Novo produto
+        <nav class="admin-menu">
+          <a href="index.html" class="admin-menu-link active">
+            <span>⌂</span>
+            <span data-admin-i18n="nav.dashboard">Dashboard</span>
           </a>
 
+          <a href="produtos.html" class="admin-menu-link">
+            <span>▦</span>
+            <span data-admin-i18n="nav.products">Produtos</span>
+          </a>
+
+          <a href="avaliacoes.html" class="admin-menu-link">
+            <span>★</span>
+            <span data-admin-i18n="nav.reviews">Avaliações</span>
+          </a>
+
+          <a href="clientes.html" class="admin-menu-link">
+            <span>▣</span>
+            <span data-admin-i18n="dashboard.clientsServed">
+              Clientes atendidos
+            </span>
+          </a>
+
+          <a href="configuracoes.html" class="admin-menu-link">
+            <span>⚙</span>
+            <span data-admin-i18n="nav.settings">Configurações</span>
+          </a>
+
+          <a
+            href="../index.html"
+            class="admin-menu-link"
+            target="_blank"
+            rel="noopener"
+          >
+            <span>↗</span>
+            <span data-admin-i18n="dashboard.viewSite"> Ver site </span>
+          </a>
+
+          <button
+            type="button"
+            class="admin-menu-link admin-logout-button"
+            onclick="sairDoPainel()"
+          >
+            <span>⇥</span>
+            <span data-admin-i18n="nav.logout">Sair</span>
+          </button>
+        </nav>
+
+        <div class="admin-sidebar-footer">
+          <small>Quality Therm</small>
+
+          <span data-admin-i18n="dashboard.storeAdministration">
+            Administração da loja
+          </span>
         </div>
+      </aside>
 
-      </header>
+      <!-- =====================================================
+           CONTEÚDO
+      ====================================================== -->
 
-      <!-- ===================================================
-           DASHBOARD
-      ==================================================== -->
+      <div class="admin-main">
+        <!-- ===================================================
+             TOPO
+        ==================================================== -->
 
-      <main class="admin-content">
-
-        <!-- =================================================
-             CARDS DE PRODUTOS
-        ================================================== -->
-
-        <section class="admin-stats-grid">
-
-          <article class="admin-stat-card">
-
-            <span class="admin-stat-label">
-              Produtos cadastrados
+        <header class="admin-topbar">
+          <div>
+            <span class="admin-page-label" data-admin-i18n="dashboard.panel">
+              Painel
             </span>
 
-            <strong
-              class="admin-stat-number"
-              id="totalProducts"
-            >
-              0
-            </strong>
-
-            <small>
-              Total de produtos da loja
-            </small>
-
-          </article>
-
-          <article class="admin-stat-card">
-
-            <span class="admin-stat-label">
-              Produtos ativos
-            </span>
-
-            <strong
-              class="admin-stat-number"
-              id="activeProducts"
-            >
-              0
-            </strong>
-
-            <small>
-              Visíveis no catálogo
-            </small>
-
-          </article>
-
-          <article class="admin-stat-card">
-
-            <span class="admin-stat-label">
-              Destaques na Home
-            </span>
-
-            <strong
-              class="admin-stat-number"
-              id="featuredProducts"
-            >
-              0
-            </strong>
-
-            <small>
-              Produtos principais
-            </small>
-
-          </article>
-
-          <article class="admin-stat-card">
-
-            <span class="admin-stat-label">
-              Produtos inativos
-            </span>
-
-            <strong
-              class="admin-stat-number"
-              id="inactiveProducts"
-            >
-              0
-            </strong>
-
-            <small>
-              Ocultos da loja
-            </small>
-
-          </article>
-
-        </section>
-
-        <!-- =================================================
-             ACESSO RÁPIDO
-        ================================================== -->
-
-        <section class="admin-panel">
-
-          <div class="admin-panel-header">
-
-            <div>
-
-              <span class="admin-page-label">
-                Acesso rápido
-              </span>
-
-              <h2>
-                Gerencie seu site
-              </h2>
-
-            </div>
-
+            <h1 data-admin-i18n="dashboard.overview">Visão geral</h1>
           </div>
 
-          <div class="admin-quick-grid">
+          <div class="admin-topbar-actions">
+            <a href="produtos.html" class="admin-button admin-button-primary">
+              <span data-admin-i18n="dashboard.newProduct">
+                + Novo produto
+              </span>
+            </a>
+          </div>
+        </header>
 
-            <a
-              href="produtos.html"
-              class="admin-quick-card"
-            >
+        <!-- ===================================================
+             DASHBOARD
+        ==================================================== -->
 
-              <div class="admin-quick-icon">
-                +
-              </div>
+        <main class="admin-content">
+          <!-- =================================================
+               CARDS DE PRODUTOS
+          ================================================== -->
 
+          <section class="admin-stats-grid">
+            <article class="admin-stat-card">
+              <span
+                class="admin-stat-label"
+                data-admin-i18n="dashboard.registeredProducts"
+              >
+                Produtos cadastrados
+              </span>
+
+              <strong class="admin-stat-number" id="totalProducts"> 0 </strong>
+
+              <small data-admin-i18n="dashboard.storeProductTotal">
+                Total de produtos da loja
+              </small>
+            </article>
+
+            <article class="admin-stat-card">
+              <span
+                class="admin-stat-label"
+                data-admin-i18n="dashboard.activeProducts"
+              >
+                Produtos ativos
+              </span>
+
+              <strong class="admin-stat-number" id="activeProducts"> 0 </strong>
+
+              <small data-admin-i18n="dashboard.visibleInCatalog">
+                Visíveis no catálogo
+              </small>
+            </article>
+
+            <article class="admin-stat-card">
+              <span
+                class="admin-stat-label"
+                data-admin-i18n="dashboard.homeFeatured"
+              >
+                Destaques na Home
+              </span>
+
+              <strong class="admin-stat-number" id="featuredProducts">
+                0
+              </strong>
+
+              <small data-admin-i18n="dashboard.mainProducts">
+                Produtos principais
+              </small>
+            </article>
+
+            <article class="admin-stat-card">
+              <span
+                class="admin-stat-label"
+                data-admin-i18n="dashboard.inactiveProducts"
+              >
+                Produtos inativos
+              </span>
+
+              <strong class="admin-stat-number" id="inactiveProducts">
+                0
+              </strong>
+
+              <small data-admin-i18n="dashboard.hiddenFromStore">
+                Ocultos da loja
+              </small>
+            </article>
+          </section>
+
+          <!-- =================================================
+               ACESSO RÁPIDO
+          ================================================== -->
+
+          <section class="admin-panel">
+            <div class="admin-panel-header">
               <div>
-
-                <strong>
-                  Adicionar produto
-                </strong>
-
-                <span>
-                  Cadastre aquecedores, acessórios,
-                  duchas e peças.
+                <span
+                  class="admin-page-label"
+                  data-admin-i18n="dashboard.quickAccess"
+                >
+                  Acesso rápido
                 </span>
 
+                <h2 data-admin-i18n="dashboard.manageSite">
+                  Gerencie seu site
+                </h2>
               </div>
+            </div>
 
-            </a>
+            <div class="admin-quick-grid">
+              <a href="produtos.html" class="admin-quick-card">
+                <div class="admin-quick-icon">+</div>
 
-            <a
-              href="avaliacoes.html"
-              class="admin-quick-card"
-            >
+                <div>
+                  <strong data-admin-i18n="dashboard.addProduct">
+                    Adicionar produto
+                  </strong>
 
-              <div class="admin-quick-icon">
-                ★
-              </div>
+                  <span data-admin-i18n="dashboard.addProductDescription">
+                    Cadastre aquecedores, acessórios, duchas e peças.
+                  </span>
+                </div>
+              </a>
 
+              <a href="avaliacoes.html" class="admin-quick-card">
+                <div class="admin-quick-icon">★</div>
+
+                <div>
+                  <strong data-admin-i18n="nav.reviews"> Avaliações </strong>
+
+                  <span data-admin-i18n="dashboard.reviewsDescription">
+                    Aprove e escolha as avaliações exibidas no site.
+                  </span>
+                </div>
+              </a>
+
+              <a href="clientes.html" class="admin-quick-card">
+                <div class="admin-quick-icon">▣</div>
+
+                <div>
+                  <strong data-admin-i18n="dashboard.clientsServed">
+                    Clientes atendidos
+                  </strong>
+
+                  <span data-admin-i18n="dashboard.clientsDescription">
+                    Gerencie condomínios, lojas e empresas atendidas.
+                  </span>
+                </div>
+              </a>
+
+              <a href="configuracoes.html" class="admin-quick-card">
+                <div class="admin-quick-icon">⚙</div>
+
+                <div>
+                  <strong data-admin-i18n="nav.settings">
+                    Configurações
+                  </strong>
+
+                  <span data-admin-i18n="dashboard.settingsDescription">
+                    Altere dados da empresa, contatos e identidade visual.
+                  </span>
+                </div>
+              </a>
+
+              <a
+                href="../produtos/index.html"
+                class="admin-quick-card"
+                target="_blank"
+                rel="noopener"
+              >
+                <div class="admin-quick-icon">↗</div>
+
+                <div>
+                  <strong data-admin-i18n="dashboard.viewCatalog">
+                    Ver catálogo
+                  </strong>
+
+                  <span data-admin-i18n="dashboard.catalogDescription">
+                    Confira como os produtos aparecem para os clientes.
+                  </span>
+                </div>
+              </a>
+
+              <a
+                href="../index.html"
+                class="admin-quick-card"
+                target="_blank"
+                rel="noopener"
+              >
+                <div class="admin-quick-icon">↗</div>
+
+                <div>
+                  <strong data-admin-i18n="dashboard.viewSite">
+                    Ver site
+                  </strong>
+
+                  <span data-admin-i18n="dashboard.siteDescription">
+                    Abra a Home pública da empresa.
+                  </span>
+                </div>
+              </a>
+            </div>
+          </section>
+
+          <!-- =================================================
+               PRODUTOS RECENTES
+          ================================================== -->
+
+          <section class="admin-panel">
+            <div class="admin-panel-header admin-products-preview-header">
               <div>
+                <span class="admin-page-label" data-admin-i18n="nav.products">
+                  Produtos
+                </span>
 
-                <strong>
+                <h2 data-admin-i18n="dashboard.latest">Últimos cadastrados</h2>
+              </div>
+
+              <div class="admin-products-preview-actions">
+                <label
+                  for="dashboardProductsLimit"
+                  class="admin-products-limit"
+                >
+                  <span data-admin-i18n="dashboard.display"> Exibir </span>
+
+                  <select id="dashboardProductsLimit">
+                    <option value="5" selected>5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                  </select>
+
+                  <span data-admin-i18n="dashboard.productsLower">
+                    produtos
+                  </span>
+                </label>
+
+                <a href="./produtos.html" class="admin-text-link">
+                  <span data-admin-i18n="dashboard.viewAll"> Ver todos </span>
+                  →
+                </a>
+              </div>
+            </div>
+
+            <div class="admin-dashboard-products" id="productsPreview">
+              <div class="admin-empty">
+                <strong data-admin-i18n="dashboard.loadingProducts">
+                  Carregando produtos...
+                </strong>
+
+                <span data-admin-i18n="dashboard.waitMoment">
+                  Aguarde um instante.
+                </span>
+              </div>
+            </div>
+          </section>
+
+          <!-- =================================================
+               AVALIAÇÕES RECENTES
+          ================================================== -->
+
+          <section class="admin-panel">
+            <div class="admin-panel-header">
+              <div>
+                <span class="admin-page-label" data-admin-i18n="nav.reviews">
                   Avaliações
-                </strong>
-
-                <span>
-                  Aprove e escolha as avaliações
-                  exibidas no site.
                 </span>
 
+                <h2 data-admin-i18n="dashboard.recentReviews">
+                  Avaliações recentes
+                </h2>
               </div>
 
-            </a>
-
-            <a
-              href="clientes.html"
-              class="admin-quick-card"
-            >
-
-              <div class="admin-quick-icon">
-                ▣
-              </div>
-
-              <div>
-
-                <strong>
-                  Clientes atendidos
-                </strong>
-
-                <span>
-                  Gerencie condomínios, lojas
-                  e empresas atendidas.
-                </span>
-
-              </div>
-
-            </a>
-
-            <a
-              href="configuracoes.html"
-              class="admin-quick-card"
-            >
-
-              <div class="admin-quick-icon">
-                ⚙
-              </div>
-
-              <div>
-
-                <strong>
-                  Configurações
-                </strong>
-
-                <span>
-                  Altere dados da empresa,
-                  contatos e identidade visual.
-                </span>
-
-              </div>
-
-            </a>
-
-            <a
-              href="../produtos/index.html"
-              class="admin-quick-card"
-              target="_blank"
-              rel="noopener"
-            >
-
-              <div class="admin-quick-icon">
-                ↗
-              </div>
-
-              <div>
-
-                <strong>
-                  Ver catálogo
-                </strong>
-
-                <span>
-                  Confira como os produtos
-                  aparecem para os clientes.
-                </span>
-
-              </div>
-
-            </a>
-
-            <a
-              href="../index.html"
-              class="admin-quick-card"
-              target="_blank"
-              rel="noopener"
-            >
-
-              <div class="admin-quick-icon">
-                ↗
-              </div>
-
-              <div>
-
-                <strong>
-                  Ver site
-                </strong>
-
-                <span>
-                  Abra a Home pública
-                  da empresa.
-                </span>
-
-              </div>
-
-            </a>
-
-          </div>
-
-        </section>
-
-        <!-- =================================================
-             PRODUTOS RECENTES
-        ================================================== -->
-
-        <section class="admin-panel">
-
-          <div class="admin-panel-header">
-
-            <div>
-
-              <span class="admin-page-label">
-                Produtos
-              </span>
-
-              <h2>
-                Últimos cadastrados
-              </h2>
-
+              <a href="avaliacoes.html" class="admin-text-link">
+                <span data-admin-i18n="dashboard.manage"> Gerenciar </span>
+                →
+              </a>
             </div>
 
-            <a
-              href="produtos.html"
-              class="admin-text-link"
-            >
-              Ver todos →
-            </a>
+            <div class="admin-products-preview" id="reviewsPreview">
+              <div class="admin-empty">
+                <strong data-admin-i18n="dashboard.noReviews">
+                  Nenhuma avaliação recebida.
+                </strong>
 
-          </div>
-
-          <div
-            class="admin-products-preview"
-            id="productsPreview"
-          >
-
-            <div class="admin-empty">
-
-              <strong>
-                Nenhum produto cadastrado ainda.
-              </strong>
-
-              <span>
-                Os produtos cadastrados
-                aparecerão aqui.
-              </span>
-
+                <span data-admin-i18n="dashboard.reviewsWillAppear">
+                  As avaliações dos clientes aparecerão aqui.
+                </span>
+              </div>
             </div>
-
-          </div>
-
-        </section>
-
-        <!-- =================================================
-             AVALIAÇÕES RECENTES
-        ================================================== -->
-
-        <section class="admin-panel">
-
-          <div class="admin-panel-header">
-
-            <div>
-
-              <span class="admin-page-label">
-                Avaliações
-              </span>
-
-              <h2>
-                Avaliações recentes
-              </h2>
-
-            </div>
-
-            <a
-              href="avaliacoes.html"
-              class="admin-text-link"
-            >
-              Gerenciar →
-            </a>
-
-          </div>
-
-          <div
-            class="admin-products-preview"
-            id="reviewsPreview"
-          >
-
-            <div class="admin-empty">
-
-              <strong>
-                Nenhuma avaliação recebida.
-              </strong>
-
-              <span>
-                As avaliações dos clientes
-                aparecerão aqui.
-              </span>
-
-            </div>
-
-          </div>
-
-        </section>
-
-      </main>
-
+          </section>
+        </main>
+      </div>
     </div>
 
-  </div>
+    <!-- =====================================================
+         SCRIPTS
+    ====================================================== -->
 
-<script
-  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script
-  src="../js/supabase-config.js"
-></script>
+    <script src="../js/supabase-config.js"></script>
 
-<script
-  src="admin-auth.js"
-></script>
+    <script src="admin-i18n.js"></script>
 
-<script
-  src="admin.js"
-  defer
-></script>
+    <script src="admin-auth.js"></script>
 
-</body>
+    <script src="admin.js" defer></script>
+  </body>
 </html>

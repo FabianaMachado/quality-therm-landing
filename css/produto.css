@@ -79,6 +79,7 @@
 /* IMAGEM PRINCIPAL */
 
 .product-main-image {
+  position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
   display: grid;
@@ -109,16 +110,81 @@
     transform 0.2s ease;
 }
 
+/* SETAS DA GALERIA */
+
+.product-gallery-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(14, 23, 29, 0.12);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink);
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.product-gallery-arrow[hidden] {
+  display: none;
+}
+
+.product-gallery-arrow:hover {
+  background: #fff;
+  box-shadow: 0 7px 22px rgba(0, 0, 0, 0.16);
+}
+
+.product-gallery-arrow:focus-visible {
+  outline: 3px solid rgba(214, 125, 47, 0.28);
+  outline-offset: 3px;
+}
+
+.product-gallery-arrow-prev {
+  left: 16px;
+}
+
+.product-gallery-arrow-next {
+  right: 16px;
+}
+
 /* =========================================================
    MINIATURAS
 ========================================================= */
 
 .product-thumbnails {
-  display: grid;
-  grid-template-columns:
-    repeat(4, minmax(0, 1fr));
+  display: flex;
   gap: 10px;
   margin-top: 14px;
+  padding: 2px 2px 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+}
+
+.product-thumbnails::-webkit-scrollbar {
+  height: 6px;
+}
+
+.product-thumbnails::-webkit-scrollbar-thumb {
+  background: #cbd2d5;
+  border-radius: 999px;
+}
+
+.product-thumbnails::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .product-thumbnails[hidden] {
@@ -127,7 +193,9 @@
 
 .product-thumbnail {
   appearance: none;
-  width: 100%;
+  flex: 0 0 92px;
+  width: 92px;
+  scroll-snap-align: start;
   aspect-ratio: 1 / 1;
   padding: 5px;
   border: 1px solid #d7dde0;
@@ -755,9 +823,28 @@
   }
 
   .product-thumbnails {
-    grid-template-columns:
-      repeat(4, minmax(0, 1fr));
     gap: 7px;
+    margin-inline: -2px;
+    padding-bottom: 7px;
+  }
+
+  .product-thumbnail {
+    flex-basis: 72px;
+    width: 72px;
+  }
+
+  .product-gallery-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 1.7rem;
+  }
+
+  .product-gallery-arrow-prev {
+    left: 10px;
+  }
+
+  .product-gallery-arrow-next {
+    right: 10px;
   }
 
   .product-thumbnail {
@@ -844,11 +931,6 @@
 ========================================================= */
 
 @media (max-width: 390px) {
-
-  .product-thumbnails {
-    grid-template-columns:
-      repeat(3, minmax(0, 1fr));
-  }
 
   .product-gallery-note {
     gap: 5px;

@@ -87,33 +87,53 @@
 
     <header class="site-header" id="topo">
       <div class="container nav-wrap">
-        <a class="brand" href="#topo" aria-label="Quality Therm - início">
-          <span class="brand-mark" aria-hidden="true"> QT </span>
+        <a
+          class="brand brand-with-logo"
+          href="#topo"
+          aria-label="Quality Therm Aquecedores - início"
+        >
+          <img
+            data-company-logo
+            class="company-header-logo"
+            src=""
+            alt="Quality Therm Aquecedores"
+            hidden
+          />
 
-          <span>
-            <strong>Quality Therm</strong>
-            <small>Aquecedores</small>
-          </span>
+          <div class="company-header-fallback" data-company-logo-fallback>
+            <span class="brand-mark" aria-hidden="true"> QT </span>
+
+            <span>
+              <strong data-company-short-name> Quality Therm </strong>
+
+              <small>Aquecedores</small>
+            </span>
+          </div>
         </a>
 
         <button
           class="menu-toggle"
           aria-label="Abrir menu"
+          data-i18n-aria-label="nav.openMenu"
           aria-expanded="false"
         >
           ☰
         </button>
 
-        <nav class="nav" aria-label="Navegação principal">
+        <nav
+          class="nav"
+          aria-label="Navegação principal"
+          data-i18n-aria-label="nav.mainNavigation"
+        >
           <a href="#produtos" id="menuStoreLink"> Loja </a>
 
-          <a href="#servicos"> Serviços </a>
+          <a href="#servicos" data-i18n="nav.services"> Serviços </a>
 
-          <a href="#dimensionador"> Dimensionador </a>
+          <a href="#dimensionador" data-i18n="nav.sizing"> Dimensionador </a>
 
-          <a href="#condominios"> Condomínios </a>
+          <a href="#condominios" data-i18n="nav.condominiums"> Condomínios </a>
 
-          <a href="#contato"> Contato </a>
+          <a href="#contato" data-i18n="nav.contact"> Contato </a>
         </nav>
 
         <a
@@ -134,16 +154,22 @@
       <section class="hero section-pad">
         <div class="container hero-grid">
           <div class="hero-copy">
-            <span class="eyebrow"> São Paulo • Atendimento especializado </span>
+            <span class="eyebrow" data-i18n="hero.eyebrow">
+              São Paulo • Atendimento especializado
+            </span>
 
             <h1>
-              Venda, instalação e manutenção de
-              <span>aquecedores a gás</span>.
+              <span data-i18n="hero.title"
+                >Venda, instalação e manutenção de</span
+              >
+              <span data-i18n="hero.titleHighlight">aquecedores a gás</span>.
             </h1>
 
             <p class="lead">
-              Escolha o equipamento certo, solicite assistência ou agende sua
-              manutenção com atendimento direto pelo WhatsApp.
+              <span data-i18n="hero.lead"
+                >Escolha o equipamento certo, solicite assistência ou agende sua
+                manutenção com atendimento direto pelo WhatsApp.</span
+              >
             </p>
 
             <div class="hero-actions">
@@ -152,7 +178,7 @@
                 data-event="cta_buy"
                 href="#produtos"
               >
-                Comprar aquecedor
+                <span data-i18n="hero.buy">Comprar aquecedor</span>
               </a>
 
               <!-- NOVO BOTÃO DE ASSISTÊNCIA -->
@@ -160,16 +186,22 @@
                 type="button"
                 class="btn btn-secondary js-open-assistance"
               >
-                Solicitar assistência
+                <span data-i18n="hero.assistance">Solicitar assistência</span>
               </button>
             </div>
 
             <div class="trust-row" aria-label="Diferenciais">
-              <span> ✓ Rinnai, Komeco e Rheem </span>
+              <span data-i18n="hero.trustBrands">
+                ✓ Rinnai, Komeco e Rheem
+              </span>
 
-              <span> ✓ Venda + instalação </span>
+              <span data-i18n="hero.trustInstallation">
+                ✓ Venda + instalação
+              </span>
 
-              <span> ✓ Manutenção preventiva </span>
+              <span data-i18n="hero.trustMaintenance">
+                ✓ Manutenção preventiva
+              </span>
             </div>
           </div>
 
@@ -177,9 +209,13 @@
 
           <div class="hero-card" aria-label="Atalhos de atendimento">
             <div class="hero-card-top">
-              <span class="mini-label"> Como podemos ajudar? </span>
+              <span class="mini-label" data-i18n="hero.help">
+                Como podemos ajudar?
+              </span>
 
-              <strong> Resolva em poucos cliques </strong>
+              <strong data-i18n="hero.quick">
+                Resolva em poucos cliques
+              </strong>
             </div>
 
             <a
@@ -190,9 +226,11 @@
               <span class="quick-icon"> ↗ </span>
 
               <span>
-                <strong> Quero comprar </strong>
+                <strong data-i18n="hero.wantBuy"> Quero comprar </strong>
 
-                <small> Descubra a vazão indicada </small>
+                <small data-i18n="hero.findFlow">
+                  Descubra a vazão indicada
+                </small>
               </span>
             </a>
 
@@ -204,9 +242,13 @@
               <span class="quick-icon"> ⌁ </span>
 
               <span>
-                <strong> Já tenho aquecedor </strong>
+                <strong data-i18n="hero.alreadyHave">
+                  Já tenho aquecedor
+                </strong>
 
-                <small> Manutenção, conserto ou instalação </small>
+                <small data-i18n="hero.repair">
+                  Manutenção, conserto ou instalação
+                </small>
               </span>
             </a>
 
@@ -218,9 +260,11 @@
               <span class="quick-icon"> ⌂ </span>
 
               <span>
-                <strong> Condomínio </strong>
+                <strong data-i18n="hero.condominium"> Condomínio </strong>
 
-                <small> Atendimento programado </small>
+                <small data-i18n="hero.scheduled">
+                  Atendimento programado
+                </small>
               </span>
             </a>
           </div>
@@ -231,31 +275,45 @@
          ATALHOS DE SERVIÇO
     =========================================== -->
 
-      <section class="intent-strip" aria-label="Serviços rápidos">
+      <section
+        class="intent-strip"
+        aria-label="Serviços rápidos"
+        data-i18n-aria-label="quickServices.label"
+      >
         <div class="container intent-grid">
           <a href="#produtos">
-            <strong> 🔥 Comprar </strong>
+            <strong data-i18n="quickServices.buy"> 🔥 Comprar </strong>
 
-            <span> Aquecedor novo </span>
+            <span data-i18n="quickServices.buyText"> Aquecedor novo </span>
           </a>
 
           <!-- CONserto abre formulário -->
           <button type="button" class="intent-link js-open-assistance">
-            <strong> 🔧 Conserto </strong>
+            <strong data-i18n="quickServices.repair"> 🔧 Conserto </strong>
 
-            <span> Falhas e códigos de erro </span>
+            <span data-i18n="quickServices.repairText">
+              Falhas e códigos de erro
+            </span>
           </button>
 
           <a href="#preventiva">
-            <strong> 🧰 Manutenção </strong>
+            <strong data-i18n="quickServices.maintenance">
+              🧰 Manutenção
+            </strong>
 
-            <span> Preventiva anual </span>
+            <span data-i18n="quickServices.maintenanceText">
+              Preventiva anual
+            </span>
           </a>
 
           <a href="#servicos">
-            <strong> 🏠 Instalação </strong>
+            <strong data-i18n="quickServices.installation">
+              🏠 Instalação
+            </strong>
 
-            <span> Troca ou nova instalação </span>
+            <span data-i18n="quickServices.installationText">
+              Troca ou nova instalação
+            </span>
           </a>
         </div>
       </section>
@@ -267,17 +325,19 @@
       <section id="dimensionador" class="section-pad section-soft">
         <div class="container two-col">
           <div>
-            <span class="eyebrow"> Dimensionador simples </span>
+            <span class="eyebrow" data-i18n="sizing.eyebrow">
+              Dimensionador simples
+            </span>
 
-            <h2>Não sabe qual aquecedor escolher?</h2>
+            <h2 data-i18n="sizing.title">Não sabe qual aquecedor escolher?</h2>
 
-            <p>
+            <p data-i18n="sizing.description">
               Responda algumas perguntas e receba uma faixa inicial de vazão. O
               resultado é orientativo e deve ser confirmado após análise das
               condições hidráulicas, gás e instalação.
             </p>
 
-            <div class="note">
+            <div class="note" data-i18n="sizing.note">
               💡 Uma boa escolha evita comprar um equipamento subdimensionado ou
               pagar por uma capacidade que você não precisa.
             </div>
@@ -285,49 +345,73 @@
 
           <form id="sizingForm" class="calculator-card">
             <label>
-              Quantos chuveiros podem ser usados ao mesmo tempo?
+              <span data-i18n="sizing.showers"
+                >Quantos chuveiros podem ser usados ao mesmo tempo?</span
+              >
 
               <select name="showers" required>
-                <option value="">Selecione</option>
+                <option value="" data-i18n="common.select">Selecione</option>
 
-                <option value="1">1 chuveiro</option>
+                <option value="1" data-i18n="sizing.oneShower">
+                  1 chuveiro
+                </option>
 
-                <option value="2">2 chuveiros</option>
+                <option value="2" data-i18n="sizing.twoShowers">
+                  2 chuveiros
+                </option>
 
-                <option value="3">3 chuveiros</option>
+                <option value="3" data-i18n="sizing.threeShowers">
+                  3 chuveiros
+                </option>
 
-                <option value="4">4 ou mais</option>
+                <option value="4" data-i18n="sizing.fourShowers">
+                  4 ou mais
+                </option>
               </select>
             </label>
 
             <label>
-              Vazão aproximada de cada ducha
+              <span data-i18n="sizing.flow"
+                >Vazão aproximada de cada ducha</span
+              >
 
               <select name="flow" required>
-                <option value="8">Econômica • ~8 L/min</option>
+                <option value="8" data-i18n="sizing.economic">
+                  Econômica • ~8 L/min
+                </option>
 
-                <option value="10" selected>Convencional • ~10 L/min</option>
+                <option value="10" selected data-i18n="sizing.conventional">
+                  Convencional • ~10 L/min
+                </option>
 
-                <option value="12">Conforto • ~12 L/min</option>
+                <option value="12" data-i18n="sizing.comfort">
+                  Conforto • ~12 L/min
+                </option>
 
-                <option value="15">Alta vazão • ~15 L/min</option>
+                <option value="15" data-i18n="sizing.highFlow">
+                  Alta vazão • ~15 L/min
+                </option>
               </select>
             </label>
 
             <label>
-              Tipo de gás
+              <span data-i18n="sizing.gas">Tipo de gás</span>
 
               <select name="gas" required>
-                <option value="GN">Gás Natural (GN)</option>
+                <option value="GN" data-i18n="sizing.naturalGas">
+                  Gás Natural (GN)
+                </option>
 
                 <option value="GLP">GLP</option>
 
-                <option value="nao-sei">Não sei</option>
+                <option value="nao-sei" data-i18n="sizing.dontKnow">
+                  Não sei
+                </option>
               </select>
             </label>
 
             <button class="btn btn-primary full" type="submit">
-              Calcular faixa indicada
+              <span data-i18n="sizing.calculate">Calcular faixa indicada</span>
             </button>
 
             <div
@@ -365,7 +449,9 @@
           </div>
 
           <div class="center" id="homeProductsEmpty" hidden>
-            <p>Nenhum produto foi marcado como destaque no painel.</p>
+            <p data-i18n="products.empty">
+              Nenhum produto foi marcado como destaque no painel.
+            </p>
           </div>
 
           <div class="center">
@@ -389,12 +475,14 @@
         <div class="container">
           <div class="section-heading light">
             <div>
-              <span class="eyebrow"> Serviços </span>
+              <span class="eyebrow" data-i18n="services.eyebrow">
+                Serviços
+              </span>
 
-              <h2>Já possui um aquecedor?</h2>
+              <h2 data-i18n="services.title">Já possui um aquecedor?</h2>
             </div>
 
-            <p>
+            <p data-i18n="services.description">
               Atendimento para manutenção, conserto, instalação e substituição
               de equipamentos.
             </p>
@@ -406,15 +494,17 @@
             <article>
               <span> 01 </span>
 
-              <h3>Manutenção preventiva</h3>
+              <h3 data-i18n="services.preventiveTitle">
+                Manutenção preventiva
+              </h3>
 
-              <p>
+              <p data-i18n="services.preventiveText">
                 Inspeção, limpeza, testes de funcionamento, verificação de
                 vazamentos e regulagem quando necessária.
               </p>
 
               <button type="button" class="text-button js-open-maintenance">
-                Agendar →
+                <span data-i18n="services.schedule">Agendar →</span>
               </button>
             </article>
 
@@ -423,9 +513,11 @@
             <article>
               <span> 02 </span>
 
-              <h3>Assistência / conserto</h3>
+              <h3 data-i18n="services.assistanceTitle">
+                Assistência / conserto
+              </h3>
 
-              <p>
+              <p data-i18n="services.assistanceText">
                 Aquecedor não acende, desliga, não aquece, apresenta ruído,
                 vazamento ou código de erro.
               </p>
@@ -433,7 +525,9 @@
               <!-- ABRE PRÉ-ATENDIMENTO -->
 
               <button type="button" class="text-button js-open-assistance">
-                Solicitar atendimento →
+                <span data-i18n="services.requestService"
+                  >Solicitar atendimento →</span
+                >
               </button>
             </article>
 
@@ -442,15 +536,19 @@
             <article>
               <span> 03 </span>
 
-              <h3>Instalação e substituição</h3>
+              <h3 data-i18n="services.installationTitle">
+                Instalação e substituição
+              </h3>
 
-              <p>
+              <p data-i18n="services.installationText">
                 Instalação de equipamento novo ou substituição, com avaliação
                 das condições existentes.
               </p>
 
               <button type="button" class="text-button js-open-installation">
-                Solicitar orçamento →
+                <span data-i18n="services.requestQuote"
+                  >Solicitar orçamento →</span
+                >
               </button>
             </article>
           </div>
@@ -464,18 +562,22 @@
       <section id="preventiva" class="section-pad">
         <div class="container maintenance-banner">
           <div>
-            <span class="eyebrow"> Manutenção preventiva </span>
+            <span class="eyebrow" data-i18n="preventive.eyebrow">
+              Manutenção preventiva
+            </span>
 
-            <h2>Há quanto tempo seu aquecedor não passa por uma manutenção?</h2>
+            <h2 data-i18n="preventive.title">
+              Há quanto tempo seu aquecedor não passa por uma manutenção?
+            </h2>
 
-            <p>
+            <p data-i18n="preventive.description">
               A manutenção preventiva ajuda a identificar problemas, verificar
               componentes e manter o equipamento funcionando corretamente.
             </p>
           </div>
 
           <button type="button" class="btn btn-primary js-open-maintenance">
-            Agendar manutenção
+            <span data-i18n="preventive.button">Agendar manutenção</span>
           </button>
         </div>
       </section>
@@ -487,13 +589,15 @@
       <section id="condominios" class="section-pad section-soft">
         <div class="container two-col align-center">
           <div>
-            <span class="eyebrow"> Condomínios </span>
+            <span class="eyebrow" data-i18n="condominiums.eyebrow">
+              Condomínios
+            </span>
 
-            <h2>
+            <h2 data-i18n="condominiums.title">
               Atendimento programado para moradores, síndicos e administradoras.
             </h2>
 
-            <p>
+            <p data-i18n="condominiums.description">
               Quando existe demanda concentrada, podemos organizar os contatos e
               avaliar condições para uma agenda programada de atendimento.
             </p>
@@ -501,18 +605,24 @@
 
           <div class="choice-grid">
             <button class="choice js-condo" data-profile="morador">
-              <strong> Sou morador </strong>
+              <strong data-i18n="condominiums.resident"> Sou morador </strong>
 
-              <small> Quero atendimento para meu apartamento </small>
+              <small data-i18n="condominiums.residentText">
+                Quero atendimento para meu apartamento
+              </small>
             </button>
 
             <button
               class="choice js-condo"
               data-profile="síndico ou administradora"
             >
-              <strong> Sou síndico / administradora </strong>
+              <strong data-i18n="condominiums.manager">
+                Sou síndico / administradora
+              </strong>
 
-              <small> Quero falar sobre atendimento programado </small>
+              <small data-i18n="condominiums.managerText">
+                Quero falar sobre atendimento programado
+              </small>
             </button>
           </div>
         </div>
@@ -526,9 +636,13 @@
         <div class="container">
           <div class="section-heading">
             <div>
-              <span class="eyebrow"> Avaliações de clientes </span>
+              <span class="eyebrow" data-i18n="reviews.eyebrow">
+                Avaliações de clientes
+              </span>
 
-              <h2>A experiência de quem já contou com a Quality Therm.</h2>
+              <h2 data-i18n="reviews.title">
+                A experiência de quem já contou com a Quality Therm.
+              </h2>
             </div>
 
             <div class="reviews-summary">
@@ -536,7 +650,9 @@
 
               <strong id="reviewsHomeAverage"> 0,0 </strong>
 
-              <span id="reviewsHomeCount"> Nenhuma avaliação em destaque </span>
+              <span id="reviewsHomeCount" data-i18n="reviews.noFeatured">
+                Nenhuma avaliação em destaque
+              </span>
             </div>
           </div>
 
@@ -544,12 +660,14 @@
 
           <div class="reviews-grid" id="reviewsHomeGrid">
             <div class="reviews-empty">
-              <strong> Avaliações em breve. </strong>
+              <strong data-i18n="reviews.comingSoon">
+                Avaliações em breve.
+              </strong>
 
-              <span>
-                As avaliações selecionadas no painel administrativo aparecerão
-                aqui.
-              </span>
+              <span data-i18n="reviews.comingSoonText"
+                >As avaliações selecionadas no painel administrativo aparecerão
+                aqui.</span
+              >
             </div>
           </div>
         </div>
@@ -562,13 +680,15 @@
       <section id="contato" class="section-pad final-cta">
         <div class="container final-box">
           <div>
-            <span class="eyebrow"> Fale com a Quality Therm </span>
+            <span class="eyebrow" data-i18n="contact.eyebrow">
+              Fale com a Quality Therm
+            </span>
 
-            <h2>
+            <h2 data-i18n="contact.title">
               Quer comprar, instalar ou resolver um problema no seu aquecedor?
             </h2>
 
-            <p>
+            <p data-i18n="contact.description">
               Entre em contato com nossa equipe para receber orientação sobre
               produtos e serviços.
             </p>
@@ -576,11 +696,11 @@
 
           <div class="final-actions">
             <a class="btn btn-primary js-whatsapp" data-intent="final" href="#">
-              Abrir WhatsApp
+              <span data-i18n="contact.whatsapp">Abrir WhatsApp</span>
             </a>
 
             <a class="btn btn-secondary js-phone" href="tel:+5511985673883">
-              Ligar agora
+              <span data-i18n="contact.call">Ligar agora</span>
             </a>
           </div>
         </div>
@@ -588,8 +708,8 @@
     </main>
 
     <!-- ==========================================
-       NOVO MODAL DE ASSISTÊNCIA TÉCNICA
-  =========================================== -->
+       MODAL DE ASSISTÊNCIA TÉCNICA
+    =========================================== -->
 
     <div class="assistance-modal" id="assistanceModal" hidden>
       <div class="assistance-backdrop js-close-assistance"></div>
@@ -600,36 +720,33 @@
         aria-modal="true"
         aria-labelledby="assistanceTitle"
       >
-        <!-- FECHAR -->
-
         <button
           type="button"
           class="assistance-close js-close-assistance"
           aria-label="Fechar formulário"
+          data-i18n-aria-label="common.closeForm"
         >
           ×
         </button>
 
         <div class="assistance-heading">
-          <span class="eyebrow"> Assistência técnica </span>
+          <span class="eyebrow" data-i18n="assistance.eyebrow">
+            Assistência técnica
+          </span>
 
-          <h2 id="assistanceTitle">
+          <h2 id="assistanceTitle" data-i18n="assistance.title">
             Conte rapidamente o que está acontecendo.
           </h2>
 
-          <p>
+          <p data-i18n="assistance.description">
             Preencha os dados abaixo. Ao continuar, abriremos o WhatsApp com as
             informações do atendimento preenchidas.
           </p>
         </div>
 
-        <!-- FORMULÁRIO -->
-
         <form id="assistanceForm" class="assistance-form">
-          <!-- NOME -->
-
           <label>
-            Nome
+            <span data-i18n="common.name">Nome</span>
             <span aria-hidden="true">*</span>
 
             <input
@@ -637,54 +754,54 @@
               name="name"
               autocomplete="name"
               placeholder="Digite seu nome"
+              data-i18n-placeholder="assistance.namePlaceholder"
               maxlength="80"
               required
             />
           </label>
 
-          <!-- MARCA -->
-
           <label>
-            Marca do aquecedor
+            <span data-i18n="assistance.brand">Marca do aquecedor</span>
             <span aria-hidden="true">*</span>
 
             <select name="brand" required>
-              <option value="">Selecione a marca</option>
+              <option value="" data-i18n="assistance.selectBrand">
+                Selecione a marca
+              </option>
 
               <option value="Rinnai">Rinnai</option>
-
               <option value="Komeco">Komeco</option>
-
               <option value="Rheem">Rheem</option>
-
               <option value="Lorenzetti">Lorenzetti</option>
-
               <option value="Bosch">Bosch</option>
 
-              <option value="Outra marca">Outra marca</option>
+              <option value="Outra marca" data-i18n="common.otherBrand">
+                Outra marca
+              </option>
 
-              <option value="Não sei informar">Não sei informar</option>
+              <option value="Não sei informar" data-i18n="common.dontKnow">
+                Não sei informar
+              </option>
             </select>
           </label>
 
-          <!-- MODELO -->
-
           <label>
-            Modelo
-            <small> opcional </small>
+            <span data-i18n="common.model">Modelo</span>
+            <small data-i18n="common.optional">opcional</small>
 
             <input
               type="text"
               name="model"
               placeholder="Ex.: E21 — se souber"
+              data-i18n-placeholder="assistance.modelPlaceholder"
               maxlength="60"
             />
           </label>
 
-          <!-- PROBLEMA -->
-
           <label>
-            O que está acontecendo?
+            <span data-i18n="assistance.problem">
+              O que está acontecendo?
+            </span>
             <span aria-hidden="true">*</span>
 
             <textarea
@@ -692,14 +809,15 @@
               rows="4"
               maxlength="500"
               placeholder="Ex.: não aquece, desliga durante o banho, apresenta código 11..."
+              data-i18n-placeholder="assistance.problemPlaceholder"
               required
             ></textarea>
           </label>
 
-          <!-- CEP -->
-
           <label>
-            CEP do local do atendimento
+            <span data-i18n="assistance.zipCode">
+              CEP do local do atendimento
+            </span>
             <span aria-hidden="true">*</span>
 
             <input
@@ -714,17 +832,15 @@
             />
           </label>
 
-          <!-- PRIVACIDADE -->
-
-          <p class="assistance-privacy">
+          <p class="assistance-privacy" data-i18n="assistance.privacy">
             Seus dados serão utilizados apenas para dar continuidade à sua
             solicitação de atendimento.
           </p>
 
-          <!-- BOTÃO -->
-
           <button type="submit" class="btn btn-primary full">
-            Solicitar assistência pelo WhatsApp
+            <span data-i18n="assistance.submit">
+              Solicitar assistência pelo WhatsApp
+            </span>
           </button>
         </form>
       </div>
@@ -732,7 +848,7 @@
 
     <!-- ==========================================
        MODAL DE MANUTENÇÃO PREVENTIVA
-  =========================================== -->
+    =========================================== -->
 
     <div class="assistance-modal" id="maintenanceModal" hidden>
       <div class="assistance-backdrop js-close-maintenance"></div>
@@ -747,23 +863,28 @@
           type="button"
           class="assistance-close js-close-maintenance"
           aria-label="Fechar formulário"
+          data-i18n-aria-label="common.closeForm"
         >
           ×
         </button>
 
         <div class="assistance-heading">
-          <span class="eyebrow"> Manutenção preventiva </span>
+          <span class="eyebrow" data-i18n="preventive.eyebrow">
+            Manutenção preventiva
+          </span>
 
-          <h2 id="maintenanceTitle">Vamos preparar seu atendimento.</h2>
+          <h2 id="maintenanceTitle" data-i18n="maintenance.title">
+            Vamos preparar seu atendimento.
+          </h2>
 
-          <p>
+          <p data-i18n="maintenance.description">
             Informe alguns dados do equipamento para agilizar o agendamento.
           </p>
         </div>
 
         <form id="maintenanceForm" class="assistance-form">
           <label>
-            Nome
+            <span data-i18n="common.name">Nome</span>
             <span aria-hidden="true">*</span>
 
             <input
@@ -771,56 +892,99 @@
               name="name"
               autocomplete="name"
               placeholder="Digite seu nome"
+              data-i18n-placeholder="assistance.namePlaceholder"
               maxlength="80"
               required
             />
           </label>
 
           <label>
-            Marca do aquecedor
+            <span data-i18n="assistance.brand">Marca do aquecedor</span>
             <span aria-hidden="true">*</span>
 
             <select name="brand" required>
-              <option value="">Selecione a marca</option>
+              <option value="" data-i18n="assistance.selectBrand">
+                Selecione a marca
+              </option>
+
               <option value="Rinnai">Rinnai</option>
               <option value="Komeco">Komeco</option>
               <option value="Rheem">Rheem</option>
               <option value="Lorenzetti">Lorenzetti</option>
               <option value="Bosch">Bosch</option>
-              <option value="Outra marca">Outra marca</option>
-              <option value="Não sei informar">Não sei informar</option>
+
+              <option value="Outra marca" data-i18n="common.otherBrand">
+                Outra marca
+              </option>
+
+              <option value="Não sei informar" data-i18n="common.dontKnow">
+                Não sei informar
+              </option>
             </select>
           </label>
 
           <label>
-            Modelo
-            <small>opcional</small>
+            <span data-i18n="common.model">Modelo</span>
+            <small data-i18n="common.optional">opcional</small>
 
             <input
               type="text"
               name="model"
               placeholder="Ex.: E21 — se souber"
+              data-i18n-placeholder="assistance.modelPlaceholder"
               maxlength="60"
             />
           </label>
 
           <label>
-            Última manutenção
+            <span data-i18n="maintenance.lastMaintenance">
+              Última manutenção
+            </span>
             <span aria-hidden="true">*</span>
 
             <select name="lastMaintenance" required>
-              <option value="">Selecione</option>
-              <option value="menos de 6 meses">Menos de 6 meses</option>
-              <option value="entre 6 e 12 meses">Entre 6 e 12 meses</option>
-              <option value="entre 1 e 2 anos">Entre 1 e 2 anos</option>
-              <option value="mais de 2 anos">Mais de 2 anos</option>
-              <option value="nunca foi realizada">Nunca foi realizada</option>
-              <option value="não sei informar">Não sei informar</option>
+              <option value="" data-i18n="common.select">Selecione</option>
+
+              <option
+                value="menos de 6 meses"
+                data-i18n="maintenance.lessSixMonths"
+              >
+                Menos de 6 meses
+              </option>
+
+              <option
+                value="entre 6 e 12 meses"
+                data-i18n="maintenance.sixTwelveMonths"
+              >
+                Entre 6 e 12 meses
+              </option>
+
+              <option
+                value="entre 1 e 2 anos"
+                data-i18n="maintenance.oneTwoYears"
+              >
+                Entre 1 e 2 anos
+              </option>
+
+              <option
+                value="mais de 2 anos"
+                data-i18n="maintenance.moreTwoYears"
+              >
+                Mais de 2 anos
+              </option>
+
+              <option value="nunca foi realizada" data-i18n="maintenance.never">
+                Nunca foi realizada
+              </option>
+
+              <option value="não sei informar" data-i18n="common.dontKnow">
+                Não sei informar
+              </option>
             </select>
           </label>
 
           <label>
-            CEP do atendimento
+            <span data-i18n="maintenance.zipCode"> CEP do atendimento </span>
             <span aria-hidden="true">*</span>
 
             <input
@@ -835,13 +999,15 @@
             />
           </label>
 
-          <p class="assistance-privacy">
+          <p class="assistance-privacy" data-i18n="maintenance.privacy">
             Seus dados serão utilizados apenas para dar continuidade à
             solicitação de atendimento.
           </p>
 
           <button type="submit" class="btn btn-primary full">
-            Agendar manutenção pelo WhatsApp
+            <span data-i18n="maintenance.submit">
+              Agendar manutenção pelo WhatsApp
+            </span>
           </button>
         </form>
       </div>
@@ -849,7 +1015,7 @@
 
     <!-- ==========================================
        MODAL DE INSTALAÇÃO / SUBSTITUIÇÃO
-  =========================================== -->
+    =========================================== -->
 
     <div class="assistance-modal" id="installationModal" hidden>
       <div class="assistance-backdrop js-close-installation"></div>
@@ -864,16 +1030,21 @@
           type="button"
           class="assistance-close js-close-installation"
           aria-label="Fechar formulário"
+          data-i18n-aria-label="common.closeForm"
         >
           ×
         </button>
 
         <div class="assistance-heading">
-          <span class="eyebrow"> Instalação e substituição </span>
+          <span class="eyebrow" data-i18n="installation.eyebrow">
+            Instalação e substituição
+          </span>
 
-          <h2 id="installationTitle">Conte um pouco sobre a instalação.</h2>
+          <h2 id="installationTitle" data-i18n="installation.title">
+            Conte um pouco sobre a instalação.
+          </h2>
 
-          <p>
+          <p data-i18n="installation.description">
             Essas informações ajudam nossa equipe a entender sua necessidade
             antes do orçamento.
           </p>
@@ -881,7 +1052,7 @@
 
         <form id="installationForm" class="assistance-form">
           <label>
-            Nome
+            <span data-i18n="common.name">Nome</span>
             <span aria-hidden="true">*</span>
 
             <input
@@ -889,51 +1060,77 @@
               name="name"
               autocomplete="name"
               placeholder="Digite seu nome"
+              data-i18n-placeholder="assistance.namePlaceholder"
               maxlength="80"
               required
             />
           </label>
 
           <label>
-            O que você precisa?
+            <span data-i18n="installation.need"> O que você precisa? </span>
             <span aria-hidden="true">*</span>
 
             <select name="installationType" required>
-              <option value="">Selecione</option>
-              <option value="instalação de aquecedor novo">
+              <option value="" data-i18n="common.select">Selecione</option>
+
+              <option
+                value="instalação de aquecedor novo"
+                data-i18n="installation.newInstallation"
+              >
                 Instalação de aquecedor novo
               </option>
-              <option value="substituição de aquecedor existente">
+
+              <option
+                value="substituição de aquecedor existente"
+                data-i18n="installation.replacement"
+              >
                 Substituição de aquecedor existente
               </option>
-              <option value="ainda preciso comprar o aquecedor">
+
+              <option
+                value="ainda preciso comprar o aquecedor"
+                data-i18n="installation.needToBuy"
+              >
                 Ainda preciso comprar o aquecedor
               </option>
-              <option value="não sei qual opção preciso">
+
+              <option
+                value="não sei qual opção preciso"
+                data-i18n="installation.dontKnowOption"
+              >
                 Não sei qual opção preciso
               </option>
             </select>
           </label>
 
           <label>
-            Marca do equipamento
-            <small>opcional</small>
+            <span data-i18n="installation.equipmentBrand">
+              Marca do equipamento
+            </span>
+            <small data-i18n="common.optional">opcional</small>
 
             <select name="brand">
-              <option value="">Selecione</option>
+              <option value="" data-i18n="common.select">Selecione</option>
+
               <option value="Rinnai">Rinnai</option>
               <option value="Komeco">Komeco</option>
               <option value="Rheem">Rheem</option>
               <option value="Lorenzetti">Lorenzetti</option>
               <option value="Bosch">Bosch</option>
-              <option value="Outra marca">Outra marca</option>
-              <option value="Não sei informar">Não sei informar</option>
+
+              <option value="Outra marca" data-i18n="common.otherBrand">
+                Outra marca
+              </option>
+
+              <option value="Não sei informar" data-i18n="common.dontKnow">
+                Não sei informar
+              </option>
             </select>
           </label>
 
           <label>
-            Modelo
-            <small>opcional</small>
+            <span data-i18n="common.model">Modelo</span>
+            <small data-i18n="common.optional">opcional</small>
 
             <input
               type="text"
@@ -944,19 +1141,31 @@
           </label>
 
           <label>
-            Tipo de gás
+            <span data-i18n="installation.gas"> Tipo de gás </span>
             <span aria-hidden="true">*</span>
 
             <select name="gas" required>
-              <option value="">Selecione</option>
-              <option value="GN - Gás Natural">GN - Gás Natural</option>
+              <option value="" data-i18n="common.select">Selecione</option>
+
+              <option
+                value="GN - Gás Natural"
+                data-i18n="installation.naturalGas"
+              >
+                GN - Gás Natural
+              </option>
+
               <option value="GLP">GLP</option>
-              <option value="não sei informar">Não sei informar</option>
+
+              <option value="não sei informar" data-i18n="common.dontKnow">
+                Não sei informar
+              </option>
             </select>
           </label>
 
           <label>
-            CEP do local da instalação
+            <span data-i18n="installation.zipCode">
+              CEP do local da instalação
+            </span>
             <span aria-hidden="true">*</span>
 
             <input
@@ -972,24 +1181,27 @@
           </label>
 
           <label class="full-field">
-            Observações
-            <small>opcional</small>
+            <span data-i18n="installation.observations"> Observações </span>
+            <small data-i18n="common.optional">opcional</small>
 
             <textarea
               name="notes"
               rows="4"
               maxlength="500"
               placeholder="Ex.: já existe aquecedor instalado, preciso retirar o antigo..."
+              data-i18n-placeholder="installation.observationsPlaceholder"
             ></textarea>
           </label>
 
-          <p class="assistance-privacy">
+          <p class="assistance-privacy" data-i18n="installation.privacy">
             Seus dados serão utilizados apenas para dar continuidade à
             solicitação de orçamento.
           </p>
 
           <button type="submit" class="btn btn-primary full">
-            Solicitar orçamento pelo WhatsApp
+            <span data-i18n="installation.submit">
+              Solicitar orçamento pelo WhatsApp
+            </span>
           </button>
         </form>
       </div>
@@ -997,7 +1209,7 @@
 
     <!-- ==========================================
        MODAL PÚBLICO DE AVALIAÇÃO
-  =========================================== -->
+    =========================================== -->
 
     <div class="assistance-modal" id="reviewPublicModal" hidden>
       <div class="assistance-backdrop" id="reviewPublicBackdrop"></div>
@@ -1013,18 +1225,21 @@
           class="assistance-close"
           id="reviewPublicClose"
           aria-label="Fechar avaliação"
+          data-i18n-aria-label="publicReview.close"
         >
           ×
         </button>
 
         <div class="assistance-heading">
-          <span class="eyebrow"> Avalie seu atendimento </span>
+          <span class="eyebrow" data-i18n="publicReview.eyebrow">
+            Avalie seu atendimento
+          </span>
 
-          <h2 id="reviewPublicTitle">
+          <h2 id="reviewPublicTitle" data-i18n="publicReview.title">
             Como foi sua experiência com a Quality Therm?
           </h2>
 
-          <p>
+          <p data-i18n="publicReview.description">
             Sua opinião nos ajuda a melhorar nosso atendimento e também ajuda
             outros clientes.
           </p>
@@ -1038,7 +1253,7 @@
           />
 
           <label>
-            Seu nome
+            <span data-i18n="publicReview.name">Seu nome</span>
             <span aria-hidden="true">*</span>
 
             <input
@@ -1047,13 +1262,14 @@
               id="reviewPublicName"
               maxlength="80"
               placeholder="Digite seu nome"
+              data-i18n-placeholder="assistance.namePlaceholder"
               required
             />
           </label>
 
           <div class="full-field">
             <span style="display: block; margin-bottom: 8px; font-weight: 700">
-              Sua nota
+              <span data-i18n="publicReview.rating">Sua nota</span>
               <span aria-hidden="true">*</span>
             </span>
 
@@ -1061,6 +1277,7 @@
               class="public-review-stars"
               id="publicReviewStars"
               aria-label="Escolha de 1 a 5 estrelas"
+              data-i18n-aria-label="publicReview.starsChoice"
             >
               <button type="button" data-rating="1" aria-label="1 estrela">
                 ★
@@ -1087,7 +1304,9 @@
           </div>
 
           <label class="full-field">
-            Conte como foi seu atendimento
+            <span data-i18n="publicReview.comment">
+              Conte como foi seu atendimento
+            </span>
             <span aria-hidden="true">*</span>
 
             <textarea
@@ -1096,16 +1315,17 @@
               rows="5"
               maxlength="700"
               placeholder="Ex.: atendimento rápido, técnico atencioso, serviço realizado conforme combinado..."
+              data-i18n-placeholder="publicReview.commentPlaceholder"
               required
             ></textarea>
           </label>
 
-          <p class="assistance-privacy">
+          <p class="assistance-privacy" data-i18n="publicReview.privacy">
             Sua avaliação poderá ser utilizada no site da Quality Therm.
           </p>
 
           <button type="submit" class="btn btn-primary full">
-            Enviar avaliação
+            <span data-i18n="publicReview.submit"> Enviar avaliação </span>
           </button>
         </form>
 
@@ -1122,16 +1342,20 @@
               ★★★★★
             </div>
 
-            <h3>Obrigada pela sua avaliação!</h3>
+            <h3 data-i18n="publicReview.thankYou">
+              Obrigada pela sua avaliação!
+            </h3>
 
-            <p>Sua opinião foi registrada com sucesso.</p>
+            <p data-i18n="publicReview.success">
+              Sua opinião foi registrada com sucesso.
+            </p>
 
             <button
               type="button"
               class="btn btn-secondary full"
               id="copyReviewButton"
             >
-              Copiar meu comentário
+              <span data-i18n="publicReview.copy"> Copiar meu comentário </span>
             </button>
 
             <a
@@ -1142,7 +1366,9 @@
               rel="noopener"
               style="margin-top: 10px"
             >
-              Publicar também no Google
+              <span data-i18n="publicReview.google">
+                Publicar também no Google
+              </span>
             </a>
           </div>
         </div>
@@ -1152,29 +1378,48 @@
     <!-- ==========================================
        RODAPÉ
   =========================================== -->
-
     <footer>
       <div class="container footer-grid">
+        <!-- EMPRESA -->
         <div>
-          <strong> Quality Therm Aquecedores </strong>
+          <strong data-company-name> Quality Therm Aquecedores </strong>
 
-          <p>Venda, instalação, manutenção e assistência técnica.</p>
+          <p data-i18n="footer.description">
+            Venda, instalação, manutenção e assistência técnica.
+          </p>
+
+          <div data-company-cnpj-wrap hidden>
+            <strong>CNPJ</strong>
+            <p data-company-cnpj></p>
+          </div>
         </div>
 
+        <!-- ATENDIMENTO -->
         <div>
-          <strong> Atendimento </strong>
+          <strong data-i18n="footer.service">Atendimento</strong>
 
           <p>
-            (11) 98567-3883
+            WhatsApp:
+            <span data-company-whatsapp> (11) 98567-3883 </span>
+
             <br />
-            (11) 97699-3640
+
+            <span data-i18n="footer.phone">Telefone:</span>
+            <span data-company-phone> (11) 97699-3640 </span>
           </p>
         </div>
 
+        <!-- CONTATO -->
         <div>
-          <strong> E-mail </strong>
+          <strong>E-mail</strong>
 
-          <p>vendasqualitythermaquecedores@gmail.com</p>
+          <p data-company-email>vendasqualitythermaquecedores@gmail.com</p>
+
+          <div data-company-address-wrap hidden>
+            <strong data-i18n="footer.address">Endereço</strong>
+
+            <p data-company-address></p>
+          </div>
         </div>
       </div>
 
@@ -1182,10 +1427,12 @@
         <span>
           ©
           <span id="year"></span>
-          Quality Therm
+          <span data-company-short-name> Quality Therm </span>
         </span>
 
-        <a href="#topo"> Voltar ao topo ↑ </a>
+        <a href="#topo" id="backToTop" data-i18n="footer.backToTop">
+          Voltar ao topo ↑
+        </a>
       </div>
     </footer>
 
@@ -1205,6 +1452,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script src="js/supabase-config.js"></script>
+
+    <script src="js/i18n.js"></script>
 
     <script src="js/site-settings.js"></script>
 

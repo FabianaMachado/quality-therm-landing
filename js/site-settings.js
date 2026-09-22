@@ -2,80 +2,69 @@
   "use strict";
 
   /* =========================================================
-     CONFIGURAÇÕES LOCAIS ANTIGAS
-     Mantemos temporariamente para não quebrar
-     empresa, WhatsApp, cores, logo etc.
+     CONFIGURAÇÕES PADRÃO
   ========================================================= */
-
-  const SETTINGS_KEY = "qt_admin_settings";
 
   const defaults = {
     companyName: "Quality Therm Aquecedores",
-
     companyShortName: "Quality Therm",
 
     companyWhatsapp: "11985673883",
-
     companyPhone: "11976993640",
-
     companyEmail: "vendasqualitythermaquecedores@gmail.com",
 
     companyLogo: "",
 
+    companyCnpj: "",
+
+    addressStreet: "",
+    addressNumber: "",
+    addressComplement: "",
+    addressNeighborhood: "",
+    addressCity: "",
+    addressState: "",
+    addressZipCode: "",
+
+    showCnpj: false,
+    showAddress: false,
+
     googleReviewUrl: "",
-
     instagramUrl: "",
-
     facebookUrl: "",
 
     primaryColor: "#d97d2b",
-
     darkColor: "#0e171d",
 
     whatsappButtonText: "WhatsApp",
-  };
 
-  /* =========================================================
-     CONFIGURAÇÕES DA LOJA - PADRÕES
-  ========================================================= */
-
-  const storeDefaults = {
     menuStoreLabel: "Loja",
 
     homeStoreEyebrow: "Loja",
-
     homeStoreTitle: "Produtos em destaque",
 
     homeStoreDescription:
       "Equipamentos, acessórios e produtos selecionados para facilitar sua escolha. Consulte disponibilidade, instalação e condições diretamente com nossa equipe.",
 
     homeStoreButtonText: "Ver todos os produtos",
+
+    siteLanguage: "pt-BR",
   };
 
   /* =========================================================
-     BUSCAR CONFIGURAÇÕES LOCAIS ANTIGAS
+     ESTADO
   ========================================================= */
 
-  function getLocalSettings() {
-    try {
-      const saved = JSON.parse(localStorage.getItem(SETTINGS_KEY));
+  let currentSettings = {
+    ...defaults,
+  };
 
-      if (!saved || typeof saved !== "object" || Array.isArray(saved)) {
-        return {};
-      }
-
-      return saved;
-    } catch (error) {
-      console.error("Erro ao carregar configurações locais:", error);
-
-      return {};
-    }
-  }
+  /* =========================================================
+     CONFIGURAÇÕES ATUAIS
+  ========================================================= */
 
   function settings() {
     return {
-      ...defaults,
-      ...getLocalSettings(),
+      ...currentSettings,
     };
   }
 
@@ -83,25 +72,38 @@
      SUPABASE
   ========================================================= */
 
-  function createPublicSupabaseClient() {
-    const config = window.QT_SUPABASE_CONFIG;
-
-    if (!config || !config.url || !config.publishableKey) {
-      console.warn("Supabase não configurado. Usando valores padrão da Loja.");
-
-      return null;
+  function getSupabaseClient() {
+    if (
+      window.supabaseClient &&
+      typeof window.supabaseClient.from === "function"
+    ) {
+      return window.supabaseClient;
     }
 
+    if (typeof window.initQualityThermSupabase === "function") {
+      return window.initQualityThermSupabase();
+    }
+
+    const config = window.QT_SUPABASE_CONFIG;
+
     if (
+      !config ||
+      !config.url ||
+      !config.publishableKey ||
       !window.supabase ||
       typeof window.supabase.createClient !== "function"
     ) {
-      console.warn("Biblioteca do Supabase não carregada.");
+      console.warn("Supabase não configurado. Usando configurações padrão.");
 
       return null;
     }
 
-    return window.supabase.createClient(config.url, config.publishableKey);
+    window.supabaseClient = window.supabase.createClient(
+      config.url,
+      config.publishableKey,
+    );
+
+    return window.supabaseClient;
   }
 
   /* =========================================================
@@ -142,6 +144,80 @@
     }
 
     return String(value || "");
+  }
+
+  /* =========================================================
+     FORMATAR CNPJ
+  ========================================================= */
+
+  function formatCnpj(value) {
+    const number = digits(value);
+
+    if (number.length !== 14) {
+      return String(value || "");
+    }
+
+    return (
+      `${number.slice(0, 2)}.` +
+      `${number.slice(2, 5)}.` +
+      `${number.slice(5, 8)}/` +
+      `${number.slice(8, 12)}-` +
+      `${number.slice(12)}`
+    );
+  }
+
+  /* =========================================================
+     FORMATAR CEP
+  ========================================================= */
+
+  function formatZipCode(value) {
+    const number = digits(value);
+
+    if (number.length !== 8) {
+      return String(value || "");
+    }
+
+    return `${number.slice(0, 5)}-${number.slice(5)}`;
+  }
+
+  /* =========================================================
+     ENDEREÇO COMPLETO
+  ========================================================= */
+
+  function getFullAddress() {
+    const cfg = settings();
+
+    const streetLine = [cfg.addressStreet, cfg.addressNumber]
+      .filter(Boolean)
+      .join(", ");
+
+    const parts = [];
+
+    if (streetLine) {
+      parts.push(streetLine);
+    }
+
+    if (cfg.addressComplement) {
+      parts.push(cfg.addressComplement);
+    }
+
+    if (cfg.addressNeighborhood) {
+      parts.push(cfg.addressNeighborhood);
+    }
+
+    const cityState = [cfg.addressCity, cfg.addressState]
+      .filter(Boolean)
+      .join(" - ");
+
+    if (cityState) {
+      parts.push(cityState);
+    }
+
+    if (cfg.addressZipCode) {
+      parts.push(`CEP ${formatZipCode(cfg.addressZipCode)}`);
+    }
+
+    return parts.join(" • ");
   }
 
   /* =========================================================
@@ -251,6 +327,53 @@
   }
 
   /* =========================================================
+     CNPJ
+  ========================================================= */
+
+  function applyCnpj() {
+    const cfg = settings();
+
+    const wrappers = document.querySelectorAll("[data-company-cnpj-wrap]");
+
+    const elements = document.querySelectorAll("[data-company-cnpj]");
+
+    const visible =
+      cfg.showCnpj === true && Boolean(String(cfg.companyCnpj || "").trim());
+
+    wrappers.forEach((element) => {
+      element.hidden = !visible;
+    });
+
+    elements.forEach((element) => {
+      element.textContent = visible ? formatCnpj(cfg.companyCnpj) : "";
+    });
+  }
+
+  /* =========================================================
+     ENDEREÇO
+  ========================================================= */
+
+  function applyAddress() {
+    const cfg = settings();
+
+    const wrappers = document.querySelectorAll("[data-company-address-wrap]");
+
+    const elements = document.querySelectorAll("[data-company-address]");
+
+    const address = getFullAddress();
+
+    const visible = cfg.showAddress === true && Boolean(address);
+
+    wrappers.forEach((element) => {
+      element.hidden = !visible;
+    });
+
+    elements.forEach((element) => {
+      element.textContent = visible ? address : "";
+    });
+  }
+
+  /* =========================================================
      LINKS
   ========================================================= */
 
@@ -276,6 +399,8 @@
           element.hidden = false;
         } else {
           element.removeAttribute("href");
+
+          element.hidden = true;
         }
       });
 
@@ -290,6 +415,8 @@
           element.hidden = false;
         } else {
           element.removeAttribute("href");
+
+          element.hidden = true;
         }
       });
 
@@ -397,19 +524,49 @@
   }
 
   /* =========================================================
-     APLICAR CONFIGURAÇÕES DA LOJA
+     LOJA
   ========================================================= */
 
-  function applyStoreSettings(store) {
-    const config = {
-      ...storeDefaults,
-      ...store,
+  function applyStoreSettings() {
+    const cfg = settings();
+
+    const language =
+      window.QT_I18N?.normalizeLanguage(cfg.siteLanguage || "pt-BR") || "pt-BR";
+
+    const storeTranslations = {
+      "pt-BR": {
+        menuStoreLabel: cfg.menuStoreLabel || defaults.menuStoreLabel,
+        homeStoreEyebrow: cfg.homeStoreEyebrow || defaults.homeStoreEyebrow,
+        homeStoreTitle: cfg.homeStoreTitle || defaults.homeStoreTitle,
+        homeStoreDescription:
+          cfg.homeStoreDescription || defaults.homeStoreDescription,
+        homeStoreButtonText:
+          cfg.homeStoreButtonText || defaults.homeStoreButtonText,
+      },
+
+      en: {
+        menuStoreLabel: "Store",
+        homeStoreEyebrow: "Store",
+        homeStoreTitle: "Featured products",
+        homeStoreDescription:
+          "Equipment, accessories and selected products to make your choice easier. Check availability, installation and purchasing conditions directly with our team.",
+        homeStoreButtonText: "View all products",
+      },
+
+      es: {
+        menuStoreLabel: "Tienda",
+        homeStoreEyebrow: "Tienda",
+        homeStoreTitle: "Productos destacados",
+        homeStoreDescription:
+          "Equipos, accesorios y productos seleccionados para facilitar tu elección. Consulta disponibilidad, instalación y condiciones de compra directamente con nuestro equipo.",
+        homeStoreButtonText: "Ver todos los productos",
+      },
     };
 
+    const text = storeTranslations[language] || storeTranslations["pt-BR"];
+
     const menuStoreLink = document.getElementById("menuStoreLink");
-
     const homeStoreEyebrow = document.getElementById("homeStoreEyebrow");
-
     const homeStoreTitle = document.getElementById("homeStoreTitle");
 
     const homeStoreDescription = document.getElementById(
@@ -419,94 +576,45 @@
     const homeStoreButtonText = document.getElementById("homeStoreButtonText");
 
     if (menuStoreLink) {
-      menuStoreLink.textContent = config.menuStoreLabel;
+      menuStoreLink.textContent = text.menuStoreLabel;
     }
 
     if (homeStoreEyebrow) {
-      homeStoreEyebrow.textContent = config.homeStoreEyebrow;
+      homeStoreEyebrow.textContent = text.homeStoreEyebrow;
     }
 
     if (homeStoreTitle) {
-      homeStoreTitle.textContent = config.homeStoreTitle;
+      homeStoreTitle.textContent = text.homeStoreTitle;
     }
 
     if (homeStoreDescription) {
-      homeStoreDescription.textContent = config.homeStoreDescription;
+      homeStoreDescription.textContent = text.homeStoreDescription;
     }
 
     if (homeStoreButtonText) {
-      homeStoreButtonText.textContent = config.homeStoreButtonText;
+      homeStoreButtonText.textContent = text.homeStoreButtonText;
     }
   }
 
   /* =========================================================
-     BUSCAR CONFIGURAÇÕES DA LOJA NO SUPABASE
+     IDIOMA / SISTEMA MULTILÍNGUE
   ========================================================= */
 
-  async function loadStoreSettings() {
-    const client = createPublicSupabaseClient();
+  function applyLanguage() {
+    const cfg = settings();
 
-    if (!client) {
-      applyStoreSettings(storeDefaults);
+    const language =
+      window.QT_I18N?.normalizeLanguage(cfg.siteLanguage || "pt-BR") || "pt-BR";
 
-      return;
-    }
+    document.documentElement.lang = language;
 
-    try {
-      const { data, error } = await client
-        .from("site_settings")
-        .select(
-          `
-            menu_store_label,
-            home_store_eyebrow,
-            home_store_title,
-            home_store_description,
-            home_store_button_text
-          `,
-        )
-        .eq("id", 1)
-        .single();
-
-      if (error) {
-        console.error("Erro ao carregar configurações da Loja:", error);
-
-        applyStoreSettings(storeDefaults);
-
-        return;
-      }
-
-      if (!data) {
-        applyStoreSettings(storeDefaults);
-
-        return;
-      }
-
-      applyStoreSettings({
-        menuStoreLabel: data.menu_store_label || storeDefaults.menuStoreLabel,
-
-        homeStoreEyebrow:
-          data.home_store_eyebrow || storeDefaults.homeStoreEyebrow,
-
-        homeStoreTitle: data.home_store_title || storeDefaults.homeStoreTitle,
-
-        homeStoreDescription:
-          data.home_store_description || storeDefaults.homeStoreDescription,
-
-        homeStoreButtonText:
-          data.home_store_button_text || storeDefaults.homeStoreButtonText,
-      });
-    } catch (error) {
-      console.error(
-        "Erro inesperado ao carregar configurações da Loja:",
-        error,
-      );
-
-      applyStoreSettings(storeDefaults);
+    if (window.QT_I18N && typeof window.QT_I18N.setLanguage === "function") {
+      window.QT_I18N.setLanguage(language);
     }
   }
 
   /* =========================================================
-     APLICAR CONFIGURAÇÕES ANTIGAS
+     APLICAR TODAS AS CONFIGURAÇÕES
   ========================================================= */
 
   function applySettings() {
@@ -514,13 +622,156 @@
 
     applyTextContent();
 
+    applyCnpj();
+
+    applyAddress();
+
     applyLinks();
 
     applyLogo();
 
+    // Primeiro define o idioma oficial do site.
+    applyLanguage();
+
+    // Depois aplica os textos configuráveis da loja.
+    applyStoreSettings();
+
     applyDocumentTitle();
 
     applyAccessibility();
+
+    // Por último, reaplica a tradução sobre os elementos da página.
+    if (window.QT_I18N && typeof window.QT_I18N.translate === "function") {
+      window.QT_I18N.translate(document);
+    }
+  }
+
+  /* =========================================================
+     BUSCAR CONFIGURAÇÕES NO SUPABASE
+  ========================================================= */
+
+  async function loadSettings() {
+    const client = getSupabaseClient();
+
+    if (!client) {
+      currentSettings = {
+        ...defaults,
+      };
+
+      applySettings();
+
+      return currentSettings;
+    }
+
+    try {
+      const { data, error } = await client
+        .from("site_settings")
+        .select("*")
+        .eq("id", 1)
+        .single();
+
+      if (error) {
+        throw error;
+      }
+
+      if (!data) {
+        currentSettings = {
+          ...defaults,
+        };
+
+        applySettings();
+
+        return currentSettings;
+      }
+
+      currentSettings = {
+        ...defaults,
+
+        companyName: data.company_name || defaults.companyName,
+
+        companyShortName: data.company_short_name || defaults.companyShortName,
+
+        companyWhatsapp: data.whatsapp ?? "",
+
+        companyPhone: data.phone ?? "",
+
+        companyEmail: data.email ?? "",
+
+        companyLogo: data.logo_url ?? "",
+
+        companyCnpj: data.cnpj ?? "",
+
+        addressStreet: data.address_street ?? "",
+
+        addressNumber: data.address_number ?? "",
+
+        addressComplement: data.address_complement ?? "",
+
+        addressNeighborhood: data.address_neighborhood ?? "",
+
+        addressCity: data.address_city ?? "",
+
+        addressState: data.address_state ?? "",
+
+        addressZipCode: data.address_zip_code ?? "",
+
+        showCnpj: data.show_cnpj === true,
+
+        showAddress: data.show_address === true,
+
+        googleReviewUrl: data.google_review_url ?? "",
+
+        instagramUrl: data.instagram_url ?? "",
+
+        facebookUrl: data.facebook_url ?? "",
+
+        primaryColor: data.primary_color || defaults.primaryColor,
+
+        darkColor: data.dark_color || defaults.darkColor,
+
+        whatsappButtonText:
+          data.whatsapp_button_text || defaults.whatsappButtonText,
+
+        menuStoreLabel: data.menu_store_label || defaults.menuStoreLabel,
+
+        homeStoreEyebrow: data.home_store_eyebrow || defaults.homeStoreEyebrow,
+
+        homeStoreTitle: data.home_store_title || defaults.homeStoreTitle,
+
+        homeStoreDescription:
+          data.home_store_description || defaults.homeStoreDescription,
+
+        homeStoreButtonText:
+          data.home_store_button_text || defaults.homeStoreButtonText,
+
+        siteLanguage: data.site_language || defaults.siteLanguage,
+      };
+
+      applySettings();
+
+      return currentSettings;
+    } catch (error) {
+      console.error("Erro ao carregar configurações do site:", error);
+
+      currentSettings = {
+        ...defaults,
+      };
+
+      applySettings();
+
+      return currentSettings;
+    }
+  }
+
+  /* =========================================================
+     COMPATIBILIDADE
+
+     Mantemos loadStoreSettings porque outras páginas podem
+     chamar esta função.
+  ========================================================= */
+
+  async function loadStoreSettings() {
+    return loadSettings();
   }
 
   /* =========================================================
@@ -529,11 +780,29 @@
 
   window.QT_SITE = {
     settings,
+
     digits,
+
     formatPhone,
+
+    formatCnpj,
+
+    formatZipCode,
+
+    getFullAddress,
+
     whatsappNumber,
+
     whatsappUrl,
+
     applySettings,
+
+    applyLanguage,
+
+    translate: (...args) => window.QT_I18N?.t?.(...args),
+
+    loadSettings,
+
     loadStoreSettings,
   };
 
@@ -542,9 +811,30 @@
   ========================================================= */
 
   async function init() {
+    /*
+    Primeiro aplicamos os valores padrão
+    enquanto aguardamos o Supabase.
+  */
+
     applySettings();
 
-    await loadStoreSettings();
+    /*
+    Depois carregamos a configuração oficial
+    salva no Supabase e reaplicamos tudo.
+  */
+
+    await loadSettings();
+
+    /*
+    Ativa o observador global de idioma.
+    Assim, conteúdos inseridos depois pelo
+    JavaScript ou Supabase também passam
+    pelo sistema multilíngue.
+  */
+
+    if (window.QT_I18N && typeof window.QT_I18N.observe === "function") {
+      window.QT_I18N.observe(document.body);
+    }
   }
 
   if (document.readyState === "loading") {
@@ -554,14 +844,4 @@
   } else {
     init();
   }
-
-  /* =========================================================
-     ALTERAÇÕES LOCAIS ENTRE ABAS
-  ========================================================= */
-
-  window.addEventListener("storage", (event) => {
-    if (event.key === SETTINGS_KEY) {
-      applySettings();
-    }
-  });
 })();

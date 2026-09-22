@@ -203,7 +203,10 @@
 
   function renderGallery(product, galleryImages) {
     const mainImage = $("#productMainImage");
+    const mainImageWrap = $("#productMainImageWrap");
     const thumbnails = $("#productThumbnails");
+    const prevButton = $("#productGalleryPrev");
+    const nextButton = $("#productGalleryNext");
 
     if (!mainImage || !thumbnails) {
       return;
@@ -249,27 +252,96 @@
       });
     }
 
+    let currentIndex = 0;
+
+    /*
+     * Atualiza a imagem principal
+     * e sincroniza a miniatura ativa.
+     */
+    function updateGallery(index, scrollThumbnail = true) {
+      if (!images.length) {
+        return;
+      }
+
+      /*
+       * Faz a navegação circular:
+       * depois da última volta para a primeira;
+       * antes da primeira volta para a última.
+       */
+      currentIndex = (index + images.length) % images.length;
+
+      const currentImage = images[currentIndex];
+
+      mainImage.src = currentImage.url;
+
+      mainImage.alt = `${product.name || "Produto"} - ${currentImage.label}`;
+
+      const buttons = $$(".product-thumbnail", thumbnails);
+
+      buttons.forEach((button, buttonIndex) => {
+        const active = buttonIndex === currentIndex;
+
+        button.classList.toggle("active", active);
+
+        button.setAttribute("aria-current", active ? "true" : "false");
+      });
+
+      /*
+       * Quando navegamos pelas setas,
+       * mantém a miniatura selecionada visível.
+       */
+      if (scrollThumbnail) {
+        const activeButton = buttons[currentIndex];
+
+        activeButton?.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+          inline: "nearest",
+        });
+      }
+    }
+
+    /*
+     * Primeira imagem exibida.
+     */
     mainImage.src = images[0].url;
+
     mainImage.alt = product.name || "Produto";
 
     /*
-     * Se houver apenas uma imagem,
-     * não precisamos mostrar miniaturas.
+     * Se houver somente uma imagem:
+     * - esconde miniaturas;
+     * - esconde seta anterior;
+     * - esconde seta próxima.
      */
     if (images.length <= 1) {
       thumbnails.innerHTML = "";
+
       thumbnails.hidden = true;
+
+      if (prevButton) {
+        prevButton.hidden = true;
+      }
+
+      if (nextButton) {
+        nextButton.hidden = true;
+      }
+
       return;
     }
 
+    /*
+     * Cria as miniaturas.
+     */
     thumbnails.innerHTML = images
       .map(
         (image, index) => `
           <button
             type="button"
             class="product-thumbnail ${index === 0 ? "active" : ""}"
-            data-image="${escapeHtml(image.url)}"
+            data-image-index="${index}"
             aria-label="${escapeHtml(image.label)}"
+            aria-current="${index === 0 ? "true" : "false"}"
           >
             <img
               src="${escapeHtml(image.url)}"
@@ -286,23 +358,120 @@
 
     thumbnails.hidden = false;
 
+    /*
+     * SETA ANTERIOR
+     */
+    if (prevButton) {
+      prevButton.hidden = false;
+
+      prevButton.onclick = () => {
+        updateGallery(currentIndex - 1);
+      };
+    }
+
+    /*
+     * SETA PRÓXIMA
+     */
+    if (nextButton) {
+      nextButton.hidden = false;
+
+      nextButton.onclick = () => {
+        updateGallery(currentIndex + 1);
+      };
+    }
+
+    /*
+     * CLIQUE NAS MINIATURAS
+     */
     $$(".product-thumbnail", thumbnails).forEach((button) => {
       button.addEventListener("click", () => {
-        const imageUrl = button.dataset.image;
+        const index = Number(button.dataset.imageIndex);
 
-        if (!imageUrl) {
+        if (!Number.isInteger(index)) {
           return;
         }
 
-        mainImage.src = imageUrl;
-
-        $$(".product-thumbnail", thumbnails).forEach((item) => {
-          item.classList.remove("active");
-        });
-
-        button.classList.add("active");
+        updateGallery(index, false);
       });
     });
+
+    /*
+     * =====================================================
+     * DESLIZAR NO CELULAR / TABLET
+     * =====================================================
+     *
+     * Esquerda  -> próxima imagem
+     * Direita   -> imagem anterior
+     */
+    if (mainImageWrap) {
+      let touchStartX = 0;
+
+      let touchStartY = 0;
+
+      mainImageWrap.addEventListener(
+        "touchstart",
+        (event) => {
+          const touch = event.changedTouches?.[0];
+
+          if (!touch) {
+            return;
+          }
+
+          touchStartX = touch.clientX;
+
+          touchStartY = touch.clientY;
+        },
+        {
+          passive: true,
+        },
+      );
+
+      mainImageWrap.addEventListener(
+        "touchend",
+        (event) => {
+          const touch = event.changedTouches?.[0];
+
+          if (!touch) {
+            return;
+          }
+
+          const deltaX = touch.clientX - touchStartX;
+
+          const deltaY = touch.clientY - touchStartY;
+
+          /*
+           * Evita trocar a imagem quando
+           * o usuário estiver apenas rolando
+           * a página para cima ou para baixo.
+           */
+          if (Math.abs(deltaX) < 45 || Math.abs(deltaX) <= Math.abs(deltaY)) {
+            return;
+          }
+
+          /*
+           * Arrastou para esquerda.
+           */
+          if (deltaX < 0) {
+            updateGallery(currentIndex + 1);
+          } else {
+
+          /*
+           * Arrastou para direita.
+           */
+            updateGallery(currentIndex - 1);
+          }
+        },
+        {
+          passive: true,
+        },
+      );
+    }
+
+    /*
+     * Inicializa a galeria
+     * na primeira imagem.
+     */
+    updateGallery(0, false);
   }
 
   /* =========================================================

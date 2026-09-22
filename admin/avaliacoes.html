@@ -1,656 +1,658 @@
 <!doctype html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
 
-<head>
-  <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1"
-  />
+    <meta name="theme-color" content="#0e171d" />
 
-  <meta
-    name="theme-color"
-    content="#0e171d"
-  />
+    <meta name="robots" content="noindex,nofollow" />
 
-  <meta
-    name="robots"
-    content="noindex,nofollow"
-  />
+    <title>Avaliações | Quality Therm</title>
 
-  <title>
-    Avaliações | Quality Therm
-  </title>
+    <link rel="stylesheet" href="admin.css" />
 
-  <link
-    rel="stylesheet"
-    href="admin.css"
-  />
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+  </head>
 
-<body>
+  <body>
+    <div class="admin-layout">
+      <!-- =====================================================
+           MENU LATERAL
+      ====================================================== -->
 
-  <div class="admin-layout">
+      <aside class="admin-sidebar">
+        <div class="admin-brand">
+          <div class="admin-brand-mark">QT</div>
 
-    <!-- =====================================================
-         MENU LATERAL
-    ====================================================== -->
+          <div>
+            <strong>Quality Therm</strong>
 
-    <aside class="admin-sidebar">
-
-      <div class="admin-brand">
-
-        <div class="admin-brand-mark">
-          QT
+            <small data-admin-i18n="dashboard.adminPanel">
+              Painel Administrativo
+            </small>
+          </div>
         </div>
 
-        <div>
+        <nav class="admin-menu">
+          <a href="index.html" class="admin-menu-link">
+            <span>⌂</span>
 
-          <strong>
-            Quality Therm
-          </strong>
+            <span data-admin-i18n="nav.dashboard">
+              Dashboard
+            </span>
+          </a>
 
-          <small>
-            Painel Administrativo
-          </small>
+          <a href="produtos.html" class="admin-menu-link">
+            <span>▦</span>
 
-        </div>
+            <span data-admin-i18n="nav.products">
+              Produtos
+            </span>
+          </a>
 
-      </div>
+          <a href="avaliacoes.html" class="admin-menu-link active">
+            <span>★</span>
 
-      <nav class="admin-menu">
-
-        <a
-          href="index.html"
-          class="admin-menu-link"
-        >
-          <span>⌂</span>
-          Dashboard
-        </a>
-
-        <a
-          href="produtos.html"
-          class="admin-menu-link"
-        >
-          <span>▦</span>
-          Produtos
-        </a>
-
-        <a
-          href="avaliacoes.html"
-          class="admin-menu-link active"
-        >
-          <span>★</span>
-          Avaliações
-        </a>
-
-       <a
-  href="clientes.html"
-  class="admin-menu-link"
->
-  <span>▣</span>
-  Clientes atendidos
-</a>
-
-<a
-  href="configuracoes.html"
-  class="admin-menu-link"
->
-  <span>⚙</span>
-  Configurações
-</a>
-
-<a
-  href="../index.html"
-  class="admin-menu-link"
-  target="_blank"
-  rel="noopener"
->
-  <span>↗</span>
-  Ver site
-</a>
-<button
-  type="button"
-  class="admin-menu-link admin-logout-button"
-  onclick="sairDoPainel()"
->
-  <span>⇥</span>
-  Sair
-</button>
-
-      </nav>
-
-      <div class="admin-sidebar-footer">
-
-        <small>
-          Quality Therm
-        </small>
-
-        <span>
-          Administração da loja
-        </span>
-
-      </div>
-
-    </aside>
-
-    <!-- =====================================================
-         CONTEÚDO
-    ====================================================== -->
-
-    <div class="admin-main">
-
-      <header class="admin-topbar">
-
-        <div>
-
-          <span class="admin-page-label">
-            Reputação
-          </span>
-
-          <h1>
-            Avaliações
-          </h1>
-
-        </div>
-
-        <div class="admin-topbar-actions">
-
-        <button
-  type="button"
-  class="admin-button admin-button-primary"
-  id="newReviewButton"
-  onclick="window.openReviewModal && window.openReviewModal()"
->
-  + Nova avaliação
-</button>
-
-        </div>
-
-      </header>
-
-      <main class="admin-content">
-
-        <!-- =================================================
-             INDICADORES
-        ================================================== -->
-
-        <section class="admin-stats-grid">
-
-          <article class="admin-stat-card">
-
-            <span class="admin-stat-label">
+            <span data-admin-i18n="nav.reviews">
               Avaliações
             </span>
+          </a>
 
-            <strong
-              class="admin-stat-number"
-              id="totalReviews"
-            >
-              0
-            </strong>
+          <a href="clientes.html" class="admin-menu-link">
+            <span>▣</span>
 
-            <small>
-              Total recebido
-            </small>
-
-          </article>
-
-          <article class="admin-stat-card">
-
-            <span class="admin-stat-label">
-              Aprovadas
+            <span data-admin-i18n="dashboard.clientsServed">
+              Clientes atendidos
             </span>
+          </a>
 
-            <strong
-              class="admin-stat-number"
-              id="activeReviews"
-            >
-              0
-            </strong>
+          <a href="configuracoes.html" class="admin-menu-link">
+            <span>⚙</span>
 
-            <small>
-              Avaliações aprovadas
-            </small>
-
-          </article>
-
-          <article class="admin-stat-card">
-
-            <span class="admin-stat-label">
-              Exibidas na Home
+            <span data-admin-i18n="nav.settings">
+              Configurações
             </span>
+          </a>
 
-            <strong
-              class="admin-stat-number"
-              id="featuredReviews"
-            >
-              0
-            </strong>
-
-            <small>
-              Provas sociais no site
-            </small>
-
-          </article>
-
-          <article class="admin-stat-card">
-
-            <span class="admin-stat-label">
-              Nota média
-            </span>
-
-            <strong
-              class="admin-stat-number"
-              id="averageReviews"
-            >
-              0,0
-            </strong>
-
-            <small>
-              Média das avaliações
-            </small>
-
-          </article>
-
-        </section>
-
-        <!-- =================================================
-             GERENCIAMENTO
-        ================================================== -->
-
-        <section class="admin-panel">
-
-          <div class="admin-panel-header">
-
-            <div>
-
-              <span class="admin-page-label">
-                Gerenciamento
-              </span>
-
-              <h2>
-                Avaliações recebidas
-              </h2>
-
-            </div>
-
-            <button
-  type="button"
-  class="admin-button admin-button-primary"
-  id="newReviewButtonSecondary"
-  onclick="window.openReviewModal && window.openReviewModal()"
->
-  + Adicionar
-</button>
-
-          </div>
-
-          <!-- PESQUISA -->
-
-          <div style="margin-bottom:20px;">
-
-            <input
-              type="search"
-              id="reviewSearch"
-              placeholder="Pesquisar cliente, comentário, origem ou status..."
-              autocomplete="off"
-              style="
-                width:100%;
-                max-width:460px;
-                padding:12px 14px;
-                border:1px solid #d7dfe2;
-                border-radius:10px;
-                font:inherit;
-              "
-            />
-
-          </div>
-
-          <!-- TABELA -->
-
-          <div class="admin-table-wrap">
-
-            <table class="admin-table">
-
-              <thead>
-
-                <tr>
-                  <th>Cliente</th>
-                  <th>Nota</th>
-                  <th>Origem</th>
-                  <th>Data</th>
-                  <th>Status</th>
-                  <th>Home</th>
-                  <th>Ações</th>
-                </tr>
-
-              </thead>
-
-              <tbody id="reviewsTableBody">
-              </tbody>
-
-            </table>
-
-          </div>
-
-          <!-- VAZIO -->
-
-          <div
-            class="admin-empty"
-            id="reviewsEmpty"
-            hidden
+          <a
+            href="../index.html"
+            class="admin-menu-link"
+            target="_blank"
+            rel="noopener"
           >
+            <span>↗</span>
 
-            <strong>
-              Nenhuma avaliação encontrada.
-            </strong>
-
-            <span>
-              As avaliações dos clientes
-              aparecerão aqui para análise.
+            <span data-admin-i18n="dashboard.viewSite">
+              Ver site
             </span>
-
-          </div>
-
-        </section>
-
-      </main>
-
-    </div>
-
-  </div>
-
-  <!-- =======================================================
-       MODAL AVALIAÇÃO
-  ======================================================== -->
-
-  <div
-    class="admin-modal"
-    id="reviewModal"
-    hidden
-  >
-
-    <div
-      class="admin-modal-backdrop"
-      id="reviewModalBackdrop"
-    ></div>
-
-    <div
-      class="admin-modal-dialog"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="reviewModalTitle"
-    >
-
-      <div class="admin-modal-header">
-
-        <div>
-
-          <span class="admin-page-label">
-            Avaliação
-          </span>
-
-          <h2 id="reviewModalTitle">
-            Nova avaliação
-          </h2>
-
-        </div>
-
-        <button
-          type="button"
-          class="admin-modal-close"
-          id="reviewModalClose"
-          aria-label="Fechar"
-        >
-          ×
-        </button>
-
-      </div>
-
-      <form
-        id="reviewForm"
-        class="admin-form"
-      >
-
-        <input
-          type="hidden"
-          name="id"
-          id="reviewId"
-        />
-
-        <!-- CLIENTE -->
-
-        <label class="admin-field">
-
-          <span>
-            Nome do cliente
-          </span>
-
-          <input
-            type="text"
-            name="customerName"
-            id="reviewCustomerName"
-            placeholder="Ex.: Maria Silva"
-            required
-          />
-
-        </label>
-
-        <!-- NOTA / ORIGEM -->
-
-        <div class="admin-form-grid">
-
-          <label class="admin-field">
-
-            <span>
-              Nota
-            </span>
-
-            <select
-              name="rating"
-              id="reviewRating"
-              required
-            >
-              <option value="5">
-                5 estrelas
-              </option>
-
-              <option value="4">
-                4 estrelas
-              </option>
-
-              <option value="3">
-                3 estrelas
-              </option>
-
-              <option value="2">
-                2 estrelas
-              </option>
-
-              <option value="1">
-                1 estrela
-              </option>
-            </select>
-
-          </label>
-
-          <label class="admin-field">
-
-            <span>
-              Origem
-            </span>
-
-            <select
-              name="source"
-              id="reviewSource"
-            >
-              <option value="Google">
-                Google
-              </option>
-
-              <option value="Site">
-                Site
-              </option>
-
-              <option value="WhatsApp">
-                WhatsApp
-              </option>
-
-              <option value="Facebook">
-                Facebook
-              </option>
-
-              <option value="Instagram">
-                Instagram
-              </option>
-
-              <option value="Outro">
-                Outro
-              </option>
-            </select>
-
-          </label>
-
-        </div>
-
-        <!-- DATA -->
-
-        <label class="admin-field">
-
-          <span>
-            Data
-          </span>
-
-          <input
-            type="date"
-            name="date"
-            id="reviewDate"
-            required
-          />
-
-        </label>
-
-        <!-- COMENTÁRIO -->
-
-        <label class="admin-field">
-
-          <span>
-            Comentário
-          </span>
-
-          <textarea
-            name="comment"
-            id="reviewComment"
-            rows="5"
-            maxlength="1000"
-            placeholder="Digite a avaliação do cliente..."
-            required
-          ></textarea>
-
-        </label>
-
-        <!-- LINK -->
-
-        <label class="admin-field">
-
-          <span>
-            Link da avaliação
-            <small>
-              opcional
-            </small>
-          </span>
-
-          <input
-            type="url"
-            name="reviewUrl"
-            id="reviewUrl"
-            placeholder="https://..."
-          />
-
-        </label>
-
-        <!-- CONFIGURAÇÕES -->
-
-        <div class="admin-form-options">
-
-          <label class="admin-check">
-
-            <input
-              type="checkbox"
-              name="active"
-              id="reviewActive"
-            />
-
-            <span>
-              Avaliação aprovada
-            </span>
-
-          </label>
-
-          <label class="admin-check">
-
-            <input
-              type="checkbox"
-              name="featured"
-              id="reviewFeatured"
-            />
-
-            <span>
-              Exibir na Home
-            </span>
-
-          </label>
-
-        </div>
-
-        <!-- BOTÕES -->
-
-        <div class="admin-form-actions">
+          </a>
 
           <button
             type="button"
-            class="admin-button"
-            id="reviewCancelButton"
+            class="admin-menu-link admin-logout-button"
+            onclick="sairDoPainel()"
           >
-            Cancelar
-          </button>
+            <span>⇥</span>
 
-          <button
-            type="submit"
-            class="admin-button admin-button-primary"
-          >
-            Salvar avaliação
+            <span data-admin-i18n="nav.logout">
+              Sair
+            </span>
           </button>
+        </nav>
 
+        <div class="admin-sidebar-footer">
+          <small>Quality Therm</small>
+
+          <span data-admin-i18n="dashboard.storeAdministration">
+            Administração da loja
+          </span>
         </div>
+      </aside>
 
-      </form>
+      <!-- =====================================================
+           CONTEÚDO
+      ====================================================== -->
 
+      <div class="admin-main">
+        <header class="admin-topbar">
+          <div>
+            <span
+              class="admin-page-label"
+              data-admin-i18n="reviews.reputation"
+            >
+              Reputação
+            </span>
+
+            <h1 data-admin-i18n="reviews.title">
+              Avaliações
+            </h1>
+          </div>
+
+          <div class="admin-topbar-actions">
+            <button
+              type="button"
+              class="admin-button admin-button-primary"
+              id="newReviewButton"
+              onclick="window.openReviewModal && window.openReviewModal()"
+            >
+              <span data-admin-i18n="reviews.newReview">
+                Nova avaliação
+              </span>
+            </button>
+          </div>
+        </header>
+
+        <main class="admin-content">
+          <!-- =================================================
+               INDICADORES
+          ================================================== -->
+
+          <section class="admin-stats-grid">
+            <article class="admin-stat-card">
+              <span
+                class="admin-stat-label"
+                data-admin-i18n="reviews.title"
+              >
+                Avaliações
+              </span>
+
+              <strong
+                class="admin-stat-number"
+                id="totalReviews"
+              >
+                0
+              </strong>
+
+              <small data-admin-i18n="reviews.totalReceived">
+                Total recebido
+              </small>
+            </article>
+
+            <article class="admin-stat-card">
+              <span
+                class="admin-stat-label"
+                data-admin-i18n="reviews.approved"
+              >
+                Aprovadas
+              </span>
+
+              <strong
+                class="admin-stat-number"
+                id="activeReviews"
+              >
+                0
+              </strong>
+
+              <small data-admin-i18n="reviews.approvedReviews">
+                Avaliações aprovadas
+              </small>
+            </article>
+
+            <article class="admin-stat-card">
+              <span
+                class="admin-stat-label"
+                data-admin-i18n="reviews.displayedHome"
+              >
+                Exibidas na Home
+              </span>
+
+              <strong
+                class="admin-stat-number"
+                id="featuredReviews"
+              >
+                0
+              </strong>
+
+              <small data-admin-i18n="reviews.socialProof">
+                Provas sociais no site
+              </small>
+            </article>
+
+            <article class="admin-stat-card">
+              <span
+                class="admin-stat-label"
+                data-admin-i18n="reviews.averageRating"
+              >
+                Nota média
+              </span>
+
+              <strong
+                class="admin-stat-number"
+                id="averageReviews"
+              >
+                0,0
+              </strong>
+
+              <small data-admin-i18n="reviews.average">
+                Média das avaliações
+              </small>
+            </article>
+          </section>
+
+          <!-- =================================================
+               GERENCIAMENTO
+          ================================================== -->
+
+          <section class="admin-panel">
+            <div class="admin-panel-header">
+              <div>
+                <span
+                  class="admin-page-label"
+                  data-admin-i18n="reviews.management"
+                >
+                  Gerenciamento
+                </span>
+
+                <h2 data-admin-i18n="reviews.receivedReviews">
+                  Avaliações recebidas
+                </h2>
+              </div>
+
+              <button
+                type="button"
+                class="admin-button admin-button-primary"
+                id="newReviewButtonSecondary"
+                onclick="window.openReviewModal && window.openReviewModal()"
+              >
+                <span data-admin-i18n="reviews.add">
+                  + Adicionar
+                </span>
+              </button>
+            </div>
+
+            <!-- =================================================
+                 PESQUISA
+            ================================================== -->
+
+            <div style="margin-bottom: 20px">
+              <input
+                type="search"
+                id="reviewSearch"
+                placeholder="Pesquisar cliente, comentário, origem ou status..."
+                data-admin-i18n-placeholder="reviews.searchPlaceholder"
+                autocomplete="off"
+                style="
+                  width: 100%;
+                  max-width: 460px;
+                  padding: 12px 14px;
+                  border: 1px solid #d7dfe2;
+                  border-radius: 10px;
+                  font: inherit;
+                "
+              />
+            </div>
+
+            <!-- =================================================
+                 TABELA
+            ================================================== -->
+
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th data-admin-i18n="reviews.customer">
+                      Cliente
+                    </th>
+
+                    <th data-admin-i18n="reviews.rating">
+                      Nota
+                    </th>
+
+                    <th data-admin-i18n="reviews.source">
+                      Origem
+                    </th>
+
+                    <th data-admin-i18n="reviews.date">
+                      Data
+                    </th>
+
+                    <th data-admin-i18n="common.status">
+                      Status
+                    </th>
+
+                    <th data-admin-i18n="common.home">
+                      Home
+                    </th>
+
+                    <th data-admin-i18n="common.actions">
+                      Ações
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody id="reviewsTableBody"></tbody>
+              </table>
+            </div>
+
+            <!-- =================================================
+                 VAZIO
+            ================================================== -->
+
+            <div
+              class="admin-empty"
+              id="reviewsEmpty"
+              hidden
+            >
+              <strong data-admin-i18n="reviews.noneFound">
+                Nenhuma avaliação encontrada.
+              </strong>
+
+              <span data-admin-i18n="reviews.emptyHelp">
+                As avaliações dos clientes aparecerão aqui para análise.
+              </span>
+            </div>
+          </section>
+        </main>
+      </div>
     </div>
 
-  </div>
-<script
-  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-></script>
+    <!-- =======================================================
+         MODAL AVALIAÇÃO
+    ======================================================== -->
 
-<script
-  src="../js/supabase-config.js"
-></script>
+    <div class="admin-modal" id="reviewModal" hidden>
+      <div
+        class="admin-modal-backdrop"
+        id="reviewModalBackdrop"
+      ></div>
 
-<script
-  src="../js/supabase-service.js"
-></script>
+      <div
+        class="admin-modal-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="reviewModalTitle"
+      >
+        <div class="admin-modal-header">
+          <div>
+            <span
+              class="admin-page-label"
+              data-admin-i18n="reviews.review"
+            >
+              Avaliação
+            </span>
 
-<script
-  src="admin-auth.js"
-></script>
+            <h2
+              id="reviewModalTitle"
+              data-admin-i18n="reviews.newReview"
+            >
+              Nova avaliação
+            </h2>
+          </div>
 
-<script
-  src="admin.js?v=20260914-4"
-  defer
-></script>
+          <button
+            type="button"
+            class="admin-modal-close"
+            id="reviewModalClose"
+            aria-label="Fechar"
+            data-admin-i18n-title="common.close"
+          >
+            ×
+          </button>
+        </div>
 
-</body>
+        <form id="reviewForm" class="admin-form">
+          <input
+            type="hidden"
+            name="id"
+            id="reviewId"
+          />
+
+          <!-- =================================================
+               CLIENTE
+          ================================================== -->
+
+          <label class="admin-field">
+            <span data-admin-i18n="reviews.customerName">
+              Nome do cliente
+            </span>
+
+            <input
+              type="text"
+              name="customerName"
+              id="reviewCustomerName"
+              placeholder="Ex.: Maria Silva"
+              data-admin-i18n-placeholder="reviews.customerPlaceholder"
+              required
+            />
+          </label>
+
+          <!-- =================================================
+               NOTA / ORIGEM
+          ================================================== -->
+
+          <div class="admin-form-grid">
+            <label class="admin-field">
+              <span data-admin-i18n="reviews.rating">
+                Nota
+              </span>
+
+              <select
+                name="rating"
+                id="reviewRating"
+                required
+              >
+                <option
+                  value="5"
+                  data-admin-i18n="reviews.fiveStars"
+                >
+                  5 estrelas
+                </option>
+
+                <option
+                  value="4"
+                  data-admin-i18n="reviews.fourStars"
+                >
+                  4 estrelas
+                </option>
+
+                <option
+                  value="3"
+                  data-admin-i18n="reviews.threeStars"
+                >
+                  3 estrelas
+                </option>
+
+                <option
+                  value="2"
+                  data-admin-i18n="reviews.twoStars"
+                >
+                  2 estrelas
+                </option>
+
+                <option
+                  value="1"
+                  data-admin-i18n="reviews.oneStar"
+                >
+                  1 estrela
+                </option>
+              </select>
+            </label>
+
+            <label class="admin-field">
+              <span data-admin-i18n="reviews.source">
+                Origem
+              </span>
+
+              <!--
+                Os VALUES abaixo NÃO são traduzidos.
+                São os valores reais gravados no Supabase.
+              -->
+              <select
+                name="source"
+                id="reviewSource"
+              >
+                <option value="Google">
+                  Google
+                </option>
+
+                <option value="Site">
+                  Site
+                </option>
+
+                <option value="WhatsApp">
+                  WhatsApp
+                </option>
+
+                <option value="Facebook">
+                  Facebook
+                </option>
+
+                <option value="Instagram">
+                  Instagram
+                </option>
+
+                <option
+                  value="Outro"
+                  data-admin-i18n="reviews.other"
+                >
+                  Outro
+                </option>
+              </select>
+            </label>
+          </div>
+
+          <!-- =================================================
+               DATA
+          ================================================== -->
+
+          <label class="admin-field">
+            <span data-admin-i18n="reviews.date">
+              Data
+            </span>
+
+            <input
+              type="date"
+              name="date"
+              id="reviewDate"
+              required
+            />
+          </label>
+
+          <!-- =================================================
+               COMENTÁRIO
+          ================================================== -->
+
+          <label class="admin-field">
+            <span data-admin-i18n="reviews.comment">
+              Comentário
+            </span>
+
+            <textarea
+              name="comment"
+              id="reviewComment"
+              rows="5"
+              maxlength="1000"
+              placeholder="Digite a avaliação do cliente..."
+              data-admin-i18n-placeholder="reviews.commentPlaceholder"
+              required
+            ></textarea>
+          </label>
+
+          <!-- =================================================
+               LINK
+          ================================================== -->
+
+          <label class="admin-field">
+            <span>
+              <span data-admin-i18n="reviews.url">
+                Link da avaliação
+              </span>
+
+              <small data-admin-i18n="common.optional">
+                opcional
+              </small>
+            </span>
+
+            <input
+              type="url"
+              name="reviewUrl"
+              id="reviewUrl"
+              placeholder="https://..."
+            />
+          </label>
+
+          <!-- =================================================
+               CONFIGURAÇÕES
+          ================================================== -->
+
+          <div class="admin-form-options">
+            <label class="admin-check">
+              <input
+                type="checkbox"
+                name="active"
+                id="reviewActive"
+              />
+
+              <span data-admin-i18n="reviews.active">
+                Avaliação aprovada
+              </span>
+            </label>
+
+            <label class="admin-check">
+              <input
+                type="checkbox"
+                name="featured"
+                id="reviewFeatured"
+              />
+
+              <span data-admin-i18n="reviews.featured">
+                Exibir na Home
+              </span>
+            </label>
+          </div>
+
+          <!-- =================================================
+               BOTÕES
+          ================================================== -->
+
+          <div class="admin-form-actions">
+            <button
+              type="button"
+              class="admin-button"
+              id="reviewCancelButton"
+            >
+              <span data-admin-i18n="common.cancel">
+                Cancelar
+              </span>
+            </button>
+
+            <button
+              type="submit"
+              class="admin-button admin-button-primary"
+            >
+              <span data-admin-i18n="reviews.saveReview">
+                Salvar avaliação
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- =======================================================
+         SCRIPTS
+    ======================================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../js/supabase-config.js"></script>
+
+    <script src="../js/supabase-service.js"></script>
+
+    <script src="admin-i18n.js"></script>
+
+    <script src="admin-auth.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+
+    <script src="admin.js?v=20260914-4" defer></script>
+  </body>
 </html>
+

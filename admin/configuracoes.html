@@ -27,34 +27,38 @@
           <div>
             <strong> Quality Therm </strong>
 
-            <small> Painel Administrativo </small>
+            <small data-admin-i18n="dashboard.adminPanel">
+              Painel Administrativo
+            </small>
           </div>
         </div>
 
         <nav class="admin-menu">
           <a href="index.html" class="admin-menu-link">
             <span>⌂</span>
-            Dashboard
+            <span data-admin-i18n="nav.dashboard">Dashboard</span>
           </a>
 
           <a href="produtos.html" class="admin-menu-link">
             <span>▦</span>
-            Produtos
+            <span data-admin-i18n="nav.products">Produtos</span>
           </a>
 
           <a href="avaliacoes.html" class="admin-menu-link">
             <span>★</span>
-            Avaliações
+            <span data-admin-i18n="nav.reviews">Avaliações</span>
           </a>
 
           <a href="clientes.html" class="admin-menu-link">
             <span>▣</span>
-            Clientes atendidos
+            <span data-admin-i18n="dashboard.clientsServed"
+              >Clientes atendidos</span
+            >
           </a>
 
           <a href="configuracoes.html" class="admin-menu-link active">
             <span>⚙</span>
-            Configurações
+            <span data-admin-i18n="nav.settings">Configurações</span>
           </a>
 
           <a
@@ -64,7 +68,7 @@
             rel="noopener"
           >
             <span>↗</span>
-            Ver site
+            <span data-admin-i18n="dashboard.viewSite">Ver site</span>
           </a>
           <button
             type="button"
@@ -72,14 +76,16 @@
             onclick="sairDoPainel()"
           >
             <span>⇥</span>
-            Sair
+            <span data-admin-i18n="nav.logout">Sair</span>
           </button>
         </nav>
 
         <div class="admin-sidebar-footer">
           <small> Quality Therm </small>
 
-          <span> Administração da loja </span>
+          <span data-admin-i18n="dashboard.storeAdministration">
+            Administração da loja
+          </span>
         </div>
       </aside>
 
@@ -90,9 +96,11 @@
       <div class="admin-main">
         <header class="admin-topbar">
           <div>
-            <span class="admin-page-label"> Configurações </span>
+            <span class="admin-page-label" data-admin-i18n="settings.title">
+              Configurações
+            </span>
 
-            <h1>Dados da empresa</h1>
+            <h1 data-admin-i18n="settings.company">Dados da empresa</h1>
           </div>
         </header>
 
@@ -104,16 +112,25 @@
           <section class="admin-panel">
             <div class="admin-panel-header">
               <div>
-                <span class="admin-page-label"> Empresa </span>
+                <span
+                  class="admin-page-label"
+                  data-admin-i18n="settings.companyLabel"
+                >
+                  Empresa
+                </span>
 
-                <h2>Informações principais</h2>
+                <h2 data-admin-i18n="settings.mainInformation">
+                  Informações principais
+                </h2>
               </div>
             </div>
 
             <form id="companySettingsForm" class="admin-form">
               <div class="admin-form-grid">
                 <label class="admin-field">
-                  <span> Nome da empresa </span>
+                  <span data-admin-i18n="settings.companyName">
+                    Nome da empresa
+                  </span>
 
                   <input
                     type="text"
@@ -125,7 +142,7 @@
                 </label>
 
                 <label class="admin-field">
-                  <span> Nome curto </span>
+                  <span data-admin-i18n="settings.shortName"> Nome curto </span>
 
                   <input
                     type="text"
@@ -138,7 +155,7 @@
 
               <div class="admin-form-grid">
                 <label class="admin-field">
-                  <span> WhatsApp </span>
+                  <span data-admin-i18n="settings.whatsapp"> WhatsApp </span>
 
                   <input
                     type="tel"
@@ -150,7 +167,7 @@
                 </label>
 
                 <label class="admin-field">
-                  <span> Telefone </span>
+                  <span data-admin-i18n="settings.phone"> Telefone </span>
 
                   <input
                     type="tel"
@@ -162,7 +179,7 @@
               </div>
 
               <label class="admin-field">
-                <span> E-mail </span>
+                <span data-admin-i18n="settings.email"> E-mail </span>
 
                 <input
                   type="email"
@@ -171,18 +188,187 @@
                   placeholder="contato@empresa.com.br"
                 />
               </label>
+              <!-- =================================================
+     DADOS FISCAIS E ENDEREÇO
+================================================== -->
 
+              <div class="admin-form-grid">
+                <label class="admin-field">
+                  <span data-admin-i18n="settings.cnpj">CNPJ</span>
+
+                  <input
+                    type="text"
+                    id="companyCnpj"
+                    name="companyCnpj"
+                    placeholder="00.000.000/0000-00"
+                    maxlength="18"
+                  />
+                </label>
+
+                <label class="admin-field">
+                  <span data-admin-i18n="settings.zipCode">CEP</span>
+
+                  <input
+                    type="text"
+                    id="companyZipCode"
+                    name="companyZipCode"
+                    placeholder="00000-000"
+                    maxlength="9"
+                  />
+                </label>
+              </div>
+
+              <div class="admin-form-grid">
+                <label class="admin-field">
+                  <span data-admin-i18n="settings.street">Endereço</span>
+
+                  <input
+                    type="text"
+                    id="companyStreet"
+                    name="companyStreet"
+                    placeholder="Rua, avenida..."
+                  />
+                </label>
+
+                <label class="admin-field">
+                  <span data-admin-i18n="settings.number">Número</span>
+
+                  <input
+                    type="text"
+                    id="companyNumber"
+                    name="companyNumber"
+                    placeholder="123"
+                  />
+                </label>
+              </div>
+
+              <div class="admin-form-grid">
+                <label class="admin-field">
+                  <span data-admin-i18n="settings.complement">Complemento</span>
+
+                  <input
+                    type="text"
+                    id="companyComplement"
+                    name="companyComplement"
+                    placeholder="Sala, conjunto, bloco..."
+                  />
+                </label>
+
+                <label class="admin-field">
+                  <span data-admin-i18n="settings.neighborhood">Bairro</span>
+
+                  <input
+                    type="text"
+                    id="companyNeighborhood"
+                    name="companyNeighborhood"
+                    placeholder="Bairro"
+                  />
+                </label>
+              </div>
+
+              <div class="admin-form-grid">
+                <label class="admin-field">
+                  <span data-admin-i18n="settings.city">Cidade</span>
+
+                  <input
+                    type="text"
+                    id="companyCity"
+                    name="companyCity"
+                    placeholder="São Paulo"
+                  />
+                </label>
+
+                <label class="admin-field">
+                  <span data-admin-i18n="settings.state">Estado</span>
+
+                  <select id="companyState" name="companyState">
+                    <option value="" data-admin-i18n="common.select">
+                      Selecione
+                    </option>
+                    <option value="AC">AC</option>
+                    <option value="AL">AL</option>
+                    <option value="AP">AP</option>
+                    <option value="AM">AM</option>
+                    <option value="BA">BA</option>
+                    <option value="CE">CE</option>
+                    <option value="DF">DF</option>
+                    <option value="ES">ES</option>
+                    <option value="GO">GO</option>
+                    <option value="MA">MA</option>
+                    <option value="MT">MT</option>
+                    <option value="MS">MS</option>
+                    <option value="MG">MG</option>
+                    <option value="PA">PA</option>
+                    <option value="PB">PB</option>
+                    <option value="PR">PR</option>
+                    <option value="PE">PE</option>
+                    <option value="PI">PI</option>
+                    <option value="RJ">RJ</option>
+                    <option value="RN">RN</option>
+                    <option value="RS">RS</option>
+                    <option value="RO">RO</option>
+                    <option value="RR">RR</option>
+                    <option value="SC">SC</option>
+                    <option value="SP">SP</option>
+                    <option value="SE">SE</option>
+                    <option value="TO">TO</option>
+                  </select>
+                </label>
+              </div>
+
+              <div class="admin-product-settings">
+                <div
+                  class="admin-settings-heading"
+                  data-admin-i18n="settings.siteVisibility"
+                >
+                  Visibilidade no site
+                </div>
+
+                <div class="admin-settings-grid">
+                  <label class="admin-setting-card">
+                    <input type="checkbox" id="showCnpj" name="showCnpj" />
+
+                    <span>
+                      <strong data-admin-i18n="settings.showCnpj"
+                        >Exibir CNPJ</strong
+                      >
+                      <small data-admin-i18n="settings.showCnpjHelp">
+                        Mostrar o CNPJ no site público.
+                      </small>
+                    </span>
+                  </label>
+
+                  <label class="admin-setting-card">
+                    <input
+                      type="checkbox"
+                      id="showAddress"
+                      name="showAddress"
+                    />
+
+                    <span>
+                      <strong data-admin-i18n="settings.showAddress"
+                        >Exibir endereço</strong
+                      >
+                      <small data-admin-i18n="settings.showAddressHelp">
+                        Mostrar o endereço completo no site público.
+                      </small>
+                    </span>
+                  </label>
+                </div>
+              </div>
               <!-- =================================================
                  LOGO
             ================================================== -->
 
               <div class="admin-field full">
-                <span> Logo da empresa </span>
+                <span data-admin-i18n="settings.logo"> Logo da empresa </span>
 
                 <div class="admin-image-upload">
                   <label class="admin-upload-button" for="companyLogoFile">
                     <span>↑</span>
-                    Escolher logo
+                    <span data-admin-i18n="settings.chooseLogo"
+                      >Escolher logo</span
+                    >
                   </label>
 
                   <input
@@ -192,7 +378,11 @@
                     hidden
                   />
 
-                  <span class="admin-upload-name" id="companyLogoFileName">
+                  <span
+                    class="admin-upload-name"
+                    id="companyLogoFileName"
+                    data-admin-i18n="settings.noImageSelected"
+                  >
                     Nenhuma imagem selecionada
                   </span>
                 </div>
@@ -215,14 +405,18 @@
                     class="admin-button"
                     id="removeCompanyLogo"
                   >
-                    Remover logo
+                    <span data-admin-i18n="settings.removeLogo"
+                      >Remover logo</span
+                    >
                   </button>
                 </div>
               </div>
 
               <div class="admin-form-actions">
                 <button type="submit" class="admin-button admin-button-primary">
-                  Salvar dados da empresa
+                  <span data-admin-i18n="settings.saveCompany"
+                    >Salvar dados da empresa</span
+                  >
                 </button>
               </div>
             </form>
@@ -235,15 +429,24 @@
           <section class="admin-panel">
             <div class="admin-panel-header">
               <div>
-                <span class="admin-page-label"> Presença digital </span>
+                <span
+                  class="admin-page-label"
+                  data-admin-i18n="settings.digital"
+                >
+                  Presença digital
+                </span>
 
-                <h2>Google e redes sociais</h2>
+                <h2 data-admin-i18n="settings.socialNetworks">
+                  Google e redes sociais
+                </h2>
               </div>
             </div>
 
             <form id="digitalSettingsForm" class="admin-form">
               <label class="admin-field">
-                <span> Link de avaliação no Google </span>
+                <span data-admin-i18n="settings.googleReviews">
+                  Link de avaliação no Google
+                </span>
 
                 <input
                   type="url"
@@ -279,7 +482,78 @@
 
               <div class="admin-form-actions">
                 <button type="submit" class="admin-button admin-button-primary">
-                  Salvar presença digital
+                  <span data-admin-i18n="settings.saveDigital"
+                    >Salvar presença digital</span
+                  >
+                </button>
+              </div>
+            </form>
+          </section>
+
+          <!-- =================================================
+     IDIOMA
+================================================== -->
+
+          <section class="admin-panel">
+            <div class="admin-panel-header">
+              <div>
+                <span
+                  class="admin-page-label"
+                  data-admin-i18n="settings.languageLabel"
+                >
+                  Idioma
+                </span>
+
+                <h2 data-admin-i18n="settings.systemLanguage">
+                  Idioma do sistema
+                </h2>
+              </div>
+            </div>
+
+            <form id="languageSettingsForm" class="admin-form">
+              <div class="admin-form-grid">
+                <label class="admin-field">
+                  <span data-admin-i18n="settings.siteLanguage"
+                    >Idioma do site</span
+                  >
+
+                  <select id="siteLanguage" name="siteLanguage">
+                    <option value="pt-BR">Português (Brasil)</option>
+
+                    <option value="en">English</option>
+
+                    <option value="es">Español</option>
+                  </select>
+                </label>
+
+                <label class="admin-field">
+                  <span data-admin-i18n="settings.adminLanguage"
+                    >Idioma do painel administrativo</span
+                  >
+
+                  <select id="adminLanguage" name="adminLanguage">
+                    <option value="pt-BR">Português (Brasil)</option>
+
+                    <option value="en">English</option>
+
+                    <option value="es">Español</option>
+                  </select>
+                </label>
+              </div>
+
+              <p
+                class="admin-form-help"
+                data-admin-i18n="settings.languageHelp"
+              >
+                O idioma do site e o idioma do painel podem ser configurados
+                separadamente.
+              </p>
+
+              <div class="admin-form-actions">
+                <button type="submit" class="admin-button admin-button-primary">
+                  <span data-admin-i18n="settings.saveLanguages"
+                    >Salvar idiomas</span
+                  >
                 </button>
               </div>
             </form>
@@ -292,16 +566,25 @@
           <section class="admin-panel">
             <div class="admin-panel-header">
               <div>
-                <span class="admin-page-label"> Aparência </span>
+                <span
+                  class="admin-page-label"
+                  data-admin-i18n="settings.appearance"
+                >
+                  Aparência
+                </span>
 
-                <h2>Identidade visual</h2>
+                <h2 data-admin-i18n="settings.visualIdentity">
+                  Identidade visual
+                </h2>
               </div>
             </div>
 
             <form id="appearanceSettingsForm" class="admin-form">
               <div class="admin-form-grid">
                 <label class="admin-field">
-                  <span> Cor principal </span>
+                  <span data-admin-i18n="settings.primaryColor">
+                    Cor principal
+                  </span>
 
                   <input
                     type="color"
@@ -312,7 +595,7 @@
                 </label>
 
                 <label class="admin-field">
-                  <span> Cor escura </span>
+                  <span data-admin-i18n="settings.darkColor"> Cor escura </span>
 
                   <input
                     type="color"
@@ -324,7 +607,9 @@
               </div>
 
               <label class="admin-field">
-                <span> Texto do botão WhatsApp </span>
+                <span data-admin-i18n="settings.whatsappButton">
+                  Texto do botão WhatsApp
+                </span>
 
                 <input
                   type="text"
@@ -337,7 +622,9 @@
 
               <div class="admin-form-actions">
                 <button type="submit" class="admin-button admin-button-primary">
-                  Salvar aparência
+                  <span data-admin-i18n="settings.saveAppearance"
+                    >Salvar aparência</span
+                  >
                 </button>
               </div>
             </form>
@@ -349,16 +636,22 @@
           <section class="admin-panel">
             <div class="admin-panel-header">
               <div>
-                <span class="admin-page-label"> Loja </span>
+                <span class="admin-page-label" data-admin-i18n="settings.store">
+                  Loja
+                </span>
 
-                <h2>Conteúdo da seção de produtos</h2>
+                <h2 data-admin-i18n="settings.storeContent">
+                  Conteúdo da seção de produtos
+                </h2>
               </div>
             </div>
 
             <form id="storeSettingsForm" class="admin-form">
               <div class="admin-form-grid">
                 <label class="admin-field">
-                  <span> Nome no menu </span>
+                  <span data-admin-i18n="settings.menuName">
+                    Nome no menu
+                  </span>
 
                   <input
                     type="text"
@@ -370,7 +663,9 @@
                 </label>
 
                 <label class="admin-field">
-                  <span> Chamada da seção </span>
+                  <span data-admin-i18n="settings.sectionEyebrow">
+                    Chamada da seção
+                  </span>
 
                   <input
                     type="text"
@@ -383,7 +678,9 @@
               </div>
 
               <label class="admin-field">
-                <span> Título da seção </span>
+                <span data-admin-i18n="settings.sectionTitle">
+                  Título da seção
+                </span>
 
                 <input
                   type="text"
@@ -395,7 +692,7 @@
               </label>
 
               <label class="admin-field">
-                <span> Descrição </span>
+                <span data-admin-i18n="settings.description"> Descrição </span>
 
                 <textarea
                   id="homeStoreDescription"
@@ -406,7 +703,9 @@
               </label>
 
               <label class="admin-field">
-                <span> Texto do botão </span>
+                <span data-admin-i18n="settings.buttonText">
+                  Texto do botão
+                </span>
 
                 <input
                   type="text"
@@ -419,7 +718,9 @@
 
               <div class="admin-form-actions">
                 <button type="submit" class="admin-button admin-button-primary">
-                  Salvar conteúdo da Loja
+                  <span data-admin-i18n="settings.saveStore"
+                    >Salvar conteúdo da Loja</span
+                  >
                 </button>
               </div>
             </form>
@@ -431,6 +732,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script src="../js/supabase-config.js"></script>
+
+    <script src="admin-i18n.js"></script>
 
     <script src="admin-auth.js"></script>
 

@@ -17,44 +17,55 @@
   <body>
     <div class="admin-layout">
       <!-- =====================================================
-         MENU LATERAL
-    ====================================================== -->
+           MENU LATERAL
+      ====================================================== -->
 
       <aside class="admin-sidebar">
         <div class="admin-brand">
           <div class="admin-brand-mark">QT</div>
 
           <div>
-            <strong> Quality Therm </strong>
+            <strong>Quality Therm</strong>
 
-            <small> Painel Administrativo </small>
+            <small data-admin-i18n="dashboard.adminPanel">
+              Painel Administrativo
+            </small>
           </div>
         </div>
 
         <nav class="admin-menu">
           <a href="index.html" class="admin-menu-link">
             <span>⌂</span>
-            Dashboard
+
+            <span data-admin-i18n="nav.dashboard"> Dashboard </span>
           </a>
 
           <a href="produtos.html" class="admin-menu-link">
             <span>▦</span>
-            Produtos
+
+            <span data-admin-i18n="nav.products"> Produtos </span>
           </a>
 
           <a href="avaliacoes.html" class="admin-menu-link">
             <span>★</span>
-            Avaliações
+
+            <span data-admin-i18n="nav.reviews"> Avaliações </span>
           </a>
 
           <a href="clientes.html" class="admin-menu-link active">
             <span>▣</span>
-            Clientes atendidos
+
+            <span data-admin-i18n="dashboard.clientsServed">
+              Clientes atendidos
+            </span>
           </a>
+
           <a href="configuracoes.html" class="admin-menu-link">
             <span>⚙</span>
-            Configurações
+
+            <span data-admin-i18n="nav.settings"> Configurações </span>
           </a>
+
           <a
             href="../index.html"
             class="admin-menu-link"
@@ -62,39 +73,51 @@
             rel="noopener"
           >
             <span>↗</span>
-            Ver site
+
+            <span data-admin-i18n="dashboard.viewSite"> Ver site </span>
           </a>
+
           <button
             type="button"
             class="admin-menu-link admin-logout-button"
             onclick="sairDoPainel()"
           >
             <span>⇥</span>
-            Sair
+
+            <span data-admin-i18n="nav.logout"> Sair </span>
           </button>
         </nav>
 
         <div class="admin-sidebar-footer">
-          <small> Quality Therm </small>
+          <small>Quality Therm</small>
 
-          <span> Administração da loja </span>
+          <span data-admin-i18n="dashboard.storeAdministration">
+            Administração da loja
+          </span>
         </div>
       </aside>
 
       <!-- =====================================================
-         CONTEÚDO
-    ====================================================== -->
+           CONTEÚDO
+      ====================================================== -->
 
       <div class="admin-main">
         <!-- ===================================================
-           TOPO
-      ==================================================== -->
+             TOPO
+        ==================================================== -->
 
         <header class="admin-topbar">
           <div>
-            <span class="admin-page-label"> Clientes atendidos </span>
+            <span
+              class="admin-page-label"
+              data-admin-i18n="clients.servedClients"
+            >
+              Clientes atendidos
+            </span>
 
-            <h1>Quem já contou com a Quality Therm</h1>
+            <h1 data-admin-i18n="clients.pageTitle">
+              Quem já contou com a Quality Therm
+            </h1>
           </div>
 
           <div class="admin-topbar-actions">
@@ -103,68 +126,103 @@
               class="admin-button admin-button-primary"
               id="newClientButton"
             >
-              + Novo cliente
+              <span data-admin-i18n="clients.newClient"> Novo cliente </span>
             </button>
           </div>
         </header>
 
         <!-- ===================================================
-           CONTEÚDO PRINCIPAL
-      ==================================================== -->
+             CONTEÚDO PRINCIPAL
+        ==================================================== -->
 
         <main class="admin-content">
           <!-- =================================================
-             INDICADORES
-        ================================================== -->
+               INDICADORES
+          ================================================== -->
 
           <section class="admin-stats-grid">
             <article class="admin-stat-card">
-              <span class="admin-stat-label"> Clientes cadastrados </span>
+              <span
+                class="admin-stat-label"
+                data-admin-i18n="clients.registeredClients"
+              >
+                Clientes cadastrados
+              </span>
 
               <strong class="admin-stat-number" id="totalClients"> 0 </strong>
 
-              <small> Total cadastrado </small>
+              <small data-admin-i18n="clients.totalRegistered">
+                Total cadastrado
+              </small>
             </article>
 
             <article class="admin-stat-card">
-              <span class="admin-stat-label"> Ativos </span>
+              <span
+                class="admin-stat-label"
+                data-admin-i18n="clients.activeClients"
+              >
+                Ativos
+              </span>
 
               <strong class="admin-stat-number" id="activeClients"> 0 </strong>
 
-              <small> Disponíveis para exibição </small>
+              <small data-admin-i18n="clients.availableForDisplay">
+                Disponíveis para exibição
+              </small>
             </article>
 
             <article class="admin-stat-card">
-              <span class="admin-stat-label"> Exibidos na Home </span>
+              <span
+                class="admin-stat-label"
+                data-admin-i18n="clients.displayedHome"
+              >
+                Exibidos na Home
+              </span>
 
               <strong class="admin-stat-number" id="featuredClients">
                 0
               </strong>
 
-              <small> Visíveis no site </small>
+              <small data-admin-i18n="clients.visibleOnSite">
+                Visíveis no site
+              </small>
             </article>
 
             <article class="admin-stat-card">
-              <span class="admin-stat-label"> Inativos </span>
+              <span
+                class="admin-stat-label"
+                data-admin-i18n="clients.inactiveClients"
+              >
+                Inativos
+              </span>
 
               <strong class="admin-stat-number" id="inactiveClients">
                 0
               </strong>
 
-              <small> Ocultos do site </small>
+              <small data-admin-i18n="clients.hiddenFromSite">
+                Ocultos do site
+              </small>
             </article>
           </section>
 
           <!-- =================================================
-             GERENCIAMENTO
-        ================================================== -->
+               GERENCIAMENTO
+          ================================================== -->
 
           <section class="admin-panel">
             <div class="admin-panel-header">
               <div>
-                <span class="admin-page-label"> Gerenciamento </span>
+                <span
+                  class="admin-page-label"
+                  data-admin-i18n="clients.management"
+                >
+                  Gerenciamento
+                </span>
 
-                <h2>Clientes, empresas e condomínios</h2>
+                <h2 data-admin-i18n="clients.managementTitle">
+                  Clientes, empresas e condomínios
+                </h2>
               </div>
 
               <button
@@ -172,17 +230,20 @@
                 class="admin-button admin-button-primary"
                 id="newClientButtonSecondary"
               >
-                + Adicionar
+                <span data-admin-i18n="clients.add"> + Adicionar </span>
               </button>
             </div>
 
-            <!-- PESQUISA -->
+            <!-- =================================================
+                 PESQUISA
+            ================================================== -->
 
             <div style="margin-bottom: 20px">
               <input
                 type="search"
                 id="clientSearch"
                 placeholder="Pesquisar por nome ou tipo..."
+                data-admin-i18n-placeholder="clients.searchPlaceholder"
                 autocomplete="off"
                 style="
                   width: 100%;
@@ -195,21 +256,23 @@
               />
             </div>
 
-            <!-- TABELA -->
+            <!-- =================================================
+                 TABELA
+            ================================================== -->
 
             <div class="admin-table-wrap">
               <table class="admin-table">
                 <thead>
                   <tr>
-                    <th>Cliente</th>
+                    <th data-admin-i18n="clients.client">Cliente</th>
 
-                    <th>Tipo</th>
+                    <th data-admin-i18n="clients.type">Tipo</th>
 
-                    <th>Status</th>
+                    <th data-admin-i18n="common.status">Status</th>
 
-                    <th>Home</th>
+                    <th data-admin-i18n="common.home">Home</th>
 
-                    <th>Ações</th>
+                    <th data-admin-i18n="common.actions">Ações</th>
                   </tr>
                 </thead>
 
@@ -217,12 +280,16 @@
               </table>
             </div>
 
-            <!-- VAZIO -->
+            <!-- =================================================
+                 VAZIO
+            ================================================== -->
 
             <div class="admin-empty" id="clientsEmpty" hidden>
-              <strong> Nenhum cliente cadastrado. </strong>
+              <strong data-admin-i18n="clients.noneRegistered">
+                Nenhum cliente cadastrado.
+              </strong>
 
-              <span>
+              <span data-admin-i18n="clients.emptyHelp">
                 Adicione condomínios, lojas, empresas ou administradoras que já
                 contaram com a Quality Therm.
               </span>
@@ -233,8 +300,8 @@
     </div>
 
     <!-- =======================================================
-       MODAL - CLIENTE
-  ======================================================== -->
+         MODAL - CLIENTE
+    ======================================================== -->
 
     <div class="admin-modal" id="clientModal" hidden>
       <div class="admin-modal-backdrop" id="clientModalBackdrop"></div>
@@ -245,13 +312,22 @@
         aria-modal="true"
         aria-labelledby="clientModalTitle"
       >
-        <!-- CABEÇALHO -->
+        <!-- ===================================================
+             CABEÇALHO
+        ==================================================== -->
 
         <div class="admin-modal-header">
           <div>
-            <span class="admin-page-label"> Cliente atendido </span>
+            <span
+              class="admin-page-label"
+              data-admin-i18n="clients.servedClient"
+            >
+              Cliente atendido
+            </span>
 
-            <h2 id="clientModalTitle">Novo cliente</h2>
+            <h2 id="clientModalTitle" data-admin-i18n="clients.newClient">
+              Novo cliente
+            </h2>
           </div>
 
           <button
@@ -259,20 +335,25 @@
             class="admin-modal-close"
             id="clientModalClose"
             aria-label="Fechar"
+            data-admin-i18n-title="common.close"
           >
             ×
           </button>
         </div>
 
-        <!-- FORMULÁRIO -->
+        <!-- ===================================================
+             FORMULÁRIO
+        ==================================================== -->
 
         <form id="clientForm" class="admin-form">
           <input type="hidden" name="id" id="clientId" />
 
-          <!-- NOME -->
+          <!-- =================================================
+               NOME
+          ================================================== -->
 
           <label class="admin-field">
-            <span> Nome </span>
+            <span data-admin-i18n="clients.name"> Nome </span>
 
             <input
               type="text"
@@ -280,38 +361,66 @@
               id="clientName"
               maxlength="120"
               placeholder="Ex.: Condomínio Residencial Jardim"
+              data-admin-i18n-placeholder="clients.namePlaceholder"
               required
             />
           </label>
 
-          <!-- TIPO -->
+          <!-- =================================================
+               TIPO
+          ================================================== -->
 
           <label class="admin-field">
-            <span> Tipo </span>
+            <span data-admin-i18n="clients.type"> Tipo </span>
 
             <select name="type" id="clientType" required>
-              <option value="">Selecione</option>
+              <option value="" data-admin-i18n="common.select">
+                Selecione
+              </option>
 
-              <option value="Condomínio">Condomínio</option>
+              <!--
+                Os values continuam em português porque são
+                os valores reais gravados no Supabase.
+              -->
 
-              <option value="Loja">Loja</option>
+              <option
+                value="Condomínio"
+                data-admin-i18n="clients.typeCondominium"
+              >
+                Condomínio
+              </option>
 
-              <option value="Empresa">Empresa</option>
+              <option value="Loja" data-admin-i18n="clients.typeStore">
+                Loja
+              </option>
 
-              <option value="Administradora">Administradora</option>
+              <option value="Empresa" data-admin-i18n="clients.typeCompany">
+                Empresa
+              </option>
 
-              <option value="Construtora">Construtora</option>
+              <option
+                value="Administradora"
+                data-admin-i18n="clients.typeAdministrator"
+              >
+                Administradora
+              </option>
 
-              <option value="Outro">Outro</option>
+              <option value="Construtora" data-admin-i18n="clients.typeBuilder">
+                Construtora
+              </option>
+
+              <option value="Outro" data-admin-i18n="clients.typeOther">
+                Outro
+              </option>
             </select>
           </label>
 
           <!-- =================================================
-             LOGO
-        ================================================== -->
+               LOGO
+          ================================================== -->
 
           <div class="admin-field">
-            <span> Logo </span>
+            <span data-admin-i18n="clients.logo"> Logo </span>
 
             <div
               style="
@@ -323,6 +432,7 @@
             >
               <label>
                 <span
+                  data-admin-i18n="clients.chooseImage"
                   style="
                     display: block;
                     margin-bottom: 7px;
@@ -341,7 +451,7 @@
               </label>
 
               <button type="button" class="admin-button" id="removeClientLogo">
-                Remover
+                <span data-admin-i18n="common.remove"> Remover </span>
               </button>
             </div>
 
@@ -380,6 +490,7 @@
             </div>
 
             <small
+              data-admin-i18n="clients.logoHelp"
               style="
                 display: block;
                 margin-top: 8px;
@@ -387,17 +498,20 @@
                 line-height: 1.5;
               "
             >
-              Para o protótipo, a imagem será armazenada neste navegador.
-              Prefira PNG ou WebP com fundo transparente.
+              Formatos aceitos: PNG, JPG ou WebP. A imagem será otimizada
+              automaticamente. Prefira logos com fundo transparente.
             </small>
           </div>
 
-          <!-- SITE -->
+          <!-- =================================================
+               SITE
+          ================================================== -->
 
           <label class="admin-field">
             <span>
-              Site ou link
-              <small> opcional </small>
+              <span data-admin-i18n="clients.website"> Site ou link </span>
+
+              <small data-admin-i18n="common.optional"> opcional </small>
             </span>
 
             <input
@@ -408,12 +522,15 @@
             />
           </label>
 
-          <!-- DESCRIÇÃO -->
+          <!-- =================================================
+               DESCRIÇÃO
+          ================================================== -->
 
           <label class="admin-field">
             <span>
-              Observação
-              <small> opcional </small>
+              <span data-admin-i18n="clients.observation"> Observação </span>
+
+              <small data-admin-i18n="common.optional"> opcional </small>
             </span>
 
             <textarea
@@ -422,49 +539,56 @@
               rows="3"
               maxlength="300"
               placeholder="Ex.: condomínio atendido pela equipe técnica da Quality Therm."
+              data-admin-i18n-placeholder="clients.descriptionPlaceholder"
             ></textarea>
           </label>
 
           <!-- =================================================
-             CONFIGURAÇÕES
-        ================================================== -->
+               CONFIGURAÇÕES
+          ================================================== -->
 
           <div class="admin-form-options">
             <label class="admin-check">
               <input type="checkbox" name="active" id="clientActive" checked />
 
-              <span> Cliente ativo </span>
+              <span data-admin-i18n="clients.active"> Cliente ativo </span>
             </label>
 
             <label class="admin-check">
               <input type="checkbox" name="featured" id="clientFeatured" />
 
-              <span> Exibir na Home </span>
+              <span data-admin-i18n="clients.featured"> Exibir na Home </span>
             </label>
           </div>
 
           <!-- =================================================
-             BOTÕES
-        ================================================== -->
+               BOTÕES
+          ================================================== -->
 
           <div class="admin-form-actions">
             <button type="button" class="admin-button" id="clientCancelButton">
-              Cancelar
+              <span data-admin-i18n="common.cancel"> Cancelar </span>
             </button>
 
             <button type="submit" class="admin-button admin-button-primary">
-              Salvar cliente
+              <span data-admin-i18n="clients.saveClient"> Salvar cliente </span>
             </button>
           </div>
         </form>
       </div>
     </div>
 
+    <!-- =======================================================
+         SCRIPTS
+    ======================================================== -->
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script src="../js/supabase-config.js"></script>
 
     <script src="../js/supabase-service.js"></script>
+
+    <script src="admin-i18n.js"></script>
 
     <script src="admin-auth.js"></script>
 

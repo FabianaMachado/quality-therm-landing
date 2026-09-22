@@ -1737,7 +1737,10 @@ body.modal-open {
   flex-direction: column;
   height: 100%;
   box-shadow: 0 10px 30px rgba(14, 23, 29, 0.04);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
 }
 
 .product-card:hover {
@@ -1801,5 +1804,47 @@ body.modal-open {
 @media (max-width: 600px) {
   .product-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================
+   LOGO DO CABEÇALHO - QUALITY THERM
+========================================== */
+
+.brand-with-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.company-header-logo {
+  display: block;
+  width: auto;
+  height: 88px;
+  max-width: 390px;
+  object-fit: contain;
+}
+
+.company-header-logo[hidden] {
+  display: none !important;
+}
+
+.company-header-fallback {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.company-header-fallback[hidden] {
+  display: none !important;
+}
+
+/* CELULAR */
+
+@media (max-width: 768px) {
+  .company-header-logo {
+    height: 58px;
+    max-width: 260px;
   }
 }

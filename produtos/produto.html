@@ -146,7 +146,17 @@
           ================================================== -->
 
             <div class="product-gallery">
-              <div class="product-main-image">
+              <div class="product-main-image" id="productMainImageWrap">
+                <button
+                  type="button"
+                  class="product-gallery-arrow product-gallery-arrow-prev"
+                  id="productGalleryPrev"
+                  aria-label="Ver imagem anterior"
+                  hidden
+                >
+                  ‹
+                </button>
+
                 <img
                   id="productMainImage"
                   src="../assets/favicon.svg"
@@ -156,6 +166,16 @@
                   decoding="async"
                   fetchpriority="high"
                 />
+
+                <button
+                  type="button"
+                  class="product-gallery-arrow product-gallery-arrow-next"
+                  id="productGalleryNext"
+                  aria-label="Ver próxima imagem"
+                  hidden
+                >
+                  ›
+                </button>
               </div>
 
               <!--
