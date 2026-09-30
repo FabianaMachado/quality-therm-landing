@@ -388,6 +388,161 @@ data-i18n-placeholder="catalog.searchPlaceholder"
       </div>
     </footer>
 
+    <!-- ==========================================
+     MODAL DE COMPRA / INTERESSE EM PRODUTO
+=========================================== -->
+
+<div class="assistance-modal" id="purchaseModal" hidden>
+  <div class="assistance-backdrop js-close-purchase"></div>
+
+  <div
+    class="assistance-dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="purchaseTitle"
+  >
+    <button
+      type="button"
+      class="assistance-close js-close-purchase"
+      aria-label="Fechar formulário"
+    >
+      ×
+    </button>
+
+    <div class="assistance-heading">
+      <span class="eyebrow">Compra de produto</span>
+
+      <h2 id="purchaseTitle">
+        Vamos ajudar você com a compra.
+      </h2>
+
+      <p>
+        Preencha os dados para nossa equipe continuar o atendimento pelo
+        WhatsApp.
+      </p>
+    </div>
+
+    <form
+      id="purchaseForm"
+      class="assistance-form"
+      data-lead-type="produto"
+      data-intent="compra"
+    >
+      <label>
+        <span>Nome</span>
+        <span aria-hidden="true">*</span>
+
+        <input
+          type="text"
+          name="name"
+          autocomplete="name"
+          placeholder="Digite seu nome"
+          maxlength="80"
+          required
+        />
+      </label>
+
+      <label>
+        <span>Telefone / WhatsApp</span>
+        <span aria-hidden="true">*</span>
+
+        <input
+          type="tel"
+          name="phone"
+          id="purchasePhone"
+          autocomplete="tel"
+          inputmode="tel"
+          placeholder="(11) 99999-9999"
+          maxlength="15"
+          required
+        />
+      </label>
+
+      <label class="full-field">
+        <span>Produto de interesse</span>
+        <span aria-hidden="true">*</span>
+
+        <input
+          type="text"
+          name="productName"
+          id="purchaseProductName"
+          placeholder="Ex.: Aquecedor Rinnai E21, peça ou acessório"
+          maxlength="120"
+          required
+        />
+      </label>
+
+      <label>
+        <span>CEP para atendimento/entrega</span>
+        <span aria-hidden="true">*</span>
+
+        <input
+          type="text"
+          name="cep"
+          id="purchaseCep"
+          inputmode="numeric"
+          autocomplete="postal-code"
+          placeholder="00000-000"
+          maxlength="9"
+          required
+        />
+      </label>
+
+      <div
+        id="purchaseAddressResult"
+        class="assistance-address-result"
+        hidden
+      >
+        <strong>Endereço localizado:</strong>
+        <span id="purchaseAddressText"></span>
+      </div>
+
+      <div
+        id="purchaseAddressFields"
+        class="assistance-address-fields"
+        hidden
+      >
+        <label>
+          <span>Número</span>
+          <span aria-hidden="true">*</span>
+
+          <input
+            type="text"
+            name="addressNumber"
+            id="purchaseAddressNumber"
+            placeholder="Ex.: 43"
+            maxlength="20"
+            required
+          />
+        </label>
+
+        <label>
+          <span>Complemento</span>
+          <small>opcional</small>
+
+          <input
+            type="text"
+            name="addressComplement"
+            id="purchaseAddressComplement"
+            placeholder="Ex.: Apto 12, Bloco B"
+            maxlength="100"
+          />
+        </label>
+      </div>
+
+      <p class="assistance-privacy">
+        Seus dados serão utilizados apenas para dar continuidade à sua
+        solicitação comercial.
+      </p>
+
+      <button type="submit" class="btn btn-primary full">
+        Continuar compra pelo WhatsApp
+      </button>
+    </form>
+  </div>
+</div> 
+
+
     <!-- =====================================================
          WHATSAPP FLUTUANTE
     ====================================================== -->
@@ -562,6 +717,7 @@ data-i18n-placeholder="catalog.searchPlaceholder"
 
     <script src="../js/i18n.js"></script>
     <script src="../js/site-settings.js"></script>
+    <script src="../js/app.js" defer></script>
 
     <!-- =====================================================
          JAVASCRIPT DO CATÁLOGO
@@ -1112,14 +1268,13 @@ data-i18n-placeholder="catalog.searchPlaceholder"
                  ${ct("viewProduct")}
                 </a>
 
-                <a
-                  class="btn btn-outline"
-                  href="${escapeHtml(whatsappUrl(product))}"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  ${ct("consult")}
-                </a>
+                <button
+  type="button"
+  class="btn btn-outline js-open-purchase"
+  data-product="${escapeHtml(name)}"
+>
+  ${ct("consult")}
+</button>
 
               </div>
 

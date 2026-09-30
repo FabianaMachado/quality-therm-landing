@@ -2368,3 +2368,836 @@ textarea {
   text-align: left;
   white-space: nowrap;
 }
+
+/* =========================================================
+   ELEMENTOS OCULTOS
+========================================================= */
+
+[hidden] {
+  display: none !important;
+}
+/* =========================================================
+   CRM - LEADS
+   Estilos exclusivos da página leads.html
+========================================================= */
+
+.leads-page .admin-stats-grid {
+  gap: 16px;
+}
+
+.leads-page .admin-stat-card {
+  min-height: 140px;
+  position: relative;
+  padding: 20px 22px 20px 92px;
+  justify-content: center;
+}
+
+.leads-page .admin-stat-card::before {
+  position: absolute;
+  left: 22px;
+  top: 20px;
+
+  width: 52px;
+  height: 52px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 15px;
+
+  font-size: 23px;
+  font-weight: 900;
+}
+
+.leads-page .admin-stat-card:nth-child(1)::before {
+  content: "◎";
+  color: #1687e8;
+  background: #eaf4ff;
+}
+
+.leads-page .admin-stat-card:nth-child(2)::before {
+  content: "◷";
+  color: #e99a00;
+  background: #fff4d9;
+}
+
+.leads-page .admin-stat-card:nth-child(3)::before {
+  content: "◉";
+  color: #16a565;
+  background: #e4f7ed;
+}
+
+.leads-page .admin-stat-card:nth-child(4)::before {
+  content: "▥";
+  color: #8d54e8;
+  background: #f1eaff;
+}
+
+.leads-page .admin-stat-number {
+  margin-top: 8px;
+  font-size: 36px;
+}
+
+.leads-page .admin-stat-card small {
+  margin-top: 8px;
+  padding-top: 0;
+}
+
+/* =========================================================
+   PAINEL PRINCIPAL
+========================================================= */
+
+.leads-panel {
+  padding: 0;
+  overflow: hidden;
+}
+
+.leads-panel .admin-panel-header {
+  align-items: center;
+  margin: 0;
+  padding: 24px 26px;
+}
+
+.leads-panel .admin-panel-header h2 {
+  font-size: 27px;
+}
+
+.leads-panel .admin-panel-header p {
+  margin: 8px 0 0;
+
+  color: var(--admin-muted);
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   PESQUISA
+========================================================= */
+
+.leads-search {
+  position: relative;
+
+  width: min(100%, 390px);
+}
+
+.leads-search::before {
+  content: "⌕";
+
+  position: absolute;
+  left: 16px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  color: #33444d;
+
+  font-size: 23px;
+  font-weight: 900;
+
+  pointer-events: none;
+}
+
+.leads-search input {
+  width: 100%;
+  height: 48px;
+
+  padding: 0 16px 0 47px;
+
+  border: 1px solid #d7dfe2;
+  border-radius: 15px;
+
+  background: #ffffff;
+  color: var(--admin-text);
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.leads-search input::placeholder {
+  color: #89969c;
+}
+
+.leads-search input:focus {
+  border-color: var(--admin-brand);
+  box-shadow: 0 0 0 4px rgba(214, 125, 47, 0.08);
+}
+
+/* =========================================================
+   TABELA DE LEADS
+========================================================= */
+
+.leads-table-container {
+  width: 100%;
+  overflow-x: auto;
+
+  border-top: 1px solid var(--admin-line);
+}
+
+.leads-table {
+  width: 100%;
+  min-width: 1180px;
+
+  border-collapse: collapse;
+
+  background: #ffffff;
+}
+
+.leads-table th {
+  padding: 16px 15px;
+
+  background: #fafbfb;
+
+  color: #23333b;
+
+  text-align: left;
+
+  font-size: 12px;
+  font-weight: 850;
+
+  border-bottom: 1px solid var(--admin-line);
+
+  white-space: nowrap;
+}
+
+.leads-table td {
+  padding: 16px 15px;
+
+  vertical-align: middle;
+
+  color: #26363e;
+
+  font-size: 13px;
+  line-height: 1.45;
+
+  border-bottom: 1px solid #edf0f1;
+}
+
+.leads-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.leads-table tbody tr:hover {
+  background: #fbfcfc;
+}
+
+.leads-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.leads-table td strong {
+  color: #15242c;
+}
+
+/* =========================================================
+   TIPO DO LEAD
+========================================================= */
+
+.lead-type-badge {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 6px 10px;
+
+  border-radius: 8px;
+
+  background: #e5f2ff;
+  color: #1474c4;
+
+  font-size: 11px;
+  font-weight: 850;
+
+  text-transform: capitalize;
+}
+
+/* =========================================================
+   ORIGEM
+========================================================= */
+
+.lead-source-badge {
+  display: inline-flex;
+  align-items: center;
+
+  max-width: 120px;
+
+  padding: 6px 10px;
+
+  border-radius: 8px;
+
+  background: #f0f2f3;
+  color: #56666e;
+
+  font-size: 11px;
+  font-weight: 750;
+
+  line-height: 1.3;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.lead-status-select {
+  min-width: 150px;
+  height: 42px;
+
+  padding: 0 34px 0 13px;
+
+  border: 1px solid #d5dde0;
+  border-radius: 11px;
+
+  background: #ffffff;
+
+  color: #26363e;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  cursor: pointer;
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.lead-status-select:hover,
+.lead-status-select:focus {
+  border-color: var(--admin-brand);
+  box-shadow: 0 0 0 3px rgba(214, 125, 47, 0.08);
+}
+
+/* =========================================================
+   AÇÕES
+========================================================= */
+
+.lead-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  white-space: nowrap;
+}
+
+.lead-action-button {
+  min-height: 40px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  padding: 0 13px;
+
+  border: 1px solid #a8c7e6;
+  border-radius: 11px;
+
+  background: #f7fbff;
+  color: #1474c4;
+
+  font-size: 12px;
+  font-weight: 850;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.lead-action-button:hover {
+  transform: translateY(-1px);
+
+  background: #eaf4ff;
+  border-color: #6da9df;
+}
+
+.lead-whatsapp-button {
+  min-height: 40px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  padding: 0 14px;
+
+  border: 1px solid #18a957;
+  border-radius: 11px;
+
+  background: #18a957;
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 850;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.lead-whatsapp-button:hover {
+  transform: translateY(-1px);
+
+  background: #128b47;
+  color: #ffffff;
+}
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media (max-width: 900px) {
+  .leads-panel .admin-panel-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .leads-search {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .leads-page .admin-stat-card {
+    min-height: 125px;
+  }
+
+  .leads-panel .admin-panel-header {
+    padding: 20px 18px;
+  }
+
+  .leads-table th,
+  .leads-table td {
+    padding: 13px 12px;
+  }
+}
+
+/* =========================================================
+   CRM - MODAL DETALHES DO LEAD
+========================================================= */
+
+.lead-details-modal {
+  width: min(92%, 760px);
+
+  max-height: 85vh;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: 22px;
+
+  background: #ffffff;
+  color: var(--admin-text);
+
+  box-shadow: 0 30px 80px rgba(14, 23, 29, 0.25);
+}
+
+.lead-details-modal::backdrop {
+  background: rgba(7, 15, 19, 0.65);
+  backdrop-filter: blur(4px);
+}
+
+.lead-details-modal .admin-modal-content {
+  padding: 28px;
+}
+
+.lead-details-modal .admin-panel-header {
+  align-items: flex-start;
+
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+
+  border-bottom: 1px solid var(--admin-line);
+}
+
+.lead-details-modal .admin-panel-header h2 {
+  margin: 4px 0 0;
+
+  font-size: 27px;
+}
+
+.lead-details-modal .admin-panel-header p {
+  margin: 7px 0 0;
+
+  color: var(--admin-muted);
+
+  font-size: 13px;
+}
+
+/* DADOS DO LEAD */
+
+.lead-details-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 14px;
+}
+
+.lead-detail-item {
+  min-width: 0;
+
+  padding: 16px;
+
+  border: 1px solid var(--admin-line);
+  border-radius: 14px;
+
+  background: #f8faf9;
+}
+
+.lead-detail-item span,
+.lead-detail-item strong {
+  display: block;
+}
+
+.lead-detail-item span {
+  margin-bottom: 6px;
+
+  color: var(--admin-muted);
+
+  font-size: 11px;
+  font-weight: 750;
+
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.lead-detail-item strong {
+  color: var(--admin-text);
+
+  font-size: 14px;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+.lead-detail-full {
+  grid-column: 1 / -1;
+}
+
+/* MOBILE */
+
+@media (max-width: 620px) {
+  .lead-details-modal {
+    width: calc(100% - 24px);
+
+    max-height: 90vh;
+
+    border-radius: 18px;
+  }
+
+  .lead-details-modal .admin-modal-content {
+    padding: 20px;
+  }
+
+  .lead-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lead-detail-full {
+    grid-column: 1;
+  }
+}
+
+/* =========================================================
+   CRM - OBSERVAÇÕES DO LEAD
+========================================================= */
+
+.lead-notes-area {
+  background: #ffffff;
+}
+
+.lead-notes-area textarea {
+  width: 100%;
+  min-height: 120px;
+
+  display: block;
+
+  margin-top: 10px;
+  padding: 14px 16px;
+
+  border: 1px solid #d7dfe2;
+  border-radius: 12px;
+
+  background: #ffffff;
+  color: var(--admin-text);
+
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.6;
+
+  resize: vertical;
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.lead-notes-area textarea:focus {
+  border-color: var(--admin-brand);
+
+  box-shadow: 0 0 0 4px rgba(214, 125, 47, 0.08);
+}
+
+.lead-notes-area textarea::placeholder {
+  color: #9aa5aa;
+}
+
+.lead-notes-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-top: 14px;
+}
+
+#leadNotesFeedback {
+  color: var(--admin-success);
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+#saveLeadNotes {
+  min-width: 160px;
+}
+
+@media (max-width: 620px) {
+  .lead-notes-area textarea {
+    min-height: 140px;
+  }
+
+  .lead-notes-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  #saveLeadNotes {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   CRM - HISTÓRICO / TIMELINE DO LEAD
+========================================================= */
+
+.lead-history-section {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--admin-line);
+}
+
+.lead-history-title {
+  margin-bottom: 18px;
+
+  color: var(--admin-text);
+
+  font-size: 15px;
+  font-weight: 900;
+}
+
+/* LISTA */
+
+.lead-history-list {
+  position: relative;
+
+  display: grid;
+  gap: 0;
+
+  padding-left: 28px;
+}
+
+/* LINHA VERTICAL */
+
+.lead-history-list::before {
+  content: "";
+
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 8px;
+
+  width: 2px;
+
+  background: #dfe5e7;
+}
+
+/* ITEM */
+
+.lead-history-item {
+  position: relative;
+
+  padding: 0 0 24px 18px;
+}
+
+/* BOLINHA DA TIMELINE */
+
+.lead-history-item::before {
+  content: "";
+
+  position: absolute;
+  top: 5px;
+  left: -25px;
+
+  width: 12px;
+  height: 12px;
+
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+
+  background: var(--admin-brand);
+
+  box-shadow: 0 0 0 2px rgba(214, 125, 47, 0.2);
+}
+
+.lead-history-item:last-child {
+  padding-bottom: 4px;
+}
+
+/* CABEÇALHO */
+
+.lead-history-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-bottom: 8px;
+}
+
+.lead-history-item-header strong {
+  color: var(--admin-text);
+
+  font-size: 12px;
+  font-weight: 850;
+}
+
+/* TIPO DE REGISTRO */
+
+.lead-history-item-header span {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 5px 9px;
+
+  border-radius: 999px;
+
+  background: #f1e8df;
+  color: var(--admin-brand);
+
+  font-size: 10px;
+  font-weight: 900;
+
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* TEXTO */
+
+.lead-history-item p {
+  margin: 0;
+
+  padding: 13px 15px;
+
+  border: 1px solid var(--admin-line);
+  border-radius: 12px;
+
+  background: #f8faf9;
+  color: var(--admin-text);
+
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* ESTADOS */
+
+.lead-history-empty,
+.lead-history-loading {
+  padding: 15px;
+
+  border: 1px dashed #ccd5d8;
+  border-radius: 12px;
+
+  background: #fafbfa;
+  color: var(--admin-muted);
+
+  font-size: 12px;
+}
+
+/* MOBILE */
+
+@media (max-width: 620px) {
+  .lead-history-item-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .lead-history-list {
+    padding-left: 24px;
+  }
+}
+
+/* =========================================================
+   CRM - TIPOS DE EVENTO DA TIMELINE
+========================================================= */
+
+/* ANOTAÇÃO MANUAL */
+
+.lead-history-note::before {
+  background: var(--admin-brand);
+  box-shadow: 0 0 0 2px rgba(214, 125, 47, 0.2);
+}
+
+.lead-history-note .lead-history-item-header span {
+  background: #f7eee5;
+  color: var(--admin-brand);
+}
+
+/* ALTERAÇÃO DE STATUS */
+
+.lead-history-status_change::before {
+  background: #1687e8;
+  box-shadow: 0 0 0 2px rgba(22, 135, 232, 0.18);
+}
+
+.lead-history-status_change .lead-history-item-header span {
+  background: #eaf4ff;
+  color: #1474c4;
+}
+
+.lead-history-status_change p {
+  border-color: #d6e8f8;
+  background: #f7fbff;
+}
+/* =========================================================
+   CRM - EVENTO WHATSAPP
+========================================================= */
+
+.lead-history-whatsapp::before {
+  background: #25d366;
+  box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.18);
+}
+
+.lead-history-whatsapp .lead-history-item-header span {
+  background: #e9f9ef;
+  color: #168a43;
+}
+
+.lead-history-whatsapp p {
+  border-color: #d4f0df;
+  background: #f7fcf9;
+}

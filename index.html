@@ -173,12 +173,8 @@
             </p>
 
             <div class="hero-actions">
-              <a
-                class="btn btn-primary js-scroll-track"
-                data-event="cta_buy"
-                href="#produtos"
-              >
-                <span data-i18n="hero.buy">Comprar aquecedor</span>
+              <a class="btn btn-primary" href="produtos/">
+                Comprar aquecedor
               </a>
 
               <!-- NOVO BOTÃO DE ASSISTÊNCIA -->
@@ -708,8 +704,8 @@
     </main>
 
     <!-- ==========================================
-       MODAL DE ASSISTÊNCIA TÉCNICA
-    =========================================== -->
+   MODAL DE ASSISTÊNCIA
+=========================================== -->
 
     <div class="assistance-modal" id="assistanceModal" hidden>
       <div class="assistance-backdrop js-close-assistance"></div>
@@ -724,29 +720,31 @@
           type="button"
           class="assistance-close js-close-assistance"
           aria-label="Fechar formulário"
-          data-i18n-aria-label="common.closeForm"
         >
           ×
         </button>
 
         <div class="assistance-heading">
-          <span class="eyebrow" data-i18n="assistance.eyebrow">
-            Assistência técnica
-          </span>
+          <span class="eyebrow">Assistência técnica</span>
 
-          <h2 id="assistanceTitle" data-i18n="assistance.title">
-            Conte rapidamente o que está acontecendo.
+          <h2 id="assistanceTitle">
+            Conte o que está acontecendo com seu aquecedor.
           </h2>
 
-          <p data-i18n="assistance.description">
-            Preencha os dados abaixo. Ao continuar, abriremos o WhatsApp com as
-            informações do atendimento preenchidas.
+          <p>
+            Preencha os dados abaixo para agilizar o atendimento da Quality
+            Therm.
           </p>
         </div>
 
-        <form id="assistanceForm" class="assistance-form">
+        <form
+          id="assistanceForm"
+          class="assistance-form"
+          data-lead-type="assistencia"
+          data-intent="manutencao"
+        >
           <label>
-            <span data-i18n="common.name">Nome</span>
+            <span>Nome</span>
             <span aria-hidden="true">*</span>
 
             <input
@@ -754,70 +752,70 @@
               name="name"
               autocomplete="name"
               placeholder="Digite seu nome"
-              data-i18n-placeholder="assistance.namePlaceholder"
               maxlength="80"
               required
             />
           </label>
 
           <label>
-            <span data-i18n="assistance.brand">Marca do aquecedor</span>
+            <span>Telefone / WhatsApp</span>
+            <span aria-hidden="true">*</span>
+
+            <input
+              type="tel"
+              name="phone"
+              id="assistancePhone"
+              autocomplete="tel"
+              inputmode="tel"
+              placeholder="(11) 99999-9999"
+              maxlength="15"
+              required
+            />
+          </label>
+
+          <label>
+            <span>Marca do aquecedor</span>
             <span aria-hidden="true">*</span>
 
             <select name="brand" required>
-              <option value="" data-i18n="assistance.selectBrand">
-                Selecione a marca
-              </option>
-
+              <option value="">Selecione a marca</option>
               <option value="Rinnai">Rinnai</option>
               <option value="Komeco">Komeco</option>
               <option value="Rheem">Rheem</option>
               <option value="Lorenzetti">Lorenzetti</option>
               <option value="Bosch">Bosch</option>
-
-              <option value="Outra marca" data-i18n="common.otherBrand">
-                Outra marca
-              </option>
-
-              <option value="Não sei informar" data-i18n="common.dontKnow">
-                Não sei informar
-              </option>
+              <option value="Outra marca">Outra marca</option>
+              <option value="Não sei informar">Não sei informar</option>
             </select>
           </label>
 
           <label>
-            <span data-i18n="common.model">Modelo</span>
-            <small data-i18n="common.optional">opcional</small>
+            <span>Modelo</span>
+            <small>opcional</small>
 
             <input
               type="text"
               name="model"
               placeholder="Ex.: E21 — se souber"
-              data-i18n-placeholder="assistance.modelPlaceholder"
               maxlength="60"
             />
           </label>
 
-          <label>
-            <span data-i18n="assistance.problem">
-              O que está acontecendo?
-            </span>
+          <label class="full-field">
+            <span>O que está acontecendo?</span>
             <span aria-hidden="true">*</span>
 
             <textarea
               name="problem"
               rows="4"
               maxlength="500"
-              placeholder="Ex.: não aquece, desliga durante o banho, apresenta código 11..."
-              data-i18n-placeholder="assistance.problemPlaceholder"
+              placeholder="Ex.: não acende, água não esquenta, apresenta código de erro..."
               required
             ></textarea>
           </label>
 
           <label>
-            <span data-i18n="assistance.zipCode">
-              CEP do local do atendimento
-            </span>
+            <span>CEP do atendimento</span>
             <span aria-hidden="true">*</span>
 
             <input
@@ -832,23 +830,63 @@
             />
           </label>
 
-          <p class="assistance-privacy" data-i18n="assistance.privacy">
-            Seus dados serão utilizados apenas para dar continuidade à sua
+          <div
+            id="assistanceAddressResult"
+            class="assistance-address-result"
+            hidden
+          >
+            <strong>Endereço localizado:</strong>
+            <span id="assistanceAddressText"></span>
+          </div>
+
+          <div
+            id="assistanceAddressFields"
+            class="assistance-address-fields"
+            hidden
+          >
+            <label>
+              <span>Número</span>
+              <span aria-hidden="true">*</span>
+
+              <input
+                type="text"
+                name="addressNumber"
+                id="assistanceAddressNumber"
+                placeholder="Ex.: 43"
+                maxlength="20"
+                required
+              />
+            </label>
+
+            <label>
+              <span>Complemento</span>
+              <small>opcional</small>
+
+              <input
+                type="text"
+                name="addressComplement"
+                id="assistanceAddressComplement"
+                placeholder="Ex.: Apto 12, Bloco B"
+                maxlength="100"
+              />
+            </label>
+          </div>
+
+          <p class="assistance-privacy">
+            Seus dados serão utilizados apenas para dar continuidade à
             solicitação de atendimento.
           </p>
 
           <button type="submit" class="btn btn-primary full">
-            <span data-i18n="assistance.submit">
-              Solicitar assistência pelo WhatsApp
-            </span>
+            Solicitar atendimento pelo WhatsApp
           </button>
         </form>
       </div>
     </div>
 
     <!-- ==========================================
-       MODAL DE MANUTENÇÃO PREVENTIVA
-    =========================================== -->
+   MODAL DE MANUTENÇÃO PREVENTIVA
+=========================================== -->
 
     <div class="assistance-modal" id="maintenanceModal" hidden>
       <div class="assistance-backdrop js-close-maintenance"></div>
@@ -863,28 +901,28 @@
           type="button"
           class="assistance-close js-close-maintenance"
           aria-label="Fechar formulário"
-          data-i18n-aria-label="common.closeForm"
         >
           ×
         </button>
 
         <div class="assistance-heading">
-          <span class="eyebrow" data-i18n="preventive.eyebrow">
-            Manutenção preventiva
-          </span>
+          <span class="eyebrow">Manutenção preventiva</span>
 
-          <h2 id="maintenanceTitle" data-i18n="maintenance.title">
-            Vamos preparar seu atendimento.
-          </h2>
+          <h2 id="maintenanceTitle">Vamos preparar seu atendimento.</h2>
 
-          <p data-i18n="maintenance.description">
+          <p>
             Informe alguns dados do equipamento para agilizar o agendamento.
           </p>
         </div>
 
-        <form id="maintenanceForm" class="assistance-form">
+        <form
+          id="maintenanceForm"
+          class="assistance-form"
+          data-lead-type="manutencao_preventiva"
+          data-intent="manutencao"
+        >
           <label>
-            <span data-i18n="common.name">Nome</span>
+            <span>Nome</span>
             <span aria-hidden="true">*</span>
 
             <input
@@ -892,99 +930,72 @@
               name="name"
               autocomplete="name"
               placeholder="Digite seu nome"
-              data-i18n-placeholder="assistance.namePlaceholder"
               maxlength="80"
               required
             />
           </label>
 
           <label>
-            <span data-i18n="assistance.brand">Marca do aquecedor</span>
+            <span>Telefone / WhatsApp</span>
+            <span aria-hidden="true">*</span>
+
+            <input
+              type="tel"
+              name="phone"
+              id="maintenancePhone"
+              autocomplete="tel"
+              inputmode="tel"
+              placeholder="(11) 99999-9999"
+              maxlength="15"
+              required
+            />
+          </label>
+
+          <label>
+            <span>Marca do aquecedor</span>
             <span aria-hidden="true">*</span>
 
             <select name="brand" required>
-              <option value="" data-i18n="assistance.selectBrand">
-                Selecione a marca
-              </option>
-
+              <option value="">Selecione a marca</option>
               <option value="Rinnai">Rinnai</option>
               <option value="Komeco">Komeco</option>
               <option value="Rheem">Rheem</option>
               <option value="Lorenzetti">Lorenzetti</option>
               <option value="Bosch">Bosch</option>
-
-              <option value="Outra marca" data-i18n="common.otherBrand">
-                Outra marca
-              </option>
-
-              <option value="Não sei informar" data-i18n="common.dontKnow">
-                Não sei informar
-              </option>
+              <option value="Outra marca">Outra marca</option>
+              <option value="Não sei informar">Não sei informar</option>
             </select>
           </label>
 
           <label>
-            <span data-i18n="common.model">Modelo</span>
-            <small data-i18n="common.optional">opcional</small>
+            <span>Modelo</span>
+            <small>opcional</small>
 
             <input
               type="text"
               name="model"
               placeholder="Ex.: E21 — se souber"
-              data-i18n-placeholder="assistance.modelPlaceholder"
               maxlength="60"
             />
           </label>
 
           <label>
-            <span data-i18n="maintenance.lastMaintenance">
-              Última manutenção
-            </span>
+            <span>Última manutenção</span>
             <span aria-hidden="true">*</span>
 
             <select name="lastMaintenance" required>
-              <option value="" data-i18n="common.select">Selecione</option>
-
-              <option
-                value="menos de 6 meses"
-                data-i18n="maintenance.lessSixMonths"
-              >
-                Menos de 6 meses
-              </option>
-
-              <option
-                value="entre 6 e 12 meses"
-                data-i18n="maintenance.sixTwelveMonths"
-              >
-                Entre 6 e 12 meses
-              </option>
-
-              <option
-                value="entre 1 e 2 anos"
-                data-i18n="maintenance.oneTwoYears"
-              >
-                Entre 1 e 2 anos
-              </option>
-
-              <option
-                value="mais de 2 anos"
-                data-i18n="maintenance.moreTwoYears"
-              >
-                Mais de 2 anos
-              </option>
-
-              <option value="nunca foi realizada" data-i18n="maintenance.never">
-                Nunca foi realizada
-              </option>
-
-              <option value="não sei informar" data-i18n="common.dontKnow">
-                Não sei informar
-              </option>
+              <option value="">Selecione</option>
+              <option value="menos de 6 meses">Menos de 6 meses</option>
+              <option value="entre 6 e 12 meses">Entre 6 e 12 meses</option>
+              <option value="entre 1 e 2 anos">Entre 1 e 2 anos</option>
+              <option value="mais de 2 anos">Mais de 2 anos</option>
+              <option value="nunca foi realizada">Nunca foi realizada</option>
+              <option value="não sei informar">Não sei informar</option>
             </select>
           </label>
 
           <label>
-            <span data-i18n="maintenance.zipCode"> CEP do atendimento </span>
+            <span>CEP do atendimento</span>
             <span aria-hidden="true">*</span>
 
             <input
@@ -999,23 +1010,63 @@
             />
           </label>
 
-          <p class="assistance-privacy" data-i18n="maintenance.privacy">
+          <div
+            id="maintenanceAddressResult"
+            class="assistance-address-result"
+            hidden
+          >
+            <strong>Endereço localizado:</strong>
+            <span id="maintenanceAddressText"></span>
+          </div>
+
+          <div
+            id="maintenanceAddressFields"
+            class="assistance-address-fields"
+            hidden
+          >
+            <label>
+              <span>Número</span>
+              <span aria-hidden="true">*</span>
+
+              <input
+                type="text"
+                name="addressNumber"
+                id="maintenanceAddressNumber"
+                placeholder="Ex.: 43"
+                maxlength="20"
+                required
+              />
+            </label>
+
+            <label>
+              <span>Complemento</span>
+              <small>opcional</small>
+
+              <input
+                type="text"
+                name="addressComplement"
+                id="maintenanceAddressComplement"
+                placeholder="Ex.: Apto 12, Bloco B"
+                maxlength="100"
+              />
+            </label>
+          </div>
+
+          <p class="assistance-privacy">
             Seus dados serão utilizados apenas para dar continuidade à
             solicitação de atendimento.
           </p>
 
           <button type="submit" class="btn btn-primary full">
-            <span data-i18n="maintenance.submit">
-              Agendar manutenção pelo WhatsApp
-            </span>
+            Agendar manutenção pelo WhatsApp
           </button>
         </form>
       </div>
     </div>
 
     <!-- ==========================================
-       MODAL DE INSTALAÇÃO / SUBSTITUIÇÃO
-    =========================================== -->
+   MODAL DE INSTALAÇÃO / SUBSTITUIÇÃO
+=========================================== -->
 
     <div class="assistance-modal" id="installationModal" hidden>
       <div class="assistance-backdrop js-close-installation"></div>
@@ -1030,29 +1081,29 @@
           type="button"
           class="assistance-close js-close-installation"
           aria-label="Fechar formulário"
-          data-i18n-aria-label="common.closeForm"
         >
           ×
         </button>
 
         <div class="assistance-heading">
-          <span class="eyebrow" data-i18n="installation.eyebrow">
-            Instalação e substituição
-          </span>
+          <span class="eyebrow">Instalação e substituição</span>
 
-          <h2 id="installationTitle" data-i18n="installation.title">
-            Conte um pouco sobre a instalação.
-          </h2>
+          <h2 id="installationTitle">Conte um pouco sobre a instalação.</h2>
 
-          <p data-i18n="installation.description">
+          <p>
             Essas informações ajudam nossa equipe a entender sua necessidade
             antes do orçamento.
           </p>
         </div>
 
-        <form id="installationForm" class="assistance-form">
+        <form
+          id="installationForm"
+          class="assistance-form"
+          data-lead-type="instalacao"
+          data-intent="instalacao"
+        >
           <label>
-            <span data-i18n="common.name">Nome</span>
+            <span>Nome</span>
             <span aria-hidden="true">*</span>
 
             <input
@@ -1060,77 +1111,71 @@
               name="name"
               autocomplete="name"
               placeholder="Digite seu nome"
-              data-i18n-placeholder="assistance.namePlaceholder"
               maxlength="80"
               required
             />
           </label>
 
           <label>
-            <span data-i18n="installation.need"> O que você precisa? </span>
+            <span>Telefone / WhatsApp</span>
+            <span aria-hidden="true">*</span>
+
+            <input
+              type="tel"
+              name="phone"
+              id="installationPhone"
+              autocomplete="tel"
+              inputmode="tel"
+              placeholder="(11) 99999-9999"
+              maxlength="15"
+              required
+            />
+          </label>
+
+          <label>
+            <span>O que você precisa?</span>
             <span aria-hidden="true">*</span>
 
             <select name="installationType" required>
-              <option value="" data-i18n="common.select">Selecione</option>
+              <option value="">Selecione</option>
 
-              <option
-                value="instalação de aquecedor novo"
-                data-i18n="installation.newInstallation"
-              >
+              <option value="instalação de aquecedor novo">
                 Instalação de aquecedor novo
               </option>
 
-              <option
-                value="substituição de aquecedor existente"
-                data-i18n="installation.replacement"
-              >
+              <option value="substituição de aquecedor existente">
                 Substituição de aquecedor existente
               </option>
 
-              <option
-                value="ainda preciso comprar o aquecedor"
-                data-i18n="installation.needToBuy"
-              >
+              <option value="ainda preciso comprar o aquecedor">
                 Ainda preciso comprar o aquecedor
               </option>
 
-              <option
-                value="não sei qual opção preciso"
-                data-i18n="installation.dontKnowOption"
-              >
+              <option value="não sei qual opção preciso">
                 Não sei qual opção preciso
               </option>
             </select>
           </label>
 
           <label>
-            <span data-i18n="installation.equipmentBrand">
-              Marca do equipamento
-            </span>
-            <small data-i18n="common.optional">opcional</small>
+            <span>Marca do equipamento</span>
+            <small>opcional</small>
 
             <select name="brand">
-              <option value="" data-i18n="common.select">Selecione</option>
-
+              <option value="">Selecione</option>
               <option value="Rinnai">Rinnai</option>
               <option value="Komeco">Komeco</option>
               <option value="Rheem">Rheem</option>
               <option value="Lorenzetti">Lorenzetti</option>
               <option value="Bosch">Bosch</option>
-
-              <option value="Outra marca" data-i18n="common.otherBrand">
-                Outra marca
-              </option>
-
-              <option value="Não sei informar" data-i18n="common.dontKnow">
-                Não sei informar
-              </option>
+              <option value="Outra marca">Outra marca</option>
+              <option value="Não sei informar">Não sei informar</option>
             </select>
           </label>
 
           <label>
-            <span data-i18n="common.model">Modelo</span>
-            <small data-i18n="common.optional">opcional</small>
+            <span>Modelo</span>
+            <small>opcional</small>
 
             <input
               type="text"
@@ -1141,31 +1186,19 @@
           </label>
 
           <label>
-            <span data-i18n="installation.gas"> Tipo de gás </span>
+            <span>Tipo de gás</span>
             <span aria-hidden="true">*</span>
 
             <select name="gas" required>
-              <option value="" data-i18n="common.select">Selecione</option>
-
-              <option
-                value="GN - Gás Natural"
-                data-i18n="installation.naturalGas"
-              >
-                GN - Gás Natural
-              </option>
-
+              <option value="">Selecione</option>
+              <option value="GN - Gás Natural">GN - Gás Natural</option>
               <option value="GLP">GLP</option>
-
-              <option value="não sei informar" data-i18n="common.dontKnow">
-                Não sei informar
-              </option>
+              <option value="não sei informar">Não sei informar</option>
             </select>
           </label>
 
           <label>
-            <span data-i18n="installation.zipCode">
-              CEP do local da instalação
-            </span>
+            <span>CEP do local da instalação</span>
             <span aria-hidden="true">*</span>
 
             <input
@@ -1180,28 +1213,219 @@
             />
           </label>
 
+          <div
+            id="installationAddressResult"
+            class="assistance-address-result"
+            hidden
+          >
+            <strong>Endereço localizado:</strong>
+            <span id="installationAddressText"></span>
+          </div>
+
+          <div
+            id="installationAddressFields"
+            class="assistance-address-fields"
+            hidden
+          >
+            <label>
+              <span>Número</span>
+              <span aria-hidden="true">*</span>
+
+              <input
+                type="text"
+                name="addressNumber"
+                id="installationAddressNumber"
+                placeholder="Ex.: 43"
+                maxlength="20"
+                required
+              />
+            </label>
+
+            <label>
+              <span>Complemento</span>
+              <small>opcional</small>
+
+              <input
+                type="text"
+                name="addressComplement"
+                id="installationAddressComplement"
+                placeholder="Ex.: Apto 12, Bloco B"
+                maxlength="100"
+              />
+            </label>
+          </div>
+
           <label class="full-field">
-            <span data-i18n="installation.observations"> Observações </span>
-            <small data-i18n="common.optional">opcional</small>
+            <span>Observações</span>
+            <small>opcional</small>
 
             <textarea
               name="notes"
               rows="4"
               maxlength="500"
               placeholder="Ex.: já existe aquecedor instalado, preciso retirar o antigo..."
-              data-i18n-placeholder="installation.observationsPlaceholder"
             ></textarea>
           </label>
 
-          <p class="assistance-privacy" data-i18n="installation.privacy">
+          <p class="assistance-privacy">
             Seus dados serão utilizados apenas para dar continuidade à
             solicitação de orçamento.
           </p>
 
           <button type="submit" class="btn btn-primary full">
-            <span data-i18n="installation.submit">
-              Solicitar orçamento pelo WhatsApp
-            </span>
+            Solicitar orçamento pelo WhatsApp
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ==========================================
+   MODAL DE COMPRA / INTERESSE EM PRODUTO
+=========================================== -->
+
+    <div class="assistance-modal" id="purchaseModal" hidden>
+      <div class="assistance-backdrop js-close-purchase"></div>
+
+      <div
+        class="assistance-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="purchaseTitle"
+      >
+        <button
+          type="button"
+          class="assistance-close js-close-purchase"
+          aria-label="Fechar formulário"
+        >
+          ×
+        </button>
+
+        <div class="assistance-heading">
+          <span class="eyebrow">Compra de produto</span>
+
+          <h2 id="purchaseTitle">Vamos ajudar você com a compra.</h2>
+
+          <p>
+            Preencha os dados para nossa equipe continuar o atendimento pelo
+            WhatsApp.
+          </p>
+        </div>
+
+        <form
+          id="purchaseForm"
+          class="assistance-form"
+          data-lead-type="produto"
+          data-intent="compra"
+        >
+          <label>
+            <span>Nome</span>
+            <span aria-hidden="true">*</span>
+
+            <input
+              type="text"
+              name="name"
+              autocomplete="name"
+              placeholder="Digite seu nome"
+              maxlength="80"
+              required
+            />
+          </label>
+
+          <label>
+            <span>Telefone / WhatsApp</span>
+            <span aria-hidden="true">*</span>
+
+            <input
+              type="tel"
+              name="phone"
+              id="purchasePhone"
+              autocomplete="tel"
+              inputmode="tel"
+              placeholder="(11) 99999-9999"
+              maxlength="15"
+              required
+            />
+          </label>
+
+          <label class="full-field">
+            <span>Produto de interesse</span>
+            <span aria-hidden="true">*</span>
+
+            <input
+              type="text"
+              name="productName"
+              id="purchaseProductName"
+              placeholder="Ex.: Aquecedor Rinnai E21, peça ou acessório"
+              maxlength="120"
+              required
+            />
+          </label>
+
+          <label>
+            <span>CEP para atendimento/entrega</span>
+            <span aria-hidden="true">*</span>
+
+            <input
+              type="text"
+              name="cep"
+              id="purchaseCep"
+              inputmode="numeric"
+              autocomplete="postal-code"
+              placeholder="00000-000"
+              maxlength="9"
+              required
+            />
+          </label>
+
+          <div
+            id="purchaseAddressResult"
+            class="assistance-address-result"
+            hidden
+          >
+            <strong>Endereço localizado:</strong>
+            <span id="purchaseAddressText"></span>
+          </div>
+
+          <div
+            id="purchaseAddressFields"
+            class="assistance-address-fields"
+            hidden
+          >
+            <label>
+              <span>Número</span>
+              <span aria-hidden="true">*</span>
+
+              <input
+                type="text"
+                name="addressNumber"
+                id="purchaseAddressNumber"
+                placeholder="Ex.: 43"
+                maxlength="20"
+                required
+              />
+            </label>
+
+            <label>
+              <span>Complemento</span>
+              <small>opcional</small>
+
+              <input
+                type="text"
+                name="addressComplement"
+                id="purchaseAddressComplement"
+                placeholder="Ex.: Apto 12, Bloco B"
+                maxlength="100"
+              />
+            </label>
+          </div>
+
+          <p class="assistance-privacy">
+            Seus dados serão utilizados apenas para dar continuidade à sua
+            solicitação comercial.
+          </p>
+
+          <button type="submit" class="btn btn-primary full">
+            Continuar compra pelo WhatsApp
           </button>
         </form>
       </div>

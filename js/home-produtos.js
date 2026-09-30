@@ -362,14 +362,13 @@
            ${pt("details")}
           </a>
 
-          <a
-            class="btn btn-outline"
-            href="${whatsappUrl}"
-            target="_blank"
-            rel="noopener"
-          >
-            ${pt("consult")}
-          </a>
+         <button
+  type="button"
+  class="btn btn-outline js-open-purchase"
+  data-product="${escapeHtml(product.name)}"
+>
+  ${pt("consult")}
+</button>
 
         </div>
 

@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="theme-color" content="#0e171d" />
+
+    <meta name="robots" content="noindex,nofollow" />
+
+    <title>Leads | Quality Therm</title>
+
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+
+  <body class="leads-page">
+    <div class="admin-layout">
+      <!-- =====================================================
+           MENU LATERAL
+      ====================================================== -->
+
+      <aside class="admin-sidebar">
+        <div class="admin-brand">
+          <div class="admin-brand-mark">QT</div>
+
+          <div>
+            <strong>Quality Therm</strong>
+
+            <small> Painel Administrativo </small>
+          </div>
+        </div>
+
+        <nav class="admin-menu">
+          <a href="index.html" class="admin-menu-link">
+            <span>⌂</span>
+            <span>Dashboard</span>
+          </a>
+
+          <a href="produtos.html" class="admin-menu-link">
+            <span>▦</span>
+            <span>Produtos</span>
+          </a>
+
+          <a href="avaliacoes.html" class="admin-menu-link">
+            <span>★</span>
+            <span>Avaliações</span>
+          </a>
+
+          <a href="clientes.html" class="admin-menu-link">
+            <span>▣</span>
+            <span>Clientes atendidos</span>
+          </a>
+
+          <a href="leads.html" class="admin-menu-link active">
+            <span>◎</span>
+            <span>Leads</span>
+          </a>
+
+          <a href="configuracoes.html" class="admin-menu-link">
+            <span>⚙</span>
+            <span>Configurações</span>
+          </a>
+
+          <a
+            href="../index.html"
+            class="admin-menu-link"
+            target="_blank"
+            rel="noopener"
+          >
+            <span>↗</span>
+            <span>Ver site</span>
+          </a>
+
+          <button
+            type="button"
+            class="admin-menu-link admin-logout-button"
+            onclick="sairDoPainel()"
+          >
+            <span>⇥</span>
+            <span>Sair</span>
+          </button>
+        </nav>
+
+        <div class="admin-sidebar-footer">
+          <small>Quality Therm</small>
+
+          <span> Administração da loja </span>
+        </div>
+      </aside>
+
+      <!-- =====================================================
+           CONTEÚDO PRINCIPAL
+      ====================================================== -->
+
+      <div class="admin-main">
+        <!-- ===================================================
+             TOPO
+        ==================================================== -->
+
+        <header class="admin-topbar">
+          <div>
+            <span class="admin-page-label"> CRM </span>
+
+            <h1>Leads</h1>
+          </div>
+
+          <div class="admin-topbar-actions">
+            <a
+              href="../index.html"
+              class="admin-button admin-button-primary"
+              target="_blank"
+              rel="noopener"
+            >
+              Ver site
+            </a>
+          </div>
+        </header>
+
+        <!-- ===================================================
+             CONTEÚDO
+        ==================================================== -->
+
+        <main class="admin-content">
+          <!-- =================================================
+               CARDS
+          ================================================== -->
+
+          <section class="admin-stats-grid">
+            <article class="admin-stat-card">
+              <span class="admin-stat-label"> Total de leads </span>
+
+              <strong class="admin-stat-number" id="totalLeads"> 0 </strong>
+
+              <small> Solicitações recebidas </small>
+            </article>
+
+            <article class="admin-stat-card">
+              <span class="admin-stat-label"> Novos </span>
+
+              <strong class="admin-stat-number" id="newLeads"> 0 </strong>
+
+              <small> Aguardando atendimento </small>
+            </article>
+
+            <article class="admin-stat-card">
+              <span class="admin-stat-label"> Em atendimento </span>
+
+              <strong class="admin-stat-number" id="serviceLeads"> 0 </strong>
+
+              <small> Atendimento iniciado </small>
+            </article>
+
+            <article class="admin-stat-card">
+              <span class="admin-stat-label"> Convertidos </span>
+
+              <strong class="admin-stat-number" id="convertedLeads"> 0 </strong>
+
+              <small> Leads convertidos </small>
+            </article>
+          </section>
+
+          <!-- =================================================
+               LISTA DE LEADS
+          ================================================== -->
+
+          <section class="admin-panel">
+            <div class="admin-panel-header">
+              <div>
+                <span class="admin-page-label">CRM</span>
+
+                <h2>Solicitações recebidas</h2>
+
+                <p>Acompanhe os contatos enviados pelos formulários do site.</p>
+              </div>
+
+              <div class="leads-search">
+                <input
+                  type="search"
+                  id="leadSearch"
+                  placeholder="Pesquisar por nome, telefone, problema..."
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+
+            <!-- CARREGAMENTO -->
+
+            <div class="admin-empty" id="leadsLoading">
+              <strong> Carregando leads... </strong>
+
+              <span> Aguarde um instante. </span>
+            </div>
+
+            <!-- SEM LEADS -->
+
+            <div class="admin-empty" id="leadsEmpty" hidden>
+              <strong> Nenhum lead recebido. </strong>
+
+              <span> As solicitações enviadas pelo site aparecerão aqui. </span>
+            </div>
+
+            <!-- TABELA -->
+
+            <div id="leadsTableContainer" class="leads-table-container" hidden>
+              <table class="leads-table">
+                <thead>
+                  <tr>
+                    <th>Data</th>
+
+                    <th>Cliente</th>
+
+                    <th>Telefone</th>
+
+                    <th>Interesse</th>
+
+                    <th>Marca / Modelo</th>
+
+                    <th>Problema</th>
+
+                    <th>Local</th>
+
+                    <th>Origem</th>
+
+                    <th>Status</th>
+
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+
+                <tbody id="leadsTableBody"></tbody>
+              </table>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <!-- =====================================================
+         MODAL - DETALHES DO LEAD
+    ====================================================== -->
+
+    <dialog id="leadDetailsModal" class="lead-details-modal">
+      <div class="admin-modal-content">
+        <div class="admin-panel-header">
+          <div>
+            <span class="admin-page-label">CRM</span>
+            <h2>Detalhes do lead</h2>
+            <p>Informações completas da solicitação.</p>
+          </div>
+
+          <button type="button" id="closeLeadDetails" class="admin-button">
+            Fechar
+          </button>
+        </div>
+
+        <div id="leadDetailsContent">
+          <!-- preenchido pelo admin-leads.js -->
+        </div>
+      </div>
+    </dialog>
+
+    <!-- =====================================================
+         SCRIPTS
+    ====================================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../js/supabase-config.js"></script>
+
+    <script src="admin-i18n.js"></script>
+
+    <script src="admin-auth.js"></script>
+
+    <script src="admin-leads.js" defer></script>
+  </body>
+</html>
