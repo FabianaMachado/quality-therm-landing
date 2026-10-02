@@ -176,15 +176,30 @@
   // =========================================================
 
   function getProductUrl(product) {
-    if (!product.slug) {
+    const slug = String(product.slug || "").trim();
+
+    if (!slug) {
       return "#";
     }
 
-    return (
-      "produtos/produto.html" + `?produto=${encodeURIComponent(product.slug)}`
-    );
-  }
+    const category = String(product.category || "")
+      .trim()
+      .toLowerCase();
 
+    let categoryPath = "produtos";
+
+    if (category === "aquecedores") {
+      categoryPath = "aquecedores-a-gas";
+    } else if (category === "acessórios") {
+      categoryPath = "acessorios";
+    } else if (category === "duchas") {
+      categoryPath = "duchas";
+    } else if (category === "peças") {
+      categoryPath = "pecas";
+    }
+
+    return `/${categoryPath}/${encodeURIComponent(slug)}`;
+  }
   // =========================================================
   // WHATSAPP
   // =========================================================

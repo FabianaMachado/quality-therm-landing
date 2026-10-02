@@ -20,12 +20,65 @@
   function getSlug() {
     const params = new URLSearchParams(window.location.search);
 
-    return String(params.get("produto") || "")
+    const querySlug = String(params.get("produto") || "")
+      .trim()
+      .toLowerCase();
+
+    // Mantém compatibilidade com as URLs antigas:
+    // /produtos/produto.html?produto=rinnai-e21
+    if (querySlug) {
+      return querySlug;
+    }
+
+    // Permite a nova URL amigável:
+    // /aquecedores-a-gas/komeco-ko-21di-prime-21-litros
+    const pathParts = window.location.pathname.split("/").filter(Boolean);
+
+    const lastPart = pathParts[pathParts.length - 1] || "";
+
+    return decodeURIComponent(lastPart)
+      .replace(/\.html$/i, "")
       .trim()
       .toLowerCase();
   }
 
   function money(value) {
+    function setCanonical(product) {
+      const slug = String(product.slug || "").trim();
+
+      if (!slug) {
+        return;
+      }
+
+      const category = String(product.category || "")
+        .trim()
+        .toLowerCase();
+
+      let categoryPath = "produtos";
+
+      if (category === "aquecedores") {
+        categoryPath = "aquecedores-a-gas";
+      } else if (category === "acessórios") {
+        categoryPath = "acessorios";
+      } else if (category === "duchas") {
+        categoryPath = "duchas";
+      } else if (category === "peças") {
+        categoryPath = "pecas";
+      }
+
+      const canonicalUrl = `https://www.aquecedoresqualitytherm.com.br/${categoryPath}/${encodeURIComponent(slug)}`;
+
+      let canonical = document.querySelector('link[rel="canonical"]');
+
+      if (!canonical) {
+        canonical = document.createElement("link");
+        canonical.rel = "canonical";
+        document.head.appendChild(canonical);
+      }
+
+      canonical.href = canonicalUrl;
+    }
+
     const number = Number(value || 0);
 
     return number.toLocaleString("pt-BR", {
@@ -454,10 +507,9 @@
           if (deltaX < 0) {
             updateGallery(currentIndex + 1);
           } else {
-
-          /*
-           * Arrastou para direita.
-           */
+            /*
+             * Arrastou para direita.
+             */
             updateGallery(currentIndex - 1);
           }
         },
@@ -670,6 +722,8 @@
 
   function renderProduct(product) {
     document.title = `${product.name} | Quality Therm`;
+
+    setCanonical(product);
 
     const descriptionMeta = $("#pageDescription");
 

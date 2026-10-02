@@ -113,6 +113,59 @@ document.addEventListener("DOMContentLoaded", () => {
   // UTILITÁRIOS
   // =========================================================
 
+  function slugifyProduct(value) {
+    return String(value || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
+  function gerarSlugProduto({ brand, model, flow }) {
+    const marca = String(brand || "").trim();
+    const modelo = String(model || "").trim();
+
+    const vazao = String(flow || "")
+      .trim()
+      .replace(",", ".")
+      .replace(/\s*l\s*\/?\s*min/gi, "")
+      .replace(/\s*litros?/gi, "")
+      .trim();
+
+    const partes = [marca, modelo, vazao ? `${vazao} litros` : ""].filter(
+      Boolean,
+    );
+
+    return slugifyProduct(partes.join(" "));
+  }
+
+  const productBrandInput = document.getElementById("productBrand");
+  const productModelInput = document.getElementById("productModel");
+  const productFlowInput = document.getElementById("productFlow");
+  const productSlugInput = document.getElementById("productSlug");
+
+  function atualizarSlugProduto() {
+    if (!productSlugInput) {
+      return;
+    }
+
+    const slug = gerarSlugProduto({
+      brand: productBrandInput?.value,
+      model: productModelInput?.value,
+      flow: productFlowInput?.value,
+    });
+
+    productSlugInput.value = slug;
+  }
+
+  [productBrandInput, productModelInput, productFlowInput]
+    .filter(Boolean)
+    .forEach((input) => {
+      input.addEventListener("input", atualizarSlugProduto);
+      input.addEventListener("change", atualizarSlugProduto);
+    });
+
   function escaparHtml(valor) {
     return String(valor ?? "")
       .replaceAll("&", "&amp;")
@@ -931,6 +984,12 @@ document.addEventListener("DOMContentLoaded", () => {
       // 2. DADOS DO PRODUTO
       // ===============================================
 
+      const generatedSlug = gerarSlugProduto({
+        brand: formData.get("brand"),
+        model: formData.get("model"),
+        flow: formData.get("flow"),
+      });
+
       const productData = {
         name: formData.get("name"),
 
@@ -948,7 +1007,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         sku: formData.get("sku") || null,
 
-        slug: formData.get("slug"),
+        slug: generatedSlug || formData.get("slug"),
 
         flow: formData.get("flow") || null,
 
@@ -1632,7 +1691,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.getElementById("productSku").value = product.sku || "";
 
-        document.getElementById("productSlug").value = product.slug || "";
+        document.getElementById("productSlug").value = gerarSlugProduto({
+          brand: product.brand,
+          model: product.model,
+          flow: product.flow,
+        });
 
         document.getElementById("productFlow").value = product.flow || "";
 

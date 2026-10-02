@@ -2,3 +2,9 @@
 /aquecedores-rinnai/aquecedor-rinnai-e21-digital-vazao-21-litros-branco /produtos/produto?produto=rinnai-e21 301
 /aquecedores-rinnai/aquecedor-rinnai-e33-digital-vazao-33-5-litros-branco-gn /produtos/produto?produto=rinnai-e33-digital-32-5-litros-branco 301
 /aquecedores-komeco/aquecedor-komeco-20di-prime-inox /produtos/produto?produto=komeco-21di-prime-inox 301
+
+
+/aquecedores-a-gas/* /produtos/produto.html 200
+/acessorios/* /produtos/produto.html 200
+/duchas/* /produtos/produto.html 200
+/pecas/* /produtos/produto.html 200
